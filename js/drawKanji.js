@@ -25,4 +25,6 @@ function drawKanji(kanji) {
 
 function removeKanji() {
     document.getElementById('sekai').innerHTML = '';
+    document.getElementById('on_readings').innerHTML = '';
+    document.getElementById('kun_readings').innerHTML = '';
 }

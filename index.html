@@ -11,43 +11,43 @@
 
 <body>
     <div class="container text-center">
-        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-            <div class="col">
-                <div id="konnichiha"></div>
-                <div id="sample-btn">
-                    <button id="p">BACK</button>
-                    <button id="s">STOP</button>
-                    <button id="g">PLAY</button>
-                    <button id="n">NEXT</button>
-                    <button id="r">RESET</button>
-                </div>
-                <div id="sekai"></div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item drm" value="1">1</a></li>
-                        <li><a class="dropdown-item drm" value="2">2</a></li>
-                        <li><a class="dropdown-item drm" value="3">3</a></li>
-                        <li><a class="dropdown-item drm" value="4">4</a></li>
-                        <li><a class="dropdown-item drm" value="5">5</a></li>
-                        <li><a class="dropdown-item drm" value="6">6</a></li>
-                    </ul>
-                </div>
-                <input type="text" id="find">
-                <button type="button" id="btnFind">find</button>
-            </div>
-            <div class="col">
-                <div id="kun_readings"></div>
-                <div id="on_readings"></div>
-                <div id="meanings"></div>
-            </div>
+        <div id="sekai"></div>
+
+        <div id="konnichiha"></div>
+        <div id="sample-btn">
+            <button id="p">BACK</button>
+            <button id="s">STOP</button>
+            <button id="g">PLAY</button>
+            <button id="n">NEXT</button>
+            <button id="r">RESET</button>
         </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item drm" value="1">1</a></li>
+                <li><a class="dropdown-item drm" value="2">2</a></li>
+                <li><a class="dropdown-item drm" value="3">3</a></li>
+                <li><a class="dropdown-item drm" value="4">4</a></li>
+                <li><a class="dropdown-item drm" value="5">5</a></li>
+                <li><a class="dropdown-item drm" value="6">6</a></li>
+            </ul>
+        </div>
+        <form class="d-flex" role="search" onsubmit="return false;">
+            <input class="form-control me-2" type="search" id="find" value="日本語"></input>
+            <button class="btn btn-outline-success" type="submit" id="btnFind">Search</button>
+        </form>
+        <div class="d-inline-block pe-5" id="kun_readings"></div>
+        <div class="d-inline-block pe-5" id="meanings"></div>
+        <div class="d-inline-block pe-5" id="on_readings"></div>
+    </div>
     </div>
 
 
- 
+
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -63,24 +63,24 @@
     <script src="./js/callApi.js"></script>
     <script>
         // callApiKanjiList(1);
-        drawKanji('漢字');
+        // drawKanji('日本語');
         const btnFind = document.getElementById("btnFind");
-        document.querySelectorAll(".drm").forEach(function (element) {
-            element.addEventListener("click", function () {
-                callApiKanjiList(element.getAttribute("value"));
-            });
-        });
+        // document.querySelectorAll(".drm").forEach(function (element) {
+        //     element.addEventListener("click", function () {
+        //         callApiKanjiList(element.getAttribute("value"));
+        //     });
+        // });
+        let findInput = document.getElementById("find");
         btnFind.addEventListener("click", () => {
-            const findText = document.getElementById("find").value;
+            const findText = findInput.value;
             removeKanji();
             drawKanji(findText);
             callApiKanjiReading(findText);
             translate(findText);
         });
 
-
-
-
+        btnFind.click();
+        findInput.value = '';
     </script>
 </body>
 
