@@ -223,7 +223,7 @@
 				stroke = {
 					"char": i,
 					"length": length,
-					"duration": length * options.step * 1000,
+					"duration": length * options.step * 500,
 					"path": data[i][j].path,
 					"groups" : data[i][j].groups,
 					"text": data[i][j].text,
