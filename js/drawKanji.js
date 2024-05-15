@@ -1,6 +1,6 @@
 
 function drawKanji(kanji) {
-    var dmak = new Dmak(kanji, { 'element': "sekai", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "http://kanjivg.tagaini.net/kanjivg/kanji/" });
+    var dmak = new Dmak(kanji, { 'element': "sekai", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
     var p = document.getElementById("p");
     p.onclick = function () {
         dmak.eraseLastStrokes(1);
