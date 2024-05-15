@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+            <div class="col">
+                <div id="konnichiha"></div>
+                <div id="sample-btn">
+                    <button id="p">BACK</button>
+                    <button id="s">STOP</button>
+                    <button id="g">PLAY</button>
+                    <button id="n">NEXT</button>
+                    <button id="r">RESET</button>
+                </div>
+                <div id="sekai"></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item drm" value="1">1</a></li>
+                        <li><a class="dropdown-item drm" value="2">2</a></li>
+                        <li><a class="dropdown-item drm" value="3">3</a></li>
+                        <li><a class="dropdown-item drm" value="4">4</a></li>
+                        <li><a class="dropdown-item drm" value="5">5</a></li>
+                        <li><a class="dropdown-item drm" value="6">6</a></li>
+                    </ul>
+                </div>
+                <input type="text" id="find">
+                <button type="button" id="btnFind">find</button>
+            </div>
+            <div class="col">
+                <div id="kun_readings"></div>
+                <div id="on_readings"></div>
+                <div id="meanings"></div>
+            </div>
+        </div>
+    </div>
+
+
+ 
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://unpkg.com/kanji.js/dist/kanji.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="./js/dmak.js"></script>
+    <script src="./js/dmakLoader.js"></script>
+    <script src="./js/drawKanji.js"></script>
+    <script src="./js/callApi.js"></script>
+    <script>
+        // callApiKanjiList(1);
+        drawKanji('漢字');
+        const btnFind = document.getElementById("btnFind");
+        document.querySelectorAll(".drm").forEach(function (element) {
+            element.addEventListener("click", function () {
+                callApiKanjiList(element.getAttribute("value"));
+            });
+        });
+        btnFind.addEventListener("click", () => {
+            const findText = document.getElementById("find").value;
+            removeKanji();
+            drawKanji(findText);
+            callApiKanjiReading(findText);
+            translate(findText);
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
