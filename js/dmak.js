@@ -248,30 +248,20 @@
 		var papers = [],
 			paper,
 			i;
-		findInput.value.split('').reverse().forEach((element)=>{
+		for (i = 0; i < nbChar; i++) {
 			paper = new Raphael(options.element, options.width + "px", options.height + "px");
 			paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
 			paper.canvas.setAttribute("class", "dmak-svg");
+			let char = findInput.value[nbChar-i-1];
 			paper.canvas.addEventListener("click", () => {
-				cardKanji(element);
+				if(findKanji(char).length != 0){
+					cardKanji(char[0]);
+				}else{
+					kanjiWrapper.innerHTML = "";
+				}
 			});
 			papers.push(paper);
-		});
-		// for (i = 0; i < nbChar; i++) {
-		// 	paper = new Raphael(options.element, options.width + "px", options.height + "px");
-		// 	paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
-		// 	paper.canvas.setAttribute("class", "dmak-svg");
-		// 	paper.canvas.addEventListener("click", () => {
-		// 		console.log(findInput.value, papers.findIndex(item => item == paper));
-		// 	});
-		// 	papers.push(paper);
-		// }
-		// findInput.value.split('').reverse().forEach((element,index) => {
-		// 	console.log(papers[0].canvas);
-		// 	papers[index].canvas.addEventListener("click", () => {
-		// 		cardKanji(element);
-		// 	});
-		// });
+		}
 		return papers.reverse();
 	}
 
