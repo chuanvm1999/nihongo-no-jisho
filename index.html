@@ -10,77 +10,84 @@
 </head>
 
 <body>
-    <div class="container text-center">
-        <div id="sekai"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <div class="text-center">
+                    <div id="sekai"></div>
+                    <div id="konnichiha"></div>
+                    <div class="py-3" id="sample-btn">
+                        <button id="p">BACK</button>
+                        <button id="s">STOP</button>
+                        <button id="g">PLAY</button>
+                        <button id="n">NEXT</button>
+                        <button id="r">RESET</button>
+                    </div>
 
-        <div id="konnichiha"></div>
-        <div id="sample-btn">
-            <button id="p">BACK</button>
-            <button id="s">STOP</button>
-            <button id="g">PLAY</button>
-            <button id="n">NEXT</button>
-            <button id="r">RESET</button>
+                    <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item drm" value="1">1</a></li>
+                        <li><a class="dropdown-item drm" value="2">2</a></li>
+                        <li><a class="dropdown-item drm" value="3">3</a></li>
+                        <li><a class="dropdown-item drm" value="4">4</a></li>
+                        <li><a class="dropdown-item drm" value="5">5</a></li>
+                        <li><a class="dropdown-item drm" value="6">6</a></li>
+                    </ul>
+                </div> -->
+                    <form class="d-flex" role="search" onsubmit="return false;">
+                        <input class="form-control me-2" type="search" id="find" value="日本語"></input>
+                        <button class="btn btn-outline-success" type="submit" id="btnFind">Search</button>
+                    </form>
+                    <div class="d-inline-block pe-5" id="kun_readings"></div>
+                    <div class="d-inline-block pe-5" id="meanings"></div>
+                    <div class="d-inline-block pe-5" id="on_readings"></div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="kanji-wrapper">
+                </div>
+            </div>
         </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item drm" value="1">1</a></li>
-                <li><a class="dropdown-item drm" value="2">2</a></li>
-                <li><a class="dropdown-item drm" value="3">3</a></li>
-                <li><a class="dropdown-item drm" value="4">4</a></li>
-                <li><a class="dropdown-item drm" value="5">5</a></li>
-                <li><a class="dropdown-item drm" value="6">6</a></li>
-            </ul>
-        </div>
-        <form class="d-flex" role="search" onsubmit="return false;">
-            <input class="form-control me-2" type="search" id="find" value="日本語"></input>
-            <button class="btn btn-outline-success" type="submit" id="btnFind">Search</button>
-        </form>
-        <div class="d-inline-block pe-5" id="kun_readings"></div>
-        <div class="d-inline-block pe-5" id="meanings"></div>
-        <div class="d-inline-block pe-5" id="on_readings"></div>
+
+
     </div>
     </div>
 
 
 
 
-
+    <script>
+        const findInput = document.getElementById("find");
+        const btnFind = document.getElementById("btnFind");
+        </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="http://unpkg.com/kanji.js/dist/kanji.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
     <script src="./js/dmak.js"></script>
     <script src="./js/dmakLoader.js"></script>
-    <script src="./js/drawKanji.js"></script>
     <script src="./js/callApi.js"></script>
+    <script src="./js/drawKanji.js"></script>
     <script>
-        // callApiKanjiList(1);
-        // drawKanji('日本語');
-        const btnFind = document.getElementById("btnFind");
-        // document.querySelectorAll(".drm").forEach(function (element) {
-        //     element.addEventListener("click", function () {
-        //         callApiKanjiList(element.getAttribute("value"));
-        //     });
-        // });
-        let findInput = document.getElementById("find");
+        
+        
         btnFind.addEventListener("click", () => {
-            const findText = findInput.value;
+            findText = findInput.value;
             removeKanji();
             drawKanji(findText);
-            callApiKanjiReading(findText);
-            translate(findText);
+            findText.length > 1 ? translate(findText) : callApiKanjiReading(findText);
         });
 
         btnFind.click();
-        findInput.value = '';
+
     </script>
 </body>
 

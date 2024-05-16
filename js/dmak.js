@@ -1,4 +1,6 @@
-;(function () {
+
+
+; (function () {
 
 	"use strict";
 
@@ -11,9 +13,9 @@
 		this.papers = [];
 		this.pointer = 0;
 		this.timeouts = {
-			play : [],
-			erasing : [],
-			drawing : []
+			play: [],
+			erasing: [],
+			drawing: []
 		};
 
 		if (!this.options.skipLoad) {
@@ -51,9 +53,9 @@
 		step: 0.03,
 		element: "draw",
 		stroke: {
-			animated : {
-				drawing : true,
-				erasing : true
+			animated: {
+				drawing: true,
+				erasing: true
 			},
 			order: {
 				visible: false,
@@ -149,14 +151,14 @@
 			}
 
 			var cb = function (that) {
-					drawStroke(that.papers[that.strokes[that.pointer].char], that.strokes[that.pointer], that.timeouts.drawing, that.options);
+				drawStroke(that.papers[that.strokes[that.pointer].char], that.strokes[that.pointer], that.timeouts.drawing, that.options);
 
-					// Execute custom callback "drew" here
-					that.options.drew(that.pointer);
+				// Execute custom callback "drew" here
+				that.options.drew(that.pointer);
 
-					that.pointer++;
-					that.timeouts.play.shift();
-				},
+				that.pointer++;
+				that.timeouts.play.shift();
+			},
 				delay = 0,
 				i;
 
@@ -225,10 +227,10 @@
 					"length": length,
 					"duration": length * options.step * 500,
 					"path": data[i][j].path,
-					"groups" : data[i][j].groups,
+					"groups": data[i][j].groups,
 					"text": data[i][j].text,
 					"object": {
-						"path" : null,
+						"path": null,
 						"text": null
 					}
 				};
@@ -246,13 +248,30 @@
 		var papers = [],
 			paper,
 			i;
-
-		for (i = 0; i < nbChar; i++) {
+		findInput.value.split('').reverse().forEach((element)=>{
 			paper = new Raphael(options.element, options.width + "px", options.height + "px");
 			paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
 			paper.canvas.setAttribute("class", "dmak-svg");
+			paper.canvas.addEventListener("click", () => {
+				cardKanji(element);
+			});
 			papers.push(paper);
-		}
+		});
+		// for (i = 0; i < nbChar; i++) {
+		// 	paper = new Raphael(options.element, options.width + "px", options.height + "px");
+		// 	paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
+		// 	paper.canvas.setAttribute("class", "dmak-svg");
+		// 	paper.canvas.addEventListener("click", () => {
+		// 		console.log(findInput.value, papers.findIndex(item => item == paper));
+		// 	});
+		// 	papers.push(paper);
+		// }
+		// findInput.value.split('').reverse().forEach((element,index) => {
+		// 	console.log(papers[0].canvas);
+		// 	papers[index].canvas.addEventListener("click", () => {
+		// 		cardKanji(element);
+		// 	});
+		// });
 		return papers.reverse();
 	}
 
@@ -279,13 +298,13 @@
 			stroke.object.text.remove();
 		}
 
-		var cb = function() {
+		var cb = function () {
 			stroke.object.path.remove();
 
 			// Finally properly prepare the object variable
 			stroke.object = {
-				"path" : null,
-				"text" : null
+				"path": null,
+				"text": null
 			};
 
 			timeouts.shift();
@@ -304,7 +323,7 @@
 	 * Draw a single stroke ; drawing can be animated if set as so.
 	 */
 	function drawStroke(paper, stroke, timeouts, options) {
-		var cb = function() {
+		var cb = function () {
 
 			// The stroke object may have been already erased when we reach this timeout
 			if (stroke.object.path === null) {
@@ -312,7 +331,7 @@
 			}
 
 			var color = options.stroke.attr.stroke;
-			if(options.stroke.attr.stroke === "random") {
+			if (options.stroke.attr.stroke === "random") {
 				color = Raphael.getColor();
 			}
 
@@ -352,7 +371,7 @@
 	 * http://jakearchibald.com/2013/animated-line-drawing-svg/
 	 */
 	function animateStroke(stroke, direction, options, callback) {
-		stroke.object.path.attr({"stroke": options.stroke.attr.active});
+		stroke.object.path.attr({ "stroke": options.stroke.attr.active });
 		stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition = "none";
 
 		// Set up the starting positions
@@ -383,7 +402,7 @@
 		var temp = object.constructor(); // give temp the original object's constructor
 		for (var key in object) {
 			temp[key] = clone(object[key]);
-			}
+		}
 
 		return temp;
 	}
