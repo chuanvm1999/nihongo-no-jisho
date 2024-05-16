@@ -1,6 +1,4 @@
-body {
-    text-align: center;
-}
+
 
 #sample-btn button {
     background-color: #ededed;
@@ -16,7 +14,7 @@ body {
 }
 
 svg.dmak-svg {
-    border: 1px solid #CCCCCC;
+    border: 1px solid #000;
     margin-right: 1px;
 }
 

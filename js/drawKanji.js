@@ -43,18 +43,20 @@ function findKanji(str) {
 
  function cardKanji(kanji) {
     kanjiWrapper.innerHTML = `<div class="card" style="width: 18rem;">
-    <div id="sekai-card"></div>
-    <div class="card-body">
+    <div id="sekai-card" class="text-center"></div>
+    <div class="card-body text-center">
         <h5 class="card-title">Card title</h5>
-        <div class="d-inline-block pe-5 on"><h2>On yomi</h2></div>
-        <div class="d-inline-block pe-5 kun"><h2>Kun yomi</h2></div>
+        <div class="row">
+        <div class="col px-1 on"></div>
+        <div class="col px-1 kun"></div>
+        </div>
     </div>
     </div>`;
     new Dmak(kanji, { 'element': "sekai-card", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
     
     axios.get(url + word + kanji).then((response)=>{
         const data = response.data;
-        kanjiWrapper.querySelector(".on").innerHTML = '<h2>on yomi</h2>' + data.kun_readings.map(element => {
+        kanjiWrapper.querySelector(".on").innerHTML = '<h4>on yomi</h4>' + data.kun_readings.map(element => {
             return `<div>${element}</div>`;
         }).join('');
         axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
@@ -64,7 +66,7 @@ function findKanji(str) {
         });
         kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>Nghĩa: </h2>';
 
-        kanjiWrapper.querySelector(".kun").innerHTML = '<h2>kun yomi</h2>' + data.on_readings.map(element => {
+        kanjiWrapper.querySelector(".kun").innerHTML = '<h4>kun yomi</h4>' + data.on_readings.map(element => {
             return `<div>${element}</div>`;
         }).join('');
     });
