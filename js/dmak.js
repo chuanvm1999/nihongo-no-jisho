@@ -253,13 +253,15 @@
 			paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
 			paper.canvas.setAttribute("class", "dmak-svg");
 			let char = findInput.value[nbChar-i-1];
-			paper.canvas.addEventListener("click", () => {
-				if(findKanji(char).length != 0){
-					cardKanji(char[0]);
-				}else{
-					kanjiWrapper.innerHTML = "";
-				}
-			});
+			if(nbChar > 1){
+				paper.canvas.addEventListener("click", () => {
+					if(findKanji(char).length != 0){
+						cardKanji(char[0]);
+					}else{
+						kanjiWrapper.innerHTML = "";
+					}
+				});
+			}
 			papers.push(paper);
 		}
 		return papers.reverse();
