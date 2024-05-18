@@ -80,7 +80,7 @@ function findKanji(str) {
     };
     axios.get(url + word + kanji).then((response)=>{
         const data = response.data;
-        kanjiWrapper.querySelector(".on").innerHTML = '<h4>on yomi</h4>' + data.kun_readings.map(element => {
+        kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.kun_readings.map(element => {
             return `<div>${element}</div>`;
         }).join('');
         axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
@@ -88,9 +88,9 @@ function findKanji(str) {
             const data = res.data;
             kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${data[0][0][0]}</div>`;
         });
-        kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>Nghĩa: </h2>';
+        kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>意味 - Nghĩa: </h2>';
 
-        kanjiWrapper.querySelector(".kun").innerHTML = '<h4>kun yomi</h4>' + data.on_readings.map(element => {
+        kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.on_readings.map(element => {
             return `<div>${element}</div>`;
         }).join('');
     });
