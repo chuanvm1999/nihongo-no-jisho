@@ -50,7 +50,7 @@
 			w: 109,
 			h: 109
 		},
-		step: 0.03,
+		step: 0.01,
 		element: "draw",
 		stroke: {
 			animated: {
@@ -58,17 +58,17 @@
 				erasing: true
 			},
 			order: {
-				visible: false,
+				visible: true,
 				attr: {
 					"font-size": "8",
-					"fill": "#999999"
+					"fill": "#000"
 				}
 			},
 			attr: {
 				"active": "#BF0000",
 				// may use the keyword "random" here for random color
 				"stroke": "#2C2C2C",
-				"stroke-width": 4,
+				"stroke-width": 5,
 				"stroke-linecap": "round",
 				"stroke-linejoin": "round"
 			}
