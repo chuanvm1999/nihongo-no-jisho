@@ -29,5 +29,24 @@ svg.dmak-svg {
 .kanji-wrapper{
     position: fixed;
     top: 100px;
-    right: 100px;
+    z-index: 99;
+    right: 50px; 
+}
+
+.meanings-wrapper{
+    position: fixed;
+    top: 100px;
+    left: 50px;
+    z-index: 99;
+    max-width: 300px;
+}
+
+.search-wrapper{
+    position: fixed;
+    top: 5px;
+    z-index: 99;
+    left: 50px;
+    right: 50px;
+    width: -webkit-fill-available;
+    background-color: #fff;
 }

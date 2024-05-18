@@ -12,58 +12,45 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <div class="text-center">
-                    <div id="sekai"></div>
-                    <div id="konnichiha"></div>
-                    <div class="py-3" id="sample-btn">
-                        <button class="btn bg-danger" id="s">STOP</button>
-                        <button class="btn bg-warning" id="p">BACK</button>
-                        <button class="btn bg-success" id="n">NEXT</button>
-                        <button class="btn bg-primary" id="r">RESET</button>
-                        <button class="btn bg-info" id="g">PLAY</button>
-                    </div>
+        <div class="search-wrapper">
+            <form class="d-flex" role="search" onsubmit="return false;">
+                <input class="form-control me-2" type="search" id="find" value="日本語"></input>
+                <button class="btn btn-outline-success" type="submit" id="btnFind">Search</button>
+            </form>
+            <div class="py-3 text-center" id="sample-btn">
+                <button class="btn bg-danger" id="s">STOP</button>
+                <button class="btn bg-warning" id="p">BACK</button>
+                <button class="btn bg-success" id="n">NEXT</button>
+                <button class="btn bg-primary" id="r">RESET</button>
+                <button class="btn bg-info" id="g">PLAY</button>
+            </div>  
+        </div>
 
-                    <!-- <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item drm" value="1">1</a></li>
-                        <li><a class="dropdown-item drm" value="2">2</a></li>
-                        <li><a class="dropdown-item drm" value="3">3</a></li>
-                        <li><a class="dropdown-item drm" value="4">4</a></li>
-                        <li><a class="dropdown-item drm" value="5">5</a></li>
-                        <li><a class="dropdown-item drm" value="6">6</a></li>
-                    </ul>
-                </div> -->
-                    <form class="d-flex" role="search" onsubmit="return false;">
-                        <input class="form-control me-2" type="search" id="find" value="日本語"></input>
-                        <button class="btn btn-outline-success" type="submit" id="btnFind">Search</button>
-                    </form>
+        <div class="row" style="padding-top: 150px;">
+            <div class="col-2">
+                <div class="meanings-wrapper text-center alig">
+                    <div class=" pe-5" id="meanings">
+                    </div>
+                    
                     <div class="row">
                         <div class="col pe-5" id="kun_readings"></div>
-                        <div class="col pe-5" id="meanings"></div>
                         <div class="col pe-5" id="on_readings"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-8">
+                <div class="text-center">
+                    <div id="sekai"></div>
+                    <div id="konnichiha"></div>
+                                
+                </div>
+            </div>
+            <div class="col-2">
                 <div class="kanji-wrapper">
                 </div>
             </div>
         </div>
-
-
-
     </div>
-    </div>
-
-
-
-
     <script>
         const findInput = document.getElementById("find");
         const btnFind = document.getElementById("btnFind");
