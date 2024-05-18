@@ -58,7 +58,7 @@
 				erasing: true
 			},
 			order: {
-				visible: true,
+				visible: false,
 				attr: {
 					"font-size": "8",
 					"fill": "#000"
