@@ -23,7 +23,7 @@
                 <button class="btn bg-success" id="n">NEXT</button>
                 <button class="btn bg-primary" id="r">RESET</button>
                 <button class="btn bg-info" id="g">PLAY</button>
-            </div>  
+            </div>
         </div>
 
         <div class="row" style="padding-top: 150px;">
@@ -31,7 +31,7 @@
                 <div class="meanings-wrapper text-center alig">
                     <div class=" pe-5" id="meanings">
                     </div>
-                    
+
                     <div class="row">
                         <div class="col pe-5" id="kun_readings"></div>
                         <div class="col pe-5" id="on_readings"></div>
@@ -39,10 +39,8 @@
                 </div>
             </div>
             <div class="col-8">
-                <div class="text-center">
+                <div class="text-start" style="width: fit-content;margin: 0 auto;">
                     <div id="sekai"></div>
-                    <div id="konnichiha"></div>
-                                
                 </div>
             </div>
             <div class="col-2">
@@ -70,7 +68,7 @@
 
 
         btnFind.addEventListener("click", () => {
-            findText = findInput.value;
+            findText = findInput.value.trim();
             removeKanji();
             drawKanji(findText);
             findText.length > 1 ? translate(findText) : callApiKanjiReading(findText);
