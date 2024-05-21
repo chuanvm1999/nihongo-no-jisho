@@ -1,5 +1,3 @@
-
-
 #sample-btn button {
     background-color: #ededed;
     border: 1px solid #bbbbbb;
@@ -18,22 +16,20 @@ svg.dmak-svg {
     margin-right: 1px;
 }
 
-#konnichiha, #sekai {
+#konnichiha,
+#sekai {
     margin-top: 30px;
 }
 
-#yomikata{
-    
-}
 
-.kanji-wrapper{
+.kanji-wrapper {
     position: fixed;
     top: 100px;
     z-index: 99;
-    right: 50px; 
+    right: 50px;
 }
 
-.meanings-wrapper{
+.meanings-wrapper {
     position: fixed;
     top: 100px;
     left: 50px;
@@ -41,12 +37,71 @@ svg.dmak-svg {
     max-width: 300px;
 }
 
-.search-wrapper{
+.search-wrapper {
     position: fixed;
-    top: 5px;
     z-index: 99;
     left: 50px;
     right: 50px;
     width: -webkit-fill-available;
     background-color: #fff;
+    padding-top: 5px;
+}
+
+.col-8 .text-start {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .kanji-wrapper {
+        position: unset;
+        margin-top: 150px;
+        margin-left: 50px;
+    }
+
+    .meanings-wrapper {
+        position: fixed;
+        top: 170px;
+        left: 0;
+        right: 0;
+        max-width: -webkit-fill-available;
+        background-color: #fff;
+        z-index: 99;
+    }
+
+    #konnichiha,
+    #sekai {
+        margin-top: 200px;
+    }
+
+    #sample-btn{
+        min-height: 130px;
+    }
+}
+
+@media (max-width: 992px) {
+    .kanji-wrapper {
+        position: unset;
+        margin-top: 150px;
+        margin-left: 50px;
+    }
+
+    .meanings-wrapper {
+        position: fixed;
+        top: 170px;
+        left: 0;
+        right: 0;
+        max-width: -webkit-fill-available;
+        background-color: #fff;
+        z-index: 99;
+    }
+
+    #konnichiha,
+    #sekai {
+        margin-top: 200px;
+    }
+
+    #sample-btn{
+        min-height: 130px;
+    }
 }
