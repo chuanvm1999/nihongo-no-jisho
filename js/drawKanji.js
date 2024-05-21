@@ -1,6 +1,6 @@
 
 function drawKanji(kanji) {
-    var dmak = new Dmak(kanji, {'element': "sekai", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
+    var dmak = new Dmak(kanji, { 'element': "sekai", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
 
     var p = document.getElementById("p");
     p.onclick = function () {
@@ -41,7 +41,7 @@ function findKanji(str) {
     return kanjiMatches;
 }
 
- function cardKanji(kanji) {
+async function cardKanji(kanji) {
     kanjiWrapper.innerHTML = `<div class="card" style="width: 18rem;">
     <div id="sekai-card" class="text-center"></div>
     <div class="card-body text-center">
@@ -78,25 +78,19 @@ function findKanji(str) {
     r.onclick = function () {
         dm.erase();
     };
-    axios.get(url + word + kanji).then((response)=>{
-        const data = response.data;
-        kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.kun_readings.map(element => {
-            return `<div>${element}</div>`;
-        }).join('');
-        axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
-        .then(res => {
-            const data = res.data;
-            kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${data[0][0][0]}</div>`;
-        });
-        kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>意味 - Nghĩa: </h2>';
-
-        kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.on_readings.map(element => {
-            return `<div>${element}</div>`;
-        }).join('');
-    });
-   
-
+    const response = await axios.get(url + word + kanji);
+    const data = response.data;
+    kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.kun_readings.map(element => {
+        return `<div>${element}</div>`;
+    }).join('');
     
+    const res = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
+    const trans_data = res.data;
+    kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${trans_data[0][0][0]}</div>`;
 
-   
+    kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>意味 - Nghĩa: </h2>';
+
+    kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.on_readings.map(element => {
+        return `<div>${element}</div>`;
+    }).join('');
 }

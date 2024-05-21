@@ -1,8 +1,4 @@
 
-const kunReading = document.getElementById('kun_readings');
-const onReading = document.getElementById('on_readings');
-const meanings = document.getElementById('meanings');
-const kanjiWrapper = document.querySelector('.kanji-wrapper');
 const url = 'https://kanjiapi.dev/v1';
 
 const grade = [
@@ -25,23 +21,23 @@ function callApiKanjiList(gradeNumber) {
         })
 }
 
-function translate(q) {
+async function translate(q) {
     const tl = 'vi';
     const sl = 'auto';
 
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=${sl}&tl=${tl}&hl=hl&q=${encodeURIComponent(q)}`;
 
-    return axios.get(url)
-        .then(response => {
-            const data = response.data;
-            meanings.innerHTML = '<h2>意味 - Nghĩa: </h2>' + data[5][0][2].map(element => {
-                return `<div>${element[0]}</div>`;
-            }).join('');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            return null;
-        });
+    try {
+        const response = await axios.get(url);
+        const data = response.data;
+        meanings.innerHTML = '<h2>意味 - Nghĩa: </h2>' + data[5][0][2].map(element => {
+            return `<div>${element[0]}</div>`;
+        }).join('');
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+
 }
 
 async function callApiKanjiReading(wordFind) {
@@ -54,11 +50,9 @@ async function callApiKanjiReading(wordFind) {
 
         meanings.innerHTML = '<h2>意味 - Nghĩa: </h2>';
 
-        axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
-            .then(res => {
-                const data = res.data;
-                meanings.innerHTML += `<div>${data[0][0][0]}</div>`;
-            });
+        const res = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
+        const trans_data = res.data;
+        meanings.innerHTML += `<div>${trans_data[0][0][0]}</div>`;
 
         onReading.innerHTML = '<h5>訓読み - kunyomi</h5>' + data.on_readings.map(element => {
             return `<div>${element}</div>`;
