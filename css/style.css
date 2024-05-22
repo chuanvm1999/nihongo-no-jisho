@@ -25,16 +25,20 @@ svg.dmak-svg {
 .kanji-wrapper {
     position: fixed;
     top: 100px;
+    bottom: 100px;
     z-index: 99;
     right: 50px;
+    overflow: auto;
 }
 
 .meanings-wrapper {
     position: fixed;
     top: 100px;
+    bottom: 100px;
     left: 50px;
     z-index: 99;
     max-width: 300px;
+    overflow: auto;
 }
 
 .search-wrapper {
