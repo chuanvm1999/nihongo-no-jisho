@@ -78,19 +78,21 @@ async function cardKanji(kanji) {
     r.onclick = function () {
         dm.erase();
     };
-    const response = await axios.get(url + word + kanji);
-    const data = response.data;
-    kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.kun_readings.map(element => {
+    let data = dataKanji.findLast(i=>i.kanji == kanji);
+    // const data = response.data;
+    kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.on.map(element => {
         return `<div>${element}</div>`;
     }).join('');
     
-    const res = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
-    const trans_data = res.data;
-    kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${trans_data[0][0][0]}</div>`;
-
+    // const res = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
     kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>意味 - Nghĩa: </h2>';
+    // const trans_data = res.data;
+    kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${data.mean.map(element => {
+        return `<div>${element}</div>`;
+    }).join('')}</div>`;
 
-    kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.on_readings.map(element => {
+
+    kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.kun.map(element => {
         return `<div>${element}</div>`;
     }).join('');
 }

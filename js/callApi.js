@@ -83,3 +83,35 @@ async function callApiWordKanji(wordFind) {
         console.log(error)
     }
 }
+
+
+async function fetchData(wordFind) {
+  const requestData = {
+    dict: 'javi',
+    type: 'word',
+    query: wordFind,
+    limit: 20,
+    page: 1
+  };
+
+  try {
+    const response = await axios.post('https://mazii.net/api/search', requestData, {
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'vi,fr-FR;q=0.9,fr;q=0.8,en-US;q=0.7,en;q=0.6',
+        'Content-Type': 'application/json',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'Cookie': 'Your-Cookie-Value', // Thay bằng giá trị cookie thực tế của bạn
+        'Referer': 'https://mazii.net/vi-VN/search/word/javi/%E8%A1%8C%E5%8B%95%E5%8A%9B%E5%9F%BA%E6%9C%AC%E5%8B%95%E4%BD%9C',
+        'Referrer-Policy': 'strict-origin-when-cross-origin'
+      }
+    });
+
+    console.log('Dữ liệu đã được nhận:',response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi gửi yêu cầu:', error);
+  }
+}

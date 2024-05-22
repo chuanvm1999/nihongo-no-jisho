@@ -1,88 +1,869 @@
-[
-    [
-        [
-            "cánh đồng",
-            "場",
-            null,
-            null,
-            11
-        ],
-        [
-            null,
-            null,
-            null,
-            "Chǎng"
-        ]
-    ],
-    null,
-    "ja",
-    null,
-    null,
-    [
-        [
-            "場",
-            null,
-            [
-                [
-                    "cánh đồng",
-                    0,
-                    true,
-                    false,
-                    [
-                        11
-                    ]
-                ],
-                [
-                    "đồng ruộng",
-                    0,
-                    true,
-                    false,
-                    [
-                        11
-                    ]
-                ],
-                [
-                    "lĩnh vực",
-                    0,
-                    true,
-                    false,
-                    [
-                        11
-                    ]
-                ],
-                [
-                    "trường",
-                    0,
-                    true,
-                    false,
-                    [
-                        11
-                    ]
-                ]
+{
+    "status": 200,
+    "found": false,
+    "data": [
+        {
+            "mobileId": 245127,
+            "short_mean": "đường hoạt động",
+            "word": "動作行",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "đường hoạt động"
+                }
             ],
-            [
-                [
-                    0,
-                    1
-                ]
+            "phonetic": "どうさぎょう",
+            "synsets": null,
+            "weight": -1609,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–sa",
+                            "kana": "ど＼ーさ"
+                        },
+                        {
+                            "romaji": "do／–sa‾",
+                            "kana": "ど／ーさ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動作"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "iki",
+                            "kana": "いき"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行"
+                }
             ],
-            "場",
-            0,
-            0
-        ]
-    ],
-    0.37890625,
-    [],
-    [
-        [
-            "ja"
-        ],
-        null,
-        [
-            0.37890625
-        ],
-        [
-            "ja"
-        ]
+            "label": "ja_vi",
+            "_id": "36167b8b8a0367007f37ed978f56d7a1",
+            "_rev": ""
+        },
+        {
+            "mobileId": 268013,
+            "short_mean": "khả năng hành động; khả năng chủ động; năng động; có năng lực",
+            "word": "行動力",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "mean": "khả năng hành động, khả năng chủ động",
+                    "examples": null
+                },
+                {
+                    "kind": null,
+                    "mean": "năng động, có năng lực",
+                    "examples": null
+                }
+            ],
+            "phonetic": "こうどうりょく",
+            "synsets": null,
+            "weight": -9850,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ko／–do–‾",
+                            "kana": "こ／ーどー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行動"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ryoku",
+                            "kana": "りょく"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "力"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "c0d4514caffb9bed0b0ef7de02c7dc4d",
+            "_rev": ""
+        },
+        {
+            "mobileId": 304536,
+            "short_mean": "hành vi hợp tác",
+            "word": "協力行動",
+            "type": "word",
+            "means": [
+                {
+                    "kind": null,
+                    "mean": "hành vi hợp tác",
+                    "examples": []
+                }
+            ],
+            "phonetic": "きょうりょくこうどう",
+            "synsets": null,
+            "weight": -6140,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "kyo／–ryoku‾",
+                            "kana": "きょ／ーりょく‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "協力"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ko／–do–‾",
+                            "kana": "こ／ーどー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行動"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "8ee322541643e63a6c37c632b44be234",
+            "_rev": ""
+        },
+        {
+            "mobileId": 78396,
+            "short_mean": "động tác; hành động",
+            "word": "動作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n, vs",
+                    "mean": "động tác",
+                    "examples": [
+                        {
+                            "content": "パンダは動作が緩慢だ。",
+                            "mean": "Động tác của gấu trúc rất chậm chạp. .",
+                            "transcription": "パンダはどうさがかんまんだ。"
+                        }
+                    ]
+                },
+                {
+                    "field": "med",
+                    "mean": "hành động",
+                    "examples": null
+                }
+            ],
+            "phonetic": "どうさ",
+            "synsets": [
+                {
+                    "pos": "noun",
+                    "base_form": "動作",
+                    "entry": [
+                        {
+                            "synonym": [
+                                "運動",
+                                "動き"
+                            ],
+                            "definition_id": ""
+                        },
+                        {
+                            "synonym": [
+                                "性能"
+                            ],
+                            "definition_id": ""
+                        }
+                    ]
+                }
+            ],
+            "weight": -2510,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–sa",
+                            "kana": "ど＼ーさ"
+                        },
+                        {
+                            "romaji": "do／–sa‾",
+                            "kana": "ど／ーさ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動作"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "2fd2c1a7ed92ed4620e5ecdc89306be3",
+            "_rev": ""
+        },
+        {
+            "mobileId": 144367,
+            "short_mean": "sự tác động; sự thao tác",
+            "word": "作動",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n, vs",
+                    "mean": "sự tác động; sự thao tác.",
+                    "examples": null
+                }
+            ],
+            "phonetic": "さどう",
+            "synsets": null,
+            "weight": -851,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "sa／do–‾",
+                            "kana": "さ／どー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "作動"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "b20a5088d00d3db7ce61371f4afb503d",
+            "_rev": ""
+        },
+        {
+            "mobileId": 243453,
+            "short_mean": "tự hoạt động",
+            "word": "自動動作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "tự hoạt động"
+                }
+            ],
+            "phonetic": "じどうどうさ",
+            "synsets": null,
+            "weight": -1980,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ji／do–‾",
+                            "kana": "じ／どー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "自動"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–sa",
+                            "kana": "ど＼ーさ"
+                        },
+                        {
+                            "romaji": "do／–sa‾",
+                            "kana": "ど／ーさ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動作"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "c16a0817e1c97ff36cfb89ed4f1e2ff0",
+            "_rev": ""
+        },
+        {
+            "mobileId": 78397,
+            "short_mean": "động lực",
+            "word": "動力",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n, adj-f",
+                    "mean": "động lực.",
+                    "examples": null
+                }
+            ],
+            "phonetic": "どうりょく",
+            "synsets": null,
+            "weight": -489,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–ryoku",
+                            "kana": "ど＼ーりょく"
+                        },
+                        {
+                            "romaji": "do／–ryoku‾",
+                            "kana": "ど／ーりょく‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動力"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "a66205863d5d6e9fa6066dceda3ba4fc",
+            "_rev": ""
+        },
+        {
+            "mobileId": 32154,
+            "short_mean": "hành động; sự hành động; sự hành động; hành vi; hành động",
+            "word": "行動",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n, vs, adj-no",
+                    "mean": "hành động; sự hành động",
+                    "examples": [
+                        {
+                            "content": "午後の２時間の自由時間のほかは団体行動になる。",
+                            "mean": "Ngoài 2 giờ đồng hồ tự do vào buổi chiều thì chúng tôi sẽ hoạt động tập thể.",
+                            "transcription": "ごごのにじかんのじゆうじかんのほかはだんたいこうどうになる。"
+                        },
+                        {
+                            "content": "新大臣はなかなか行動力がある。",
+                            "mean": "Bộ trưởng mới là một người có khả năng hành động.",
+                            "transcription": "しんだいじんはなかなかこうどうりょくがある。"
+                        },
+                        {
+                            "content": "何が原因で彼があんな行動をとったのかわからない。",
+                            "mean": "Tôi không hiểu vì lý do gì mà anh ta lại hành động như vậy.",
+                            "transcription": "なにがげんいんでかれがあんなこうどうをとったのかわからない。"
+                        }
+                    ]
+                },
+                {
+                    "field": "med",
+                    "mean": "sự hành động",
+                    "examples": null
+                },
+                {
+                    "field": "med",
+                    "mean": "hành vi",
+                    "examples": []
+                },
+                {
+                    "field": "med",
+                    "mean": "hành động",
+                    "examples": [
+                        {
+                            "content": "行動の機は熟した。",
+                            "mean": "Đã đến lúc phải hành động.",
+                            "transcription": "こうどうのきはじゅくした。"
+                        },
+                        {
+                            "content": "行動にはもっと気をつけなさい。",
+                            "mean": "Hãy cẩn thận hơn trong các hành động của bạn.",
+                            "transcription": "こうどうにはもっときをつけなさい。"
+                        },
+                        {
+                            "content": "行動は言葉よりも雄弁に語る。",
+                            "mean": "Hành động mạnh hơn lời nói.",
+                            "transcription": "こうどうはことばよりもゆうべんにかたる。"
+                        },
+                        {
+                            "content": "行動の機は熟した。",
+                            "mean": "Đã đến lúc phải hành động.",
+                            "transcription": "こうどうのきはじゅくした。"
+                        },
+                        {
+                            "content": "行動にはもっと気をつけなさい。",
+                            "mean": "Hãy cẩn thận hơn trong các hành động của bạn.",
+                            "transcription": "こうどうにはもっときをつけなさい。"
+                        },
+                        {
+                            "content": "行動は言葉よりも雄弁に語る。",
+                            "mean": "Hành động mạnh hơn lời nói.",
+                            "transcription": "こうどうはことばよりもゆうべんにかたる。"
+                        }
+                    ]
+                }
+            ],
+            "phonetic": "こうどう",
+            "synsets": [
+                {
+                    "pos": "noun",
+                    "base_form": "行動",
+                    "entry": [
+                        {
+                            "synonym": [
+                                "アクション",
+                                "動き",
+                                "手"
+                            ],
+                            "definition_id": ""
+                        },
+                        {
+                            "synonym": [
+                                "振舞",
+                                "行為",
+                                "行い",
+                                "挙止",
+                                "振舞い",
+                                "仕業"
+                            ],
+                            "definition_id": ""
+                        },
+                        {
+                            "synonym": [
+                                "営み",
+                                "行為",
+                                "行い",
+                                "行",
+                                "活動"
+                            ],
+                            "definition_id": ""
+                        },
+                        {
+                            "synonym": [
+                                "行儀",
+                                "行為",
+                                "行い",
+                                "振舞い",
+                                "態度",
+                                "素行"
+                            ],
+                            "definition_id": ""
+                        }
+                    ]
+                }
+            ],
+            "weight": -13200,
+            "opposite_word": [
+                "思索"
+            ],
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ko／–do–‾",
+                            "kana": "こ／ーどー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行動"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "1a4259722a7fd84be363c99277e132f8",
+            "_rev": ""
+        },
+        {
+            "mobileId": 303578,
+            "short_mean": "hành động và cơ chế hành động",
+            "word": "行動と行動メカニズム",
+            "type": "word",
+            "means": [
+                {
+                    "kind": null,
+                    "mean": "hành động và cơ chế hành động",
+                    "examples": []
+                }
+            ],
+            "phonetic": "こうどうとこうどうメカニズム",
+            "synsets": null,
+            "weight": -436,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "f3d40f0c33c004a1891974ac99cfb13f",
+            "_rev": ""
+        },
+        {
+            "mobileId": 291870,
+            "short_mean": "chứng mất trương lực",
+            "word": "情動脱力発作",
+            "type": "word",
+            "means": [
+                {
+                    "field": "med",
+                    "mean": "chứng mất trương lực"
+                }
+            ],
+            "phonetic": "じょーどーだつりょくほっさ",
+            "synsets": null,
+            "weight": -37,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "f090ba4fa2a1b707ccc47d6f9d915850",
+            "_rev": ""
+        },
+        {
+            "mobileId": 245360,
+            "short_mean": "hành động dừng; hành động ngắt",
+            "word": "入力中止動作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "hành động dừng"
+                },
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "hành động ngắt"
+                }
+            ],
+            "phonetic": "にゅうりょくちゅうしどうさ",
+            "synsets": null,
+            "weight": -1050,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "7ffefd20e15bc9e34032ad8c84777b23",
+            "_rev": ""
+        },
+        {
+            "mobileId": 271664,
+            "short_mean": "hoạt động cơ bản; vận hành cơ bản; thủ tục cơ bản",
+            "word": "基本操作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "mean": "hoạt động cơ bản, vận hành cơ bản, thủ tục cơ bản",
+                    "examples": []
+                }
+            ],
+            "phonetic": "きほんそうさ",
+            "synsets": null,
+            "weight": -4390,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "k(i)／hon'‾",
+                            "kana": "㋖／ほん‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "基本"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "so＼–sa",
+                            "kana": "そ＼ーさ"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "操作"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "39cf0b3e910e80db1a43d95f7550289c",
+            "_rev": ""
+        },
+        {
+            "mobileId": 117140,
+            "short_mean": "phong tục học",
+            "word": "動物行動学",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "mean": "phong tục học",
+                    "examples": null
+                }
+            ],
+            "phonetic": "どうぶつこうどうがく",
+            "synsets": null,
+            "weight": -3300,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do／–butsu‾",
+                            "kana": "ど／ーぶつ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動物"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ko／–do–‾",
+                            "kana": "こ／ーどー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行動"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "gaku",
+                            "kana": "がく"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "学"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "eb6a88ecbcc73481cc9ccd506d9d79b9",
+            "_rev": ""
+        },
+        {
+            "mobileId": 301540,
+            "short_mean": "hành vi bốc đồng",
+            "word": "衝動的行動",
+            "type": "word",
+            "means": [
+                {
+                    "field": "med",
+                    "mean": "hành vi bốc đồng"
+                }
+            ],
+            "phonetic": "しょーどーてきこーどー",
+            "synsets": null,
+            "weight": -849,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "sho／–do–teki‾",
+                            "kana": "しょ／ーどーてき‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "衝動的"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "ko／–do–‾",
+                            "kana": "こ／ーどー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "行動"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "1d8fd5f5a31012ad8e71d0198bf86684",
+            "_rev": ""
+        },
+        {
+            "mobileId": 245121,
+            "short_mean": "trang hoạt động",
+            "word": "動作ページ",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "trang hoạt động"
+                }
+            ],
+            "phonetic": "どうさページ",
+            "synsets": null,
+            "weight": -1970,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–sa",
+                            "kana": "ど＼ーさ"
+                        },
+                        {
+                            "romaji": "do／–sa‾",
+                            "kana": "ど／ーさ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動作"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "pe／–ji‾",
+                            "kana": "ペ／ージ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "ページ"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "bbd3ca90510f14e0d6fdb3f5eefd1cec",
+            "_rev": ""
+        },
+        {
+            "mobileId": 239953,
+            "short_mean": "hoạt động kháng lỗi",
+            "word": "フェールセーフ動作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "hoạt động kháng lỗi"
+                }
+            ],
+            "phonetic": "フェールセーフどうさ",
+            "synsets": null,
+            "weight": -1,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "be32269624563f1afaf2bddf4d6d2166",
+            "_rev": ""
+        },
+        {
+            "mobileId": 245122,
+            "short_mean": "chế độ hoạt động; chế độ vận hành",
+            "word": "動作モード",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "chế độ hoạt động"
+                },
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "chế độ vận hành"
+                }
+            ],
+            "phonetic": "どうさモード",
+            "synsets": null,
+            "weight": -1590,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "do＼–sa",
+                            "kana": "ど＼ーさ"
+                        },
+                        {
+                            "romaji": "do／–sa‾",
+                            "kana": "ど／ーさ‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "動作"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "mo＼–do",
+                            "kana": "モ＼ード"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "モード"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "9b15e77e90dd7f13a0dc264da9aa6cc7",
+            "_rev": ""
+        },
+        {
+            "mobileId": 245120,
+            "short_mean": "trường hoạt động",
+            "word": "動作フィールド",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "trường hoạt động"
+                }
+            ],
+            "phonetic": "どうさフィールド",
+            "synsets": null,
+            "weight": -986,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "a1179a7f43afaa636c67bef500a0e522",
+            "_rev": ""
+        },
+        {
+            "mobileId": 239854,
+            "short_mean": "thao tác lưu tệp tin",
+            "word": "ファイルストア動作",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n",
+                    "field": "comp",
+                    "mean": "thao tác lưu tệp tin"
+                }
+            ],
+            "phonetic": "ファイルストアどうさ",
+            "synsets": null,
+            "weight": -691,
+            "opposite_word": null,
+            "pronunciation": null,
+            "label": "ja_vi",
+            "_id": "698a25a3b1f184cef9633cd3aad5e7ba",
+            "_rev": ""
+        },
+        {
+            "mobileId": 269902,
+            "short_mean": "đang hoạt động",
+            "word": "作動中",
+            "type": "word",
+            "means": [
+                {
+                    "kind": "n, adj-no",
+                    "mean": "đang hoạt động",
+                    "examples": []
+                }
+            ],
+            "phonetic": "さどうちゅう",
+            "synsets": null,
+            "weight": -846,
+            "opposite_word": null,
+            "pronunciation": [
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "sa／do–‾",
+                            "kana": "さ／どー‾"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "作動"
+                },
+                {
+                    "transcriptions": [
+                        {
+                            "romaji": "chu–",
+                            "kana": "ちゅー"
+                        }
+                    ],
+                    "type": "regular",
+                    "word": "中"
+                }
+            ],
+            "label": "ja_vi",
+            "_id": "0c3ac150510443ffe1bbbf9d23b36338",
+            "_rev": ""
+        }
     ]
-]
+}
