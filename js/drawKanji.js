@@ -55,6 +55,7 @@ async function cardKanji(kanji) {
         <div class="col px-1 on"></div>
         <div class="col px-1 kun"></div>
         </div>
+        <h5 class="detail">Card title</h5>
     </div>
     </div>`;
     let dm = new Dmak(kanji, { 'element': "sekai-card", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
@@ -95,4 +96,6 @@ async function cardKanji(kanji) {
     kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.kun.map(element => {
         return `<div>${element}</div>`;
     }).join('');
+
+    kanjiWrapper.querySelector(".detail").innerHTML = '<h5>意義 - Giải nghĩa</h5><div>' + data.detail + '</div>';
 }
