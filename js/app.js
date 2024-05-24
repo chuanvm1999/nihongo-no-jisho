@@ -31,7 +31,7 @@ selectJLPT.addEventListener("change", function () {
         japaneseJLPT.querySelectorAll('.kanji').forEach(item => {
             item.addEventListener('click', () => {
                 kanjiWrapper.style.display = "block";
-                drawKanji(item.innerHTML, "draw-kanji", btnListJapanese);
+                meanKanji(item.innerHTML);
                 findInput = item.innerHTML;
                 drawKanjiWord.innerHTML = "";
             });
