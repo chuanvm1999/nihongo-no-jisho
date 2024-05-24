@@ -89,6 +89,8 @@
 		},
 		drew: function () {
 			// a callback
+		},
+		setStep: function (step) {
 		}
 	};
 
@@ -105,6 +107,9 @@
 			}
 		},
 
+		setStep: function (step) {
+			this.step = step;
+		},
 		/**
 		 * Clean all strokes on papers.
 		 */
@@ -252,13 +257,13 @@
 			paper = new Raphael(options.element, options.width + "px", options.height + "px");
 			paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
 			paper.canvas.setAttribute("class", "dmak-svg");
-			let char = findInput.value[nbChar-i-1];
-			if(nbChar > 1){
+			let char = findInput[nbChar - i - 1];
+			if (nbChar > 1) {
 				paper.canvas.addEventListener("click", () => {
-					if(findKanji(char).length != 0){
-						cardKanji(char[0]);
-					}else{
-						kanjiWrapper.innerHTML = "";
+					if (findKanji(char).length != 0) {
+						meanKanji(char[0]);			
+					} else {
+						kanjiWrapper.style.display = "none";
 					}
 				});
 			}

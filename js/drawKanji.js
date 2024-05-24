@@ -1,35 +1,43 @@
+function drawKanji(kanji, element, btnList) {
+    var dmak = new Dmak(kanji, { 'element': element, "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
 
-function drawKanji(kanji) {
-    var dmak = new Dmak(kanji, { 'element': "sekai", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
-
-    var p = document.getElementById("p");
+    var p = document.getElementById(btnList.back);
     p.onclick = function () {
         dmak.eraseLastStrokes(1);
     };
-    var s = document.getElementById("s");
+    var s = document.getElementById(btnList.stop);
     s.onclick = function () {
         dmak.pause();
     };
-    var g = document.getElementById("g");
+    var g = document.getElementById(btnList.play);
     g.onclick = function () {
         dmak.render();
     };
-    var n = document.getElementById("n");
+    var n = document.getElementById(btnList.next);
     n.onclick = function () {
         dmak.renderNextStrokes(1);
     };
-    var r = document.getElementById("r");
+    var r = document.getElementById(btnList.reset);
     r.onclick = function () {
         dmak.erase();
     };
+
+    return dmak;
 }
 
-function removeKanji() {
-    document.getElementById('sekai').innerHTML = '';
-    meanings.innerHTML = '';
-    onReading.innerHTML = '';
-    kunReading.innerHTML = '';
-    kanjiWrapper.innerHTML = '';
+async function translate(q) {
+    const tl = 'vi';
+    const sl = 'auto';
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=${sl}&tl=${tl}&hl=hl&q=${encodeURIComponent(q)}`;
+
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+
 }
 
 function findKanji(str) {
@@ -41,61 +49,53 @@ function findKanji(str) {
     return kanjiMatches;
 }
 
-async function cardKanji(kanji) {
-    kanjiWrapper.innerHTML = `<div class="card" style="width: 18rem;">
-    <div id="sekai-card" class="text-center"></div>
-    <div class="card-body text-center">
-    <button class="btn bg-danger" id="ss">STOP</button>
-    <button class="btn bg-warning" id="pp">BACK</button>
-    <button class="btn bg-success" id="nn">NEXT</button>
-    <button class="btn bg-primary" id="rr">RESET</button>
-    <button class="btn bg-info" id="gg">PLAY</button>
-        <h5 class="card-title">Card title</h5>
-        <div class="row">
-        <div class="col px-1 on"></div>
-        <div class="col px-1 kun"></div>
-        </div>
-        <h5 class="detail">Card title</h5>
-    </div>
-    </div>`;
-    let dm = new Dmak(kanji, { 'element': "sekai-card", "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
-    var p = kanjiWrapper.getElementsByClassName("bg-warning")[0];
-    p.onclick = function () {
-        dm.eraseLastStrokes(1);
-    };
-    var s = kanjiWrapper.getElementsByClassName("bg-danger")[0];
-    s.onclick = function () {
-        dm.pause();
-    };
-    var g = kanjiWrapper.getElementsByClassName("bg-info")[0];
-    g.onclick = function () {
-        dm.render();
-    };
-    var n = kanjiWrapper.getElementsByClassName("bg-success")[0];
-    n.onclick = function () {
-        dm.renderNextStrokes(1);
-    };
-    var r = kanjiWrapper.getElementsByClassName("bg-primary")[0];
-    r.onclick = function () {
-        dm.erase();
-    };
-    let data = dataKanji.findLast(i=>i.kanji == kanji);
-    // const data = response.data;
-    kanjiWrapper.querySelector(".on").innerHTML = '<h5>音読み - onyomi</h5>' + data.on.map(element => {
-        return `<div>${element}</div>`;
-    }).join('');
-    
-    // const res = await axios.get(`https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=jp&tl=vi&hl=hl&q=${encodeURIComponent(data.heisig_en)}`)
-    kanjiWrapper.querySelector(".card-title").innerHTML = '<h2>意味 - Nghĩa: </h2>';
-    // const trans_data = res.data;
-    kanjiWrapper.querySelector(".card-title").innerHTML += `<div>${data.mean.map(element => {
-        return `<div>${element}</div>`;
-    }).join('')}</div>`;
+function isSubstringOfAnyOtherWord(word, data) {
+    return data.some(item => item.word !== word && item.word.includes(word));
+}
 
+function getTalkingWord(input) {
+    // Lọc các đối tượng có words xuất hiện trong input
+    let filteredData = wordDataJSON.filter(item => input.includes(item.word));
+    // Lọc các đối tượng có words không phải là một phần của từ khác
+    filteredData = filteredData.filter(item => !isSubstringOfAnyOtherWord(item.word, filteredData));
 
-    kanjiWrapper.querySelector(".kun").innerHTML = '<h5>訓読み - kunyomi</h5>' + data.kun.map(element => {
-        return `<div>${element}</div>`;
-    }).join('');
+    let replacedInput = input;
+    filteredData.forEach(item => {
+        const regex = new RegExp(item.word, 'g'); // Tạo biểu thức chính quy để thay thế tất cả các lần xuất hiện
+        replacedInput = replacedInput.replace(regex, item.phonetic);
+    });
 
-    kanjiWrapper.querySelector(".detail").innerHTML = '<h5>意義 - Giải nghĩa</h5><div>' + data.detail + '</div>';
+    return replacedInput.replace('.', '');
+}
+
+function meanKanji(kanji) {
+    kanjiWrapper.style.display = "block";
+    drawKanjiWord.innerHTML = '';
+    drawKanji(kanji, "draw-kanji", btnListKanji);
+    let _kanjiDetail = findDetailKanji(kanji);
+    kanjiMean.innerHTML = _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ');
+    kanjiOnyomi.innerHTML = _kanjiDetail.on.map(item => `<div>${item}</div>`).join(' ');
+    kanjiKunyomi.innerHTML = _kanjiDetail.kun.map(item => `<div>${item}</div>`).join(' ');
+    kanjiDetail.innerHTML = _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' ');
+}
+
+function findDetailKanji(kanji) {
+    return kanjiDataJSON.find(item => item.kanji == kanji);
+}
+
+function textToSpeech() {
+    const text = inputJp.value;
+    const msg = new SpeechSynthesisUtterance();
+    msg.text = getTalkingWord(text);
+
+    // Chọn giọng nói phù hợp với ngôn ngữ (nếu có)
+    const voices = window.speechSynthesis.getVoices();
+    for (let voice of voices) {
+        if (voice.lang === "ja-JP") {
+            msg.voice = voice;
+            break;
+        }
+    }
+
+    window.speechSynthesis.speak(msg);
 }
