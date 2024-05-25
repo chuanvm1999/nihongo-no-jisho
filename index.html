@@ -16,41 +16,39 @@
             <div class="col-md-9" id="japanese-search">
                 <div class="row">
                     <div class="col-md-4 border">
-                        <form class="h-40" id="form-submit">
+                        <form class="h-40v" id="form-submit">
                             <div class="h-75">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <label for="input-Jp" class="form-label">日本語 - Tiếng Nhật</label>
-                                    </div>
-                                    <div class="col-md-5 text-end d-inline-block">
-                                        <button class="btn btn-success my-1" type="submit">Dịch</button>
-                                        <button class="btn btn-success my-1" type="button" id="reading" >Đọc</button>
-                                    </div>
+                                <label for="input-Jp" class="form-label"><h6>日本語 - Tiếng Nhật</h6></label>
+                                <div class="text-end">
+                                    <button class="btn btn-success my-2" type="submit">翻訳 - Dịch</button>
+                                    <button class="btn btn-success my-2" type="button" id="reading">読む - Đọc</button>
                                 </div>
-                                <textarea class="form-control h-100" id="input-Jp"></textarea>
+                                <textarea class="form-control h-80 overflow-y-scroll" id="input-Jp"></textarea>
                             </div>
                         </form>
                         <!-- reading -->
-                        <div class="h-30">
-                            <div class="label">読み方 - Cách đọc</div>
-                            <div class="overflow-y-scroll card h-80 w-100 mt-3" id="japanese-reading"></div>
+                        <div class="h-30v">
+                            <h6 class="label">読み方 - Cách đọc</h6>
+                            <div class="overflow-y-scroll card h-35 w-100 mt-3" id="japanese-reading-hira"></div>
+                            <div class="overflow-y-scroll card h-35 w-100 mt-3" id="japanese-reading"></div>
                         </div>
                         <!-- vietnamese -->
-                        <div class="h-30">
-                            <div class="label mt-1">ベトナム語 - Tiếng Việt</div>
+                        <div class="h-30v">
+                            <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
                             <div class="overflow-y-scroll card h-70 w-100 mt-3" id="vietnamese-mean"></div>
                         </div>
                     </div>
                     <!-- draw kanji -->
                     <div class="col-md-8 border d-flex justify-content-center">
-                        <div id="japanese-wrapper" class="h-vh overflow-y-scroll "></div>
+                        <div id="japanese-wrapper" class="h-100v overflow-y-scroll "></div>
                     </div>
                 </div>
             </div>
             <!-- JLPT -->
-            <div class="col-md-9 overflow-y-scroll h-95" id="japanese-jlpt" style="display: none;">
+            <div class="col-md-9 overflow-y-scroll h-95v my-3 border-top border-bottom" id="japanese-jlpt"
+                style="display: none;">
             </div>
-            <div class="col-md-3 border h-vh">
+            <div class="col-md-3 border h-100v">
                 <!-- Options -->
                 <div class="option-wrapper h-15 border">
                     <div class=" h-100">
@@ -61,7 +59,7 @@
                             <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK</button>
                             <button id="japanese-wrapper-r" class="my-1 btn bg-primary">RESET</button>
                             <select class="my-1 select" id="select-jlpt">
-                                <option selected value="0">JLPT</option>
+                                <option selected value="0">調べる - Tìm kiếm</option>
                                 <option value="1">N1</option>
                                 <option value="2">N2</option>
                                 <option value="3">N3</option>
@@ -72,7 +70,7 @@
                     </div>
                 </div>
                 <!-- Kanji detail -->
-                <div class="kanji-wrapper h-85 pb-2" id="kanji-wrapper"  style="display: none;">
+                <div class="kanji-wrapper h-85 pb-2" id="kanji-wrapper" style="display: none;">
                     <div class="p-0 border w-100 h-100">
                         <div id="sekai-card" class="text-center h-25">
                             <div id="draw-kanji" class="h-70"></div>
@@ -135,4 +133,5 @@
     <script src="./js/drawKanji.js"></script>
     <script src="./js/app.js"></script>
 </body>
+
 </html>

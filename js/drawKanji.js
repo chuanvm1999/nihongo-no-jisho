@@ -99,3 +99,19 @@ function textToSpeech() {
 
     window.speechSynthesis.speak(msg);
 }
+
+function removeDuplicatesByItem1(array) {
+    const uniqueItems = [];
+    const checker = new Set();
+  
+    array.forEach(item => {
+      const item1 = item[1];
+      const key = JSON.stringify(item1);
+      if (!checker.has(key)) {
+        checker.add(key);
+        uniqueItems.push(item);
+      }
+    });
+  
+    return uniqueItems;
+  }

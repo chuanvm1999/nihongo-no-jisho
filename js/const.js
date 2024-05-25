@@ -29,5 +29,7 @@ const kanjiWrapper = document.getElementById("kanji-wrapper");
 const formSubmit = document.getElementById("form-submit");
 const drawKanjiWord = document.getElementById("draw-kanji");
 const inputReading = document.getElementById("reading");
+const japaneseReadingHira = document.getElementById("japanese-reading-hira");
 
 let findInput;
+let readingJapanese;

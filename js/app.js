@@ -11,12 +11,17 @@ formSubmit.addEventListener("submit", function (event) {
     kanjiWrapper.style.display = "none";
     findInput = inputJp.value;
     drawKanji(findInput, "japanese-wrapper", btnListJapanese);
-    japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${getTalkingWord(findInput)}</div>`;
+    japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${getTalkingWord(findInput)}</div>`;
 
     translate(findInput).then((res) => {
-        vietnameseMean.innerHTML = res[5][0][2].map(element => {
-            return `<div class="ps-1 text-start"> - ${element[0]}</div>`;
-        }).join('');
+        // vietnameseMean.innerHTML = res[5][0][2].map(element => {
+        //     return `<div class="ps-1 text-start"> - ${element[0]}</div>`;
+        // }).join('');
+        let data = removeDuplicatesByItem1(res[0]);
+        // console.log(data);
+        // vietnameseMean.innerHTML = `<div class="ps-1 text-start"> - ${res[0][0][0]}</div>`;
+        japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
+        vietnameseMean.innerHTML = `<div class="ps-1 text-start"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
     });
 });
 

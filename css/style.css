@@ -24,6 +24,15 @@ body {
     height: 30% !important;
 }
 
+.h-30v {
+    height: 30vh !important;
+}
+
+.h-40v {
+    height: 40vh !important;
+}
+
+
 .h-35 {
     height: 35% !important;
 }
@@ -72,12 +81,12 @@ body {
     display: none;
 }
 
-.h-vh{
+.h-100v{
     height: 100vh !important;
 }
 
-.h-vh{
-    height: 100vh !important;
+.h-95v{
+    height: 95vh !important;
 }
 
 .kanji{
