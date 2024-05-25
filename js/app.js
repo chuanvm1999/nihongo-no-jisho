@@ -4,9 +4,11 @@ $(window).resize(function () {
     japaneseWrapper.setAttribute("style", `width: ${Math.floor(window.innerWidth / 235) * 109}px;`);
 });
 
+//search
 formSubmit.addEventListener("submit", function (event) {
     event.preventDefault();
     japaneseWrapper.innerHTML = "";
+    kanjiWrapper.style.display = "none";
     findInput = inputJp.value;
     drawKanji(findInput, "japanese-wrapper", btnListJapanese);
     japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${getTalkingWord(findInput)}</div>`;
@@ -18,6 +20,7 @@ formSubmit.addEventListener("submit", function (event) {
     });
 });
 
+//JLPT
 selectJLPT.addEventListener("change", function () {
     japaneseJLPT.innerHTML = "";
     let jlpt = selectJLPT.value;
@@ -48,4 +51,5 @@ window.speechSynthesis.onvoiceschanged = function () {
     window.speechSynthesis.getVoices();
 };
 
+//Đọc
 inputReading.addEventListener('click', () => { textToSpeech() });
