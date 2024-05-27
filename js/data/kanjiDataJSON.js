@@ -1,5 +1,25 @@
 const kanjiDataJSON = [
   {
+    "kanji": "之",
+    "mean": ["CHI"],
+    "kun": [
+        "の",
+        "これ",
+        "おいて",
+        "ゆく",
+        "この"
+    ],
+    "on": [
+        "シ"
+    ],
+    "detail": "Chưng, dùng về lời nói liền nối nhau. Như đại học chi đạo [大學之道] chưng đạo đại học.##Đi. Như Đằng Văn Công tương chi Sở [滕文公將之楚] Đằng Văn Công sắp đi sang nước Sở.##Đến. Như chi tử mỹ tha [之死靡他] đến chết chẳng tới ai.##Đấy, là tiếng dùng thay một danh từ nào. Như Thang sử nhân vấn chi [湯使人問之] vua Thang khiến người hỏi đấy (hỏi ai ? tức là hỏi Cát Bá, chữ chi đây là thay hai chữ Cát Bá).##Ấy. Như chi tử vu quy [之子于歸] người ấy về nhà chồng.",
+    "level": [
+        "N1"
+    ],
+    "stroke_count": "3"
+  }
+  ,
+  {
     "kanji": "一",
     "mean": [
       "NHẤT"

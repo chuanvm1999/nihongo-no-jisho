@@ -96,3 +96,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.mh-660{
+    height: 660px;
+}
+
+.mw-320{
+    min-width: 320px;
+}
