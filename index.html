@@ -42,8 +42,8 @@
                         </div>
                         <input class="form-control  overflow-y-scroll h-125px" id="input-Jp"></input>
                     </form>
-                     <!-- vietnamese -->
-                     <div class="mt-3">
+                    <!-- vietnamese -->
+                    <div class="mt-3">
                         <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
                         <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
                     </div>
@@ -58,19 +58,11 @@
             <div class="col-6 mw-600" id="japanese-search-draw">
                 <div class="option-wrapper border h-60px mw-500">
                     <div class="py-1 text-center">
-                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY　再生</button>
-                        <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP</button>
-                        <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT</button>
-                        <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK</button>
+                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY 再生</button>
+                        <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP 止め</button>
+                        <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT 次</button>
+                        <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK 戻る</button>
                         <button id="japanese-wrapper-r" class="my-1 btn bg-primary">RESET</button>
-                        <select class="my-1 select" id="select-jlpt">
-                            <option selected value="0">調べる - Tìm kiếm</option>
-                            <option value="1">N1</option>
-                            <option value="2">N2</option>
-                            <option value="3">N3</option>
-                            <option value="4">N4</option>
-                            <option value="5">N5</option>
-                        </select>
                     </div>
                 </div>
                 <!-- draw kanji -->
@@ -79,11 +71,19 @@
                 </div>
             </div>
             <!-- JLPT -->
-            <div class="col-9 overflow-y-scroll my-3 border-top border-bottom" id="japanese-jlpt"
+            <div class="col-9 overflow-y-scroll py-1 h-100v border-top border-bottom" id="japanese-jlpt"
                 style="display: none;">
             </div>
             <div class="col-3 mw-350 h-100v ">
                 <!-- Kanji detail -->
+                <select class="my-1 select w-100 mean-center" id="select-jlpt">
+                    <option selected value="0">調べる - Tìm kiếm</option>
+                    <option value="1">N1</option>
+                    <option value="2">N2</option>
+                    <option value="3">N3</option>
+                    <option value="4">N4</option>
+                    <option value="5">N5</option>
+                </select>
                 <div class="kanji-wrapper h-100 overflow-y-scroll" id="kanji-wrapper" style="display: none;">
                     <div class="p-0 w-100 mh-660 ">
                         <div id="sekai-card h-185px" class="mx-2 text-center ">

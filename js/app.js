@@ -30,6 +30,7 @@ selectJLPT.addEventListener("change", function () {
     japaneseJLPT.innerHTML = "";
     let jlpt = selectJLPT.value;
     if (jlpt > 0) {
+        kanjiWrapper.style.display = "none";
         japaneseJLPT.innerHTML = '';
         japaneseJLPT.style.display = "block";
         japaneseSearch.style.display = "none";
