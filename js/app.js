@@ -60,6 +60,3 @@ window.speechSynthesis.onvoiceschanged = function () {
 
 //Đọc
 inputReading.addEventListener('click', () => { textToSpeech() });
-
-findInput = "上";
-meanKanji("上");

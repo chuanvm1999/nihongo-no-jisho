@@ -160,3 +160,7 @@ body {
 .mw-175{
     min-width: 175px !important;
 }
+
+.mw-1300px{
+    min-width: 1300px !important;
+}
