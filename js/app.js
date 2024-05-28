@@ -60,3 +60,5 @@ window.speechSynthesis.onvoiceschanged = function () {
 
 //Đọc
 inputReading.addEventListener('click', () => { textToSpeech() });
+
+inputJp.focus();

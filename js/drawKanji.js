@@ -73,11 +73,14 @@ function meanKanji(kanji) {
     drawKanjiWord.innerHTML = '';
     drawKanji(kanji, "draw-kanji", btnListKanji);
     let _kanjiDetail = findDetailKanji(kanji);
-    console.log(_kanjiDetail);
-    kanjiMean.innerHTML = _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ');
-    kanjiOnyomi.innerHTML = _kanjiDetail.on.map(item => `<div>${item}</div>`).join(' ');
-    kanjiKunyomi.innerHTML = _kanjiDetail.kun.map(item => `<div>${item}</div>`).join(' ');
-    kanjiDetail.innerHTML = _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' ');
+    kanjiMean.innerHTML = "";
+    kanjiMean.innerHTML = _kanjiDetail.mean ? _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ') : "";
+    kanjiOnyomi.innerHTML = "";
+    kanjiOnyomi.innerHTML = _kanjiDetail.on ? _kanjiDetail.on.map(item => `<div>${item}</div>`).join(' ') : "";
+    kanjiKunyomi.innerHTML = "";
+    kanjiKunyomi.innerHTML = _kanjiDetail.kun ? _kanjiDetail.kun.map(item => `<div>${item}</div>`).join(' ') : "";
+    kanjiDetail.innerHTML = "";
+    kanjiDetail.innerHTML = _kanjiDetail.detail ? _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' '): "";
 }
 
 function findDetailKanji(kanji) {

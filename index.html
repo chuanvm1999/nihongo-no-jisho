@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body class="overflow-x-scroll w-100">
+<body class="overflow-auto w-100">
     <div class="container-fluid mw-1300px">
         <div class="row flex-nowrap">
             <!-- Search -->
@@ -40,25 +40,25 @@
                             <button class="btn btn-success my-2" type="submit">翻訳 - Dịch</button>
                             <button class="btn btn-success my-2" type="button" id="reading">読む - Đọc</button>
                         </div>
-                        <textarea class="form-control  overflow-y-scroll h-125px" id="input-Jp"></textarea>
+                        <input class="form-control  overflow-y-scroll h-125px" id="input-Jp"></input>
                     </form>
+                     <!-- vietnamese -->
+                     <div class="mt-3">
+                        <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
+                        <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
+                    </div>
                     <!-- reading -->
                     <div class="mt-3">
                         <h6 class="label">読み方 - Cách đọc</h6>
                         <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading-hira"></div>
                         <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading"></div>
                     </div>
-                    <!-- vietnamese -->
-                    <div class="mt-3">
-                        <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
-                        <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
-                    </div>
                 </div>
             </div>
             <div class="col-6 mw-600" id="japanese-search-draw">
                 <div class="option-wrapper border h-60px mw-500">
                     <div class="py-1 text-center">
-                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY</button>
+                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY　再生</button>
                         <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP</button>
                         <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT</button>
                         <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK</button>
