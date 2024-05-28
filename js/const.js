@@ -16,6 +16,7 @@ const btnListJapanese = {
 
 const japaneseWrapper = document.getElementById("japanese-wrapper");
 const japaneseSearch = document.getElementById("japanese-search");
+const japaneseSearchDraw = document.getElementById("japanese-search-draw");
 const japaneseJLPT = document.getElementById("japanese-jlpt");
 const inputJp = document.getElementById("input-Jp");
 const japaneseReading = document.getElementById("japanese-reading");

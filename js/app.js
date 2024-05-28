@@ -33,6 +33,7 @@ selectJLPT.addEventListener("change", function () {
         japaneseJLPT.innerHTML = '';
         japaneseJLPT.style.display = "block";
         japaneseSearch.style.display = "none";
+        japaneseSearchDraw.style.display = "none";
 
         let data = kanjiDataJSON.filter(item => item.level && item.level.includes(`N${jlpt}`)).map(item => `<h5 class="kanji border">${item.kanji}</h5>`).join('');
         japaneseJLPT.innerHTML = data;
@@ -47,6 +48,7 @@ selectJLPT.addEventListener("change", function () {
     } else {
         japaneseJLPT.style.display = "none";
         japaneseSearch.style.display = "block";
+        japaneseSearchDraw.style.display = "block";
         japaneseWrapper.innerHTML = '';
     }
 });
@@ -58,3 +60,6 @@ window.speechSynthesis.onvoiceschanged = function () {
 
 //Đọc
 inputReading.addEventListener('click', () => { textToSpeech() });
+
+findInput = "上";
+meanKanji("上");

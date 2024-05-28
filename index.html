@@ -26,105 +26,106 @@
 </head>
 
 <body>
-    <div class="h-100 mx-2">
-        <div class="row h-100 m-0">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
             <!-- Search -->
-            <div class="col-9" id="japanese-search">
-                <div class="row">
-                    <div class="col-4 border">
-                        <form class="h-40v" id="form-submit">
-                            <div class="h-75">
-                                <label for="input-Jp" class="form-label">
-                                    <h6>日本語 - Tiếng Nhật</h6>
-                                </label>
-                                <div class="text-end">
-                                    <button class="btn btn-success my-2" type="submit">翻訳 - Dịch</button>
-                                    <button class="btn btn-success my-2" type="button" id="reading">読む - Đọc</button>
-                                </div>
-                                <textarea class="form-control h-80 overflow-y-scroll" id="input-Jp"></textarea>
-                            </div>
-                        </form>
-                        <!-- reading -->
-                        <div class="h-30v">
-                            <h6 class="label">読み方 - Cách đọc</h6>
-                            <div class="overflow-y-scroll card h-35 w-100 mt-3" id="japanese-reading-hira"></div>
-                            <div class="overflow-y-scroll card h-35 w-100 mt-3" id="japanese-reading"></div>
+            <div class="col-3 mw-350 h-100v overflow-y-scroll" id="japanese-search">
+                <div class=" h-720px">
+
+                    <form class="" id="form-submit">
+                        <label for="input-Jp" class="form-label pt-2">
+                            <h6>日本語 - Tiếng Nhật</h6>
+                        </label>
+                        <div class="text-end">
+                            <button class="btn btn-success my-2" type="submit">翻訳 - Dịch</button>
+                            <button class="btn btn-success my-2" type="button" id="reading">読む - Đọc</button>
                         </div>
-                        <!-- vietnamese -->
-                        <div class="h-30v">
-                            <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
-                            <div class="overflow-y-scroll card h-70 w-100 mt-3" id="vietnamese-mean"></div>
-                        </div>
+                        <textarea class="form-control  overflow-y-scroll h-125px" id="input-Jp"></textarea>
+                    </form>
+                    <!-- reading -->
+                    <div class="mt-3">
+                        <h6 class="label">読み方 - Cách đọc</h6>
+                        <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading-hira"></div>
+                        <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading"></div>
                     </div>
-                    <!-- draw kanji -->
-                    <div class="col-8 border d-flex justify-content-center">
-                        <div id="japanese-wrapper" class="h-100v overflow-y-scroll "></div>
+                    <!-- vietnamese -->
+                    <div class="mt-3">
+                        <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
+                        <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
                     </div>
                 </div>
             </div>
+            <div class="col-6 mw-600" id="japanese-search-draw">
+                <div class="option-wrapper border h-60px mw-500">
+                    <div class="py-1 text-center">
+                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY</button>
+                        <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP</button>
+                        <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT</button>
+                        <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK</button>
+                        <button id="japanese-wrapper-r" class="my-1 btn bg-primary">RESET</button>
+                        <select class="my-1 select" id="select-jlpt">
+                            <option selected value="0">調べる - Tìm kiếm</option>
+                            <option value="1">N1</option>
+                            <option value="2">N2</option>
+                            <option value="3">N3</option>
+                            <option value="4">N4</option>
+                            <option value="5">N5</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- draw kanji -->
+                <div class="border d-flex justify-content-center">
+                    <div id="japanese-wrapper" class="h-100v-60 overflow-y-scroll "></div>
+                </div>
+            </div>
+
             <!-- JLPT -->
-            <div class="col-9 overflow-y-scroll h-95v my-3 border-top border-bottom" id="japanese-jlpt"
+            <div class="col-9 overflow-y-scroll my-3 border-top border-bottom" id="japanese-jlpt"
                 style="display: none;">
             </div>
-            <div class="col-3 border h-100v">
-                <!-- Options -->
-                <div class="option-wrapper h-15 border">
-                    <div class=" h-100">
-                        <div class="py-1 text-center">
-                            <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY</button>
-                            <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP</button>
-                            <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT</button>
-                            <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK</button>
-                            <button id="japanese-wrapper-r" class="my-1 btn bg-primary">RESET</button>
-                            <select class="my-1 select" id="select-jlpt">
-                                <option selected value="0">調べる - Tìm kiếm</option>
-                                <option value="1">N1</option>
-                                <option value="2">N2</option>
-                                <option value="3">N3</option>
-                                <option value="4">N4</option>
-                                <option value="5">N5</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-3 mw-350 h-100v ">
+
                 <!-- Kanji detail -->
-                <div class="kanji-wrapper h-85 pb-2" id="kanji-wrapper" style="display: none;">
-                    <div class="p-0 border w-100 h-100 overflow-y-scroll">
-                        <div id="sekai-card" class="mx-2 text-center h-25">
+                <div class="kanji-wrapper h-100 overflow-y-scroll" id="kanji-wrapper" style="/*display: none;*/">
+                    <div class="p-0 w-100 mh-660 ">
+                        <div id="sekai-card h-185px" class="mx-2 text-center ">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-5"> <div id="draw-kanji" class="h-70"></div></div>
-                                <div class="col-7"><div class="py-1 text-center h-30">
+                                <div class="col-5">
+                                    <div id="draw-kanji" class=""></div>
+                                </div>
+                                <div class="col-7 h-100">
+                                    <h5 class="card-title ">Hán Việt</h5>
+                                    <div class="overflow-y-scroll h-100 border px-3 w-fit mean-center " id="kanji-mean">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="w-100 mw-350">
+                                <div class="py-1 text-center">
                                     <button id="draw-kanji-p" class="my-1 btn bg-info">PLAY</button>
                                     <button id="draw-kanji-s" class="my-1 btn bg-danger">STOP</button>
                                     <button id="draw-kanji-n" class="my-1 btn bg-success">NEXT</button>
                                     <button id="draw-kanji-b" class="my-1 btn bg-warning">BACK</button>
                                     <button id="draw-kanji-r" class="my-1 btn bg-primary">RESET</button>
-                                </div></div>
-                            </div>
-                           
-                            
-                        </div>
-                        <div class="card-body text-center h-75">
-                            <div class="h-25">
-                                <h5 class="card-title h-25">Hán Việt</h5>
-                                <div class="h-75  overflow-y-scroll" id="kanji-mean">
                                 </div>
+
                             </div>
-                            <div class="row h-30 mx-2">
-                                <div class="col-6 px-1 h-100 text-center">
-                                    <h5 class="h-30">音読み - onyomi</h5>
-                                    <div class="h-70  overflow-y-scroll" id="kanji-onyomi">
+                            <div class="row mx-2 mt-5 flex-nowrap">
+                                <div class="col-6 px-1 text-center h-125px mw-175">
+                                    <h5 class="">音読み - onyomi</h5>
+                                    <div class="border overflow-y-scroll h-100" id="kanji-onyomi">
                                     </div>
                                 </div>
-                                <div class="col-6 px-1 h-100 text-center">
-                                    <h5 class="h-30">訓読み - kunyomi</h5>
-                                    <div class="h-70  overflow-y-scroll" id="kanji-kunyomi">
+                                <div class="col-6 px-1 text-center h-125px mw-175">
+                                    <h5 class="">訓読み - kunyomi</h5>
+                                    <div class="border overflow-y-scroll h-100" id="kanji-kunyomi">
                                     </div>
                                 </div>
                             </div>
-                            <div class="h-45">
-                                <h5 class="h-20">意義 - Giải nghĩa</h5>
-                                <div class="h-60 overflow-y-scroll mx-2" id="kanji-detail">
+                            <div class="h-250px mt-5">
+                                <h5 class="">意義 - Giải nghĩa</h5>
+                                <div class="border overflow-y-scroll mx-2 h-100" id="kanji-detail">
                                 </div>
                             </div>
                         </div>

@@ -85,6 +85,10 @@ body {
     height: 100vh !important;
 }
 
+.h-90v{
+    height: 90vh !important;
+}
+
 .h-95v{
     height: 95vh !important;
 }
@@ -98,9 +102,61 @@ body {
 }
 
 .mh-660{
-    height: 660px;
+    height: 660px !important;
 }
 
-.mw-320{
-    min-width: 320px;
+.mw-350{
+    min-width: 350px !important;
+}
+
+.h-350px{
+    height: 350px !important;
+}
+.h-125px{
+    height: 125px !important;
+}
+
+.option-wrapper{
+    height: 100px !important;
+    flex-wrap: nowrap;
+}
+
+.h-720px{
+    height: 720px !important;
+}
+
+.h-185px{
+    height: 185px !important;
+}
+
+.h-250px{
+    height: 250px !important;
+}
+
+.w-fit{
+    width: fit-content !important;
+}
+
+.h-60px{
+    height: 60px!important;
+}
+
+.h-100v-60{
+    height: calc(100vh - 60px) !important;
+}
+
+.mean-center{
+    margin: 0 auto;
+}
+
+.mw-500{
+    min-width: 500px !important;
+}
+
+.mw-600{
+    min-width: 600px !important;
+}
+
+.mw-175{
+    min-width: 175px !important;
 }
