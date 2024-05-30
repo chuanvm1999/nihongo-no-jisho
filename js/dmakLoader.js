@@ -1,4 +1,4 @@
-;(function () {
+; (function () {
 
 	"use strict";
 
@@ -45,14 +45,13 @@
 			code = ("00000" + charCode).slice(-5);
 
 		// Skip space character
-		if(code === "00020" || code === "03000") {
+		if (code === "00020" || code === "03000") {
 			callbacks.done(index, {
 				paths: [],
 				texts: []
 			});
 			return;
 		}
-
 		xhr.open("GET", uri + code + ".svg", true);
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
@@ -75,39 +74,39 @@
 			texts = dom.querySelectorAll("text"),
 			groups = [],
 			i;
-		
+
 		// Private recursive function to parse DOM content
 		function __parse(element) {
-            var children = element.childNodes,
-                i;
+			var children = element.childNodes,
+				i;
 
-            for(i = 0; i < children.length; i++) {
-                if(children[i].tagName === "g") {
-                    groups.push(children[i].getAttribute("id"));
-                    __parse(children[i]);
-                    groups.splice(groups.indexOf(children[i].getAttribute("id")), 1);
-                }
-                else if(children[i].tagName === "path") {
-                    data.push({
-                        "path" : children[i].getAttribute("d"),
-                        "groups" : groups.slice(0)
-                    });
-                }
-            }
+			for (i = 0; i < children.length; i++) {
+				if (children[i].tagName === "g") {
+					groups.push(children[i].getAttribute("id"));
+					__parse(children[i]);
+					groups.splice(groups.indexOf(children[i].getAttribute("id")), 1);
+				}
+				else if (children[i].tagName === "path") {
+					data.push({
+						"path": children[i].getAttribute("d"),
+						"groups": groups.slice(0)
+					});
+				}
+			}
 		}
 
-        // Start parsing
+		// Start parsing
 		__parse(dom.getElementById("kvg:" + code));
 
-        // And finally add order mark information
+		// And finally add order mark information
 		for (i = 0; i < texts.length; i++) {
 			data[i].text = {
-				"value" : texts[i].textContent,
-				"x" : texts[i].getAttribute("transform").split(" ")[4],
-				"y" : texts[i].getAttribute("transform").split(" ")[5].replace(")", "")
+				"value": texts[i].textContent,
+				"x": texts[i].getAttribute("transform").split(" ")[4],
+				"y": texts[i].getAttribute("transform").split(" ")[5].replace(")", "")
 			};
 		}
-		
+
 		return data;
 	}
 
