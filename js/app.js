@@ -4,12 +4,35 @@ $(window).resize(function () {
     japaneseWrapper.setAttribute("style", `width: ${Math.floor(window.innerWidth / 235) * 109}px;`);
 });
 
-inputJp.addEventListener("input", () => { debounce(translateInView(),300) });
+function translateInView() {
+    if(inputJp.value){
+        japaneseWrapper.innerHTML = "";
+        kanjiWrapper.style.display = "none";
+        findInput = inputJp.value;
+        const regex = /[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF]|[0-9!.,:;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz、。！]/g
+        findInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : findInput;
+        translate(findInput).then((res) => {
+            let data = removeDuplicatesByItem1(res[0]);
+            japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
+            vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
+            japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
+            drawKanji(typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''), "japanese-wrapper", btnListJapanese);
+            drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
+        });
+    }else{
+        japaneseReading.innerHTML = "";
+        vietnameseMean.innerHTML = "";
+        japaneseReadingHira.innerHTML = "";
+        japaneseWrapper.innerHTML = "";
+    }
+}
+
+inputJp.addEventListener("input", debounce(translateInView, 300));
 
 //search
 formSubmit.addEventListener("submit", function (event) {
     event.preventDefault();
-    translateInView();
+    debounce(translateInView, 300);
 });
 
 //JLPT
