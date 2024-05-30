@@ -38,3 +38,4 @@ const btnFormSubmit = document.getElementById("btn-form-submit");
 let findInput;
 let readingJapanese;
 let typeTrans = true;
+let drawJp;

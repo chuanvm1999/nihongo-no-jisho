@@ -257,7 +257,7 @@
 			paper = new Raphael(options.element, options.width + "px", options.height + "px");
 			paper.setViewBox(options.viewBox.x, options.viewBox.y, options.viewBox.w, options.viewBox.h);
 			paper.canvas.setAttribute("class", "dmak-svg");
-			let char = findInput[nbChar - i - 1];
+			let char = drawJp[nbChar - i - 1];
 			paper.canvas.addEventListener("click", () => {
 				if (findKanji(char).length != 0) {
 					meanKanji(char[0]);
