@@ -47,7 +47,8 @@ selectJLPT.addEventListener("change", function () {
         japaneseJLPT.style.display = "none";
         japaneseSearch.style.display = "block";
         japaneseSearchDraw.style.display = "block";
-        japaneseWrapper.innerHTML = '';
+        japaneseWrapper.style.display = "block";
+        btnFormSubmit.click();
     }
 });
 
