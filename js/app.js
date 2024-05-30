@@ -11,11 +11,11 @@ formSubmit.addEventListener("submit", function (event) {
     kanjiWrapper.style.display = "none";
     findInput = inputJp.value;
     const regex = /[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF]|[0-9!.,:;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz、。！]/g
-     findInput = chuyenSo(findInput).match(regex).join('');
-    japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${getTalkingWord(findInput)}</div>`;
+    findInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : findInput;
 
     translate(findInput).then((res) => {
         let data = removeDuplicatesByItem1(res[0]);
+        japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
         japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
         vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
         drawKanji(typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''), "japanese-wrapper", btnListJapanese);
@@ -72,12 +72,13 @@ $(function () {
 
         vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${txtTo}</div>`;
         inputJp.value = txtFrom;
+        findInput = txtFrom;
         btnFormSubmit.click();
     })
 })
 
 function chuyenSo(str) {
-    return str.replace(/[０-９]/g, function(match) {
+    return str.replace(/[０-９]/g, function (match) {
         return String.fromCharCode(match.charCodeAt(0) - 65248);
     });
 }
