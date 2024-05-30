@@ -26,7 +26,7 @@ function drawKanji(kanji, element, btnList) {
 }
 
 async function translate(q) {
-    const tl = typeTrans ? 'vi' :'ja';
+    const tl = typeTrans ? 'vi' : 'ja';
     const sl = typeTrans ? 'ja' : 'vi';
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=${sl}&tl=${tl}&hl=hl&q=${encodeURIComponent(q)}`;
 
@@ -80,7 +80,7 @@ function meanKanji(kanji) {
     kanjiKunyomi.innerHTML = "";
     kanjiKunyomi.innerHTML = _kanjiDetail.kun ? _kanjiDetail.kun.map(item => `<div>${item}</div>`).join(' ') : "";
     kanjiDetail.innerHTML = "";
-    kanjiDetail.innerHTML = _kanjiDetail.detail ? _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' '): "";
+    kanjiDetail.innerHTML = _kanjiDetail.detail ? _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' ') : "";
 }
 
 function findDetailKanji(kanji) {
@@ -107,15 +107,39 @@ function textToSpeech() {
 function removeDuplicatesByItem1(array) {
     const uniqueItems = [];
     const checker = new Set();
-  
+
     array.forEach(item => {
-      const item1 = item[1];
-      const key = JSON.stringify(item1);
-      if (!checker.has(key)) {
-        checker.add(key);
-        uniqueItems.push(item);
-      }
+        const item1 = item[1];
+        const key = JSON.stringify(item1);
+        if (!checker.has(key)) {
+            checker.add(key);
+            uniqueItems.push(item);
+        }
     });
-  
+
     return uniqueItems;
-  }
+}
+
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+function translateInView() {
+    japaneseWrapper.innerHTML = "";
+    kanjiWrapper.style.display = "none";
+    findInput = inputJp.value;
+    const regex = /[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF]|[0-9!.,:;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz、。！]/g
+    findInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : findInput;
+    translate(findInput).then((res) => {
+        let data = removeDuplicatesByItem1(res[0]);
+        japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
+        vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
+        japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
+        drawKanji(typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''), "japanese-wrapper", btnListJapanese);
+        drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
+    });
+}
