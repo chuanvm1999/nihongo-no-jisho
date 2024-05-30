@@ -5,7 +5,7 @@ $(window).resize(function () {
 });
 
 function translateInView() {
-    if(inputJp.value){
+    if (inputJp.value) {
         japaneseWrapper.innerHTML = "";
         kanjiWrapper.style.display = "none";
         findInput = inputJp.value;
@@ -19,7 +19,7 @@ function translateInView() {
             drawKanji(typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''), "japanese-wrapper", btnListJapanese);
             drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
         });
-    }else{
+    } else {
         japaneseReading.innerHTML = "";
         vietnameseMean.innerHTML = "";
         japaneseReadingHira.innerHTML = "";
@@ -75,21 +75,25 @@ inputReading.addEventListener('click', () => { textToSpeech() });
 
 inputJp.focus();
 
+function toggleTrans() {
+    typeTrans = $(this).prop('checked');
+    langFrom.innerHTML = typeTrans ? "日本語 - Tiếng Nhật" : "ベトナム語 - Tiếng Việt";
+    langTo.innerHTML = typeTrans ? "ベトナム語 - Tiếng Việt" : "日本語 - Tiếng Nhật";
+
+    let txtFrom = vietnameseMean.querySelector(".vnst") ? vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '') : '';
+    let txtTo = inputJp.value;
+
+    vietnameseMean.innerHTML = txtTo ? `<div class="ps-1 text-start vnst"> - ${txtTo}</div>`:'';
+    inputJp.value = txtFrom;
+    findInput = txtFrom;
+    btnFormSubmit.click();
+}
+
 $(function () {
-    $('#toggle-trans').change(function () {
-        typeTrans = $(this).prop('checked');
-        langFrom.innerHTML = typeTrans ? "日本語 - Tiếng Nhật" : "ベトナム語 - Tiếng Việt";
-        langTo.innerHTML = typeTrans ? "ベトナム語 - Tiếng Việt" : "日本語 - Tiếng Nhật";
-
-        let txtFrom = vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
-        let txtTo = inputJp.value;
-
-        vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${txtTo}</div>`;
-        inputJp.value = txtFrom;
-        findInput = txtFrom;
-        btnFormSubmit.click();
-    })
+    $('#toggle-trans').change(debounce(toggleTrans, 300))
 })
+
+
 
 function chuyenSo(str) {
     return str.replace(/[０-９]/g, function (match) {
