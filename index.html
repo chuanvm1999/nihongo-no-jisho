@@ -22,6 +22,10 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -31,20 +35,20 @@
             <!-- Search -->
             <div class="col-3 mw-350 h-100v overflow-y-scroll" id="japanese-search">
                 <div class=" h-720px">
-
+                        <input type="checkbox" checked data-toggle="toggle" data-on="日本語 - Tiếng Nhật<i class='fa-solid fa-arrow-right mx-2'></i>ベトナム語 - Tiếng Việt" data-off="ベトナム語 - Tiếng Việt<i class='fa-solid fa-arrow-right mx-2'></i>日本語 - Tiếng Nhật" data-onstyle="warning ps-2 w-100 d-flex align-items-center" data-offstyle="info ps-2 w-100 d-flex align-items-center" id="toggle-trans">
                     <form class="" id="form-submit">
                         <label for="input-Jp" class="form-label pt-2">
-                            <h6>日本語 - Tiếng Nhật</h6>
+                            <h6 id="sl">日本語 - Tiếng Nhật</h6>
                         </label>
                         <div class="text-end">
-                            <button class="btn btn-success my-2" type="submit">翻訳 - Dịch</button>
-                            <button class="btn btn-success my-2" type="button" id="reading">読む - Đọc</button>
+                            <button class="btn btn-outline-success my-2" type="submit" id="btn-form-submit">翻訳 - Dịch</button>
+                            <button class="btn btn-outline-success my-2" type="button" id="reading">読む - Đọc</button>
                         </div>
                         <input class="form-control  overflow-y-scroll h-125px" id="input-Jp"></input>
                     </form>
                     <!-- vietnamese -->
                     <div class="mt-3">
-                        <h6 class="label mt-1">ベトナム語 - Tiếng Việt</h6>
+                        <h6 class="label mt-1" id="tl">ベトナム語 - Tiếng Việt</h6>
                         <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
                     </div>
                     <!-- reading -->
@@ -58,11 +62,11 @@
             <div class="col-6 mw-600" id="japanese-search-draw">
                 <div class="option-wrapper border h-60px mw-500">
                     <div class="py-1 text-center">
-                        <button id="japanese-wrapper-p" class="my-1 btn bg-info">PLAY 再生</button>
-                        <button id="japanese-wrapper-s" class="my-1 btn bg-danger">STOP 止め</button>
-                        <button id="japanese-wrapper-n" class="my-1 btn bg-success">NEXT 次</button>
-                        <button id="japanese-wrapper-b" class="my-1 btn bg-warning">BACK 戻る</button>
-                        <button id="japanese-wrapper-r" class="my-1 btn bg-primary">RESET</button>
+                        <button id="japanese-wrapper-p" class="my-1 btn btn-outline-info">PLAY 再生</button>
+                        <button id="japanese-wrapper-s" class="my-1 btn btn-outline-danger">STOP 止め</button>
+                        <button id="japanese-wrapper-n" class="my-1 btn btn-outline-success">NEXT 次</button>
+                        <button id="japanese-wrapper-b" class="my-1 btn btn-outline-warning">BACK 戻る</button>
+                        <button id="japanese-wrapper-r" class="my-1 btn btn-outline-primary">RESET</button>
                     </div>
                 </div>
                 <!-- draw kanji -->
@@ -101,11 +105,11 @@
                         <div class="card-body text-center">
                             <div class="w-100 mw-350">
                                 <div class="py-1 text-center">
-                                    <button id="draw-kanji-p" class="my-1 btn bg-info">PLAY</button>
-                                    <button id="draw-kanji-s" class="my-1 btn bg-danger">STOP</button>
-                                    <button id="draw-kanji-n" class="my-1 btn bg-success">NEXT</button>
-                                    <button id="draw-kanji-b" class="my-1 btn bg-warning">BACK</button>
-                                    <button id="draw-kanji-r" class="my-1 btn bg-primary">RESET</button>
+                                    <button id="draw-kanji-p" class="my-1 btn btn-outline-info">PLAY</button>
+                                    <button id="draw-kanji-s" class="my-1 btn btn-outline-danger">STOP</button>
+                                    <button id="draw-kanji-n" class="my-1 btn btn-outline-success">NEXT</button>
+                                    <button id="draw-kanji-b" class="my-1 btn btn-outline-warning">BACK</button>
+                                    <button id="draw-kanji-r" class="my-1 btn btn-outline-primary">RESET</button>
                                 </div>
 
                             </div>
@@ -146,6 +150,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="http://unpkg.com/kanji.js/dist/kanji.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="./js/const.js"></script>
     <script src="./js/data/kanjiDataJSON.js"></script>
     <script src="./js/data/wordDataJSON.js"></script>

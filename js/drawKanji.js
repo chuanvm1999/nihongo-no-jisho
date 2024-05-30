@@ -26,8 +26,8 @@ function drawKanji(kanji, element, btnList) {
 }
 
 async function translate(q) {
-    const tl = 'vi';
-    const sl = 'ja';
+    const tl = typeTrans ? 'vi' :'ja';
+    const sl = typeTrans ? 'ja' : 'vi';
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&oe=UTF-8&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&sl=${sl}&tl=${tl}&hl=hl&q=${encodeURIComponent(q)}`;
 
     try {

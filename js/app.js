@@ -10,7 +10,6 @@ formSubmit.addEventListener("submit", function (event) {
     japaneseWrapper.innerHTML = "";
     kanjiWrapper.style.display = "none";
     findInput = inputJp.value;
-    drawKanji(findInput, "japanese-wrapper", btnListJapanese);
     japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${getTalkingWord(findInput)}</div>`;
 
     translate(findInput).then((res) => {
@@ -21,7 +20,8 @@ formSubmit.addEventListener("submit", function (event) {
         // console.log(data);
         // vietnameseMean.innerHTML = `<div class="ps-1 text-start"> - ${res[0][0][0]}</div>`;
         japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
-        vietnameseMean.innerHTML = `<div class="ps-1 text-start"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
+        vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
+        drawKanji(typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ',''), "japanese-wrapper", btnListJapanese);
     });
 });
 
@@ -63,3 +63,18 @@ window.speechSynthesis.onvoiceschanged = function () {
 inputReading.addEventListener('click', () => { textToSpeech() });
 
 inputJp.focus();
+
+$(function() {
+    $('#toggle-trans').change(function() {
+        typeTrans = $(this).prop('checked');
+        langFrom.innerHTML = typeTrans ? "日本語 - Tiếng Nhật" : "ベトナム語 - Tiếng Việt";
+        langTo.innerHTML = typeTrans ? "ベトナム語 - Tiếng Việt" : "日本語 - Tiếng Nhật";
+
+        let txtFrom = vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ','');
+        let txtTo = inputJp.value;
+
+        vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${txtTo}</div>`;
+        inputJp.value = txtFrom;
+        btnFormSubmit.click();
+    })
+  })

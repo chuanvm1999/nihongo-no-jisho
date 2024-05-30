@@ -31,6 +31,10 @@ const formSubmit = document.getElementById("form-submit");
 const drawKanjiWord = document.getElementById("draw-kanji");
 const inputReading = document.getElementById("reading");
 const japaneseReadingHira = document.getElementById("japanese-reading-hira");
+const langFrom = document.getElementById("sl");
+const langTo = document.getElementById("tl");
+const btnFormSubmit = document.getElementById("btn-form-submit");
 
 let findInput;
 let readingJapanese;
+let typeTrans = true;
