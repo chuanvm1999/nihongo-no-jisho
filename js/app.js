@@ -32,7 +32,11 @@ inputJp.addEventListener("input", debounce(translateInView, 300));
 //search
 formSubmit.addEventListener("submit", function (event) {
     event.preventDefault();
-    debounce(translateInView, 300);
+    let timeoutId;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+        translateInView();
+    }, 100);
 });
 
 //JLPT
@@ -81,16 +85,17 @@ function toggleTrans() {
     langTo.innerHTML = typeTrans ? "ベトナム語 - Tiếng Việt" : "日本語 - Tiếng Nhật";
 
     let txtFrom = vietnameseMean.querySelector(".vnst") ? vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '') : '';
-    let txtTo = inputJp.value;
 
-    vietnameseMean.innerHTML = txtTo ? `<div class="ps-1 text-start vnst"> - ${txtTo}</div>`:'';
+    vietnameseMean.innerHTML =  '';
+    japaneseReading.innerHTML = '';
+    japaneseReadingHira.innerHTML = '';
     inputJp.value = txtFrom;
     findInput = txtFrom;
     btnFormSubmit.click();
 }
 
 $(function () {
-    $('#toggle-trans').change(debounce(toggleTrans, 300))
+    $('#toggle-trans').change(debounce(toggleTrans, 100))
 })
 
 
