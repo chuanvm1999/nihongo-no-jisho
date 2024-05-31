@@ -29,16 +29,6 @@ function translateInView() {
 
 inputJp.addEventListener("input", debounce(translateInView, 300));
 
-//search
-formSubmit.addEventListener("submit", function (event) {
-    event.preventDefault();
-    let timeoutId;
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-        translateInView();
-    }, 100);
-});
-
 //JLPT
 selectJLPT.addEventListener("change", function () {
     japaneseJLPT.innerHTML = "";
@@ -65,7 +55,7 @@ selectJLPT.addEventListener("change", function () {
         japaneseSearch.style.display = "block";
         japaneseSearchDraw.style.display = "block";
         japaneseWrapper.style.display = "block";
-        btnFormSubmit.click();
+        translateInView();
     }
 });
 
@@ -91,11 +81,11 @@ function toggleTrans() {
     japaneseReadingHira.innerHTML = '';
     inputJp.value = txtFrom;
     findInput = txtFrom;
-    btnFormSubmit.click();
+    translateInView();
 }
 
 $(function () {
-    $('#toggle-trans').change(debounce(toggleTrans, 100))
+    $('#toggle-trans').change(debounce(toggleTrans, 300))
 })
 
 
