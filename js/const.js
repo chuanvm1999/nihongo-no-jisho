@@ -33,6 +33,7 @@ const inputReading = document.getElementById("reading");
 const japaneseReadingHira = document.getElementById("japanese-reading-hira");
 const langFrom = document.getElementById("sl");
 const langTo = document.getElementById("tl");
+const loading = document.getElementById("loading");
 
 let findInput;
 let readingJapanese;

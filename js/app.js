@@ -28,6 +28,7 @@ selectJLPT.addEventListener("change", function () {
             });
         });
     } else {
+        loading.style.display = "block";
         japaneseJLPT.style.display = "none";
         japaneseSearch.style.display = "block";
         japaneseSearchDraw.style.display = "block";
@@ -47,5 +48,5 @@ inputReading.addEventListener('click', () => { textToSpeech() });
 inputJp.focus();
 
 $(function () {
-    $('#toggle-trans').change(debounce(toggleTrans, 300))
+    $('#toggle-trans').change(toggleTrans)
 })
