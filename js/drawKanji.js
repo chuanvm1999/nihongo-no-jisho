@@ -122,7 +122,7 @@ function removeDuplicatesByItem1(array) {
 
 function debounce(func, delay) {
     let timeoutId;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             func.apply(this, args);
@@ -130,22 +130,22 @@ function debounce(func, delay) {
     };
 }
 
-function translateInView() {
+async function translateInView() {
     if (inputJp.value) {
         japaneseWrapper.innerHTML = "";
         kanjiWrapper.style.display = "none";
         findInput = inputJp.value;
         const regex = /[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF]|[0-9!.,:;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz、。！]/g
-        translate(findInput).then((res) => {
-            let data = removeDuplicatesByItem1(res[0]);
-            japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
-            vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
-            japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
-            let drawInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
-            drawKanji(drawInput , "japanese-wrapper", btnListJapanese);
-            drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
-            loading.style.display = "none";
-        });
+        flagTrans = flagTrans ? flagTrans : await translate(findInput);
+        let data = flagTrans[0];
+        japaneseReading.innerHTML = `<div class="ps-1 text-start"> - ${data.slice(-1).pop().slice(-1).pop()}</div>`;
+        vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
+        japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
+        let drawInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
+        drawKanji(drawInput, "japanese-wrapper", btnListJapanese);
+        drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
+        loading.style.display = "none";
+
     } else {
         japaneseReading.innerHTML = "";
         vietnameseMean.innerHTML = "";
@@ -169,7 +169,7 @@ function toggleTrans() {
 
     let txtFrom = vietnameseMean.querySelector(".vnst") ? vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '') : '';
 
-    vietnameseMean.innerHTML =  '';
+    vietnameseMean.innerHTML = '';
     japaneseReading.innerHTML = '';
     japaneseReadingHira.innerHTML = '';
     inputJp.value = txtFrom;

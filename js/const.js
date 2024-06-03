@@ -39,3 +39,4 @@ let findInput;
 let readingJapanese;
 let typeTrans = true;
 let drawJp;
+let flagTrans = null;
