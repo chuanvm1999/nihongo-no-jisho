@@ -88,7 +88,7 @@ function findDetailKanji(kanji) {
 }
 
 function textToSpeech() {
-    const text = inputJp.value;
+    const text = typeTrans ? inputJp.value : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
     const msg = new SpeechSynthesisUtterance();
     msg.text = getTalkingWord(text);
 
@@ -145,6 +145,7 @@ async function translateInView() {
         drawKanji(drawInput, "japanese-wrapper", btnListJapanese);
         drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
         loading.style.display = "none";
+        flagTrans = null;
 
     } else {
         japaneseReading.innerHTML = "";
