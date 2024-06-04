@@ -9,6 +9,7 @@ function drawKanji(kanji, element, btnList) {
 function btnDmak(dmak,btnList) {
     var p = document.getElementById(btnList.back);
     p.onclick = function () {
+        dmak.pause();
         dmak.eraseLastStrokes(1);
     };
     var s = document.getElementById(btnList.stop);
@@ -21,6 +22,7 @@ function btnDmak(dmak,btnList) {
     };
     var n = document.getElementById(btnList.next);
     n.onclick = function () {
+        dmak.pause();
         dmak.renderNextStrokes(1);
     };
     var r = document.getElementById(btnList.reset);
