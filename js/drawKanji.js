@@ -76,6 +76,7 @@ function meanKanji(kanji) {
     kanjiWrapper.style.display = "block";
     drawKanjiWord.innerHTML = '';
     dmakKanji = drawKanji(kanji, "draw-kanji", btnListKanji);
+    dmakKanji.options.step = speedDmarkKanji.value;
     let _kanjiDetail = findDetailKanji(kanji);
     kanjiMean.innerHTML = "";
     kanjiMean.innerHTML = _kanjiDetail.mean ? _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ') : "";

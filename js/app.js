@@ -55,7 +55,6 @@ speedDmarkKanji.addEventListener("change", function () {
     };
 });
 
-
 window.speechSynthesis.onvoiceschanged = function () {
     window.speechSynthesis.getVoices();
 };
