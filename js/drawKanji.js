@@ -1,3 +1,4 @@
+//draw kanji
 function drawKanji(kanji, element, btnList) {
     var dmak = new Dmak(kanji, { 'element': element, "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
     var p = document.getElementById(btnList.back);
@@ -25,6 +26,7 @@ function drawKanji(kanji, element, btnList) {
     return dmak;
 }
 
+//translate with GG-api
 async function translate(q) {
     const tl = typeTrans ? 'vi' : 'ja';
     const sl = typeTrans ? 'ja' : 'vi';
@@ -44,6 +46,7 @@ async function translate(q) {
 
 }
 
+//find kanji in string
 function findKanji(str) {
     var kanjiRegex = /[\u4e00-\u9faf]/g;
     var kanjiMatches = str.match(kanjiRegex);
@@ -57,6 +60,7 @@ function isSubstringOfAnyOtherWord(word, data) {
     return data.some(item => item.word !== word && item.word.includes(word));
 }
 
+//get hiragana of string
 function getTalkingWord(input) {
     // Lọc các đối tượng có words xuất hiện trong input
     let filteredData = wordDataJSON.filter(item => input.includes(item.word));
@@ -72,6 +76,7 @@ function getTalkingWord(input) {
     return replacedInput.replace('.', '');
 }
 
+//get mean kanji and show
 function meanKanji(kanji) {
     kanjiWrapper.style.display = "block";
     drawKanjiWord.innerHTML = '';
@@ -88,6 +93,7 @@ function meanKanji(kanji) {
     kanjiDetail.innerHTML = _kanjiDetail.detail ? _kanjiDetail.detail.split('##').map(item => `<div class="ps-2 text-start"> - ${item}</div>`).join(' ') : "";
 }
 
+//find detail of kanji
 function findDetailKanji(kanji) {
     return kanjiDataJSON.find(item => item.kanji == kanji);
 }
@@ -135,6 +141,7 @@ function debounce(func, delay) {
     };
 }
 
+//translate input and show
 async function translateInView() {
     if (inputJp.value) {
         japaneseWrapper.innerHTML = "";
@@ -161,12 +168,14 @@ async function translateInView() {
     }
 }
 
+//change another number to the word number
 function chuyenSo(str) {
     return str.replace(/[０-９]/g, function (match) {
         return String.fromCharCode(match.charCodeAt(0) - 65248);
     });
 }
 
+//change the language translation
 function toggleTrans() {
     loading.style.display = "block";
     typeTrans = $(this).prop('checked');

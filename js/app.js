@@ -4,6 +4,7 @@ $(window).resize(function () {
     japaneseWrapper.setAttribute("style", `width: ${Math.floor(window.innerWidth / 235) * 109}px;`);
 });
 
+//translate on input change
 inputJp.addEventListener("input", debounce(translateInView, 300));
 
 //JLPT
