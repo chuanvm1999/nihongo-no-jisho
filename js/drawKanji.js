@@ -1,6 +1,12 @@
 //draw kanji
 function drawKanji(kanji, element, btnList) {
     var dmak = new Dmak(kanji, { 'element': element, "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
+    btnDmak(dmak,btnList);
+    return dmak;
+}
+
+//button dmak
+function btnDmak(dmak,btnList) {
     var p = document.getElementById(btnList.back);
     p.onclick = function () {
         dmak.eraseLastStrokes(1);
@@ -22,8 +28,6 @@ function drawKanji(kanji, element, btnList) {
         dmak.pause();
         dmak.erase();
     };
-
-    return dmak;
 }
 
 //translate with GG-api

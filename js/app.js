@@ -43,7 +43,8 @@ speedDmarkWord.addEventListener("change", function () {
     if (dmakWord) { 
         japaneseWrapper.innerHTML = "";
         dmakWord =  new Dmak(dmakWord.text,dmakWord.options);
-        dmakWord.options.step = speedDmarkWord.value 
+        dmakWord.options.step = speedDmarkWord.value;
+        btnDmak(dmakWord,btnListJapanese);
     };
 });
 
@@ -53,6 +54,7 @@ speedDmarkKanji.addEventListener("change", function () {
         drawKanjiWord.innerHTML = "";
         dmakKanji =  new Dmak(dmakKanji.text,dmakKanji.options);
         dmakKanji.options.step = speedDmarkKanji.value 
+        btnDmak(dmakKanji,btnListKanji);
     };
 });
 
