@@ -1,6 +1,5 @@
 function drawKanji(kanji, element, btnList) {
     var dmak = new Dmak(kanji, { 'element': element, "stroke": { "attr": { "stroke": "#FF0000" } }, "uri": "https://kanjivg.tagaini.net/kanjivg/kanji/" });
-
     var p = document.getElementById(btnList.back);
     p.onclick = function () {
         dmak.eraseLastStrokes(1);
@@ -19,6 +18,7 @@ function drawKanji(kanji, element, btnList) {
     };
     var r = document.getElementById(btnList.reset);
     r.onclick = function () {
+        dmak.pause();
         dmak.erase();
     };
 
@@ -75,7 +75,7 @@ function getTalkingWord(input) {
 function meanKanji(kanji) {
     kanjiWrapper.style.display = "block";
     drawKanjiWord.innerHTML = '';
-    drawKanji(kanji, "draw-kanji", btnListKanji);
+    dmakKanji = drawKanji(kanji, "draw-kanji", btnListKanji);
     let _kanjiDetail = findDetailKanji(kanji);
     kanjiMean.innerHTML = "";
     kanjiMean.innerHTML = _kanjiDetail.mean ? _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ') : "";
@@ -146,10 +146,11 @@ async function translateInView() {
         vietnameseMean.innerHTML = `<div class="ps-1 text-start vnst"> - ${data.filter(item => item[1] != null).map(item => item[0]).join(' ')}</div>`;
         japaneseReadingHira.innerHTML = `<div class="ps-1 text-start"> - ${typeTrans ? getTalkingWord(findInput) : getTalkingWord(vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', ''))}</div>`;
         let drawInput = typeTrans ? chuyenSo(findInput).match(regex).join('') : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
-        drawKanji(drawInput, "japanese-wrapper", btnListJapanese);
+        dmakWord = drawKanji(drawInput, "japanese-wrapper", btnListJapanese);
+        dmakWord.options.step = speedDmarkWord.value;
         drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
         loading.style.display = "none";
-
+        flagTrans = null;
     } else {
         japaneseReading.innerHTML = "";
         vietnameseMean.innerHTML = "";

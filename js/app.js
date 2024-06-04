@@ -37,6 +37,24 @@ selectJLPT.addEventListener("change", function () {
     }
 });
 
+//spedd dmark word
+speedDmarkWord.addEventListener("change", function () {
+    if (dmakWord) { 
+        japaneseWrapper.innerHTML = "";
+        dmakWord =  new Dmak(dmakWord.text,dmakWord.options);
+        dmakWord.options.step = speedDmarkWord.value 
+    };
+});
+
+//spedd dmark kanji
+speedDmarkKanji.addEventListener("change", function () {
+    if (dmakKanji) { 
+        drawKanjiWord.innerHTML = "";
+        dmakKanji =  new Dmak(dmakKanji.text,dmakKanji.options);
+        dmakKanji.options.step = speedDmarkKanji.value 
+    };
+});
+
 
 window.speechSynthesis.onvoiceschanged = function () {
     window.speechSynthesis.getVoices();

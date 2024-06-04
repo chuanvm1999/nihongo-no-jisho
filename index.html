@@ -84,6 +84,12 @@
                         <button id="japanese-wrapper-n" class="my-1 btn btn-outline-success">NEXT 次</button>
                         <button id="japanese-wrapper-b" class="my-1 btn btn-outline-warning">BACK 戻る</button>
                         <button id="japanese-wrapper-r" class="my-1 btn btn-outline-primary">RESET</button>
+                        <select class="my-1 select" id="speed-dmark-word">
+                            <option selected value="0.01">Normal</option>
+                            <option value="0.005">Fast</option>
+                            <option value="0.05">Slow</option>
+                            <option value="0.001">Hight Fast</option>
+                        </select>
                     </div>
                 </div>
                 <!-- draw kanji -->
@@ -128,7 +134,14 @@
                                     <button id="draw-kanji-b" class="my-1 btn btn-outline-warning">BACK</button>
                                     <button id="draw-kanji-r" class="my-1 btn btn-outline-primary">RESET</button>
                                 </div>
-
+                            </div>
+                            <div class="w-100 mw-350">
+                                <select class="my-1 select" id="speed-dmark-kanji">
+                                    <option selected value="0.01">Normal</option>
+                                    <option value="0.005">Fast</option>
+                                    <option value="0.05">Slow</option>
+                                    <option value="0.001">Hight Fast</option>
+                                </select>
                             </div>
                             <div class="row mx-2 mt-5 flex-nowrap">
                                 <div class="col-6 px-1 text-center h-125px mw-175">

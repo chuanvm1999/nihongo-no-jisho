@@ -34,9 +34,13 @@ const japaneseReadingHira = document.getElementById("japanese-reading-hira");
 const langFrom = document.getElementById("sl");
 const langTo = document.getElementById("tl");
 const loading = document.getElementById("loading");
+const speedDmarkWord = document.getElementById("speed-dmark-word");
+const speedDmarkKanji = document.getElementById("speed-dmark-kanji");
 
 let findInput;
 let readingJapanese;
 let typeTrans = true;
 let drawJp;
 let flagTrans = null;
+let dmakWord = null;
+let dmakKanji = null;
