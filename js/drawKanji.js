@@ -41,7 +41,6 @@ async function translate(q) {
     try {
         const response = await axios.get(url);
         flagTrans = null;
-
         return response.data;
     } catch (error) {
         console.error('Error:', error);
@@ -164,7 +163,6 @@ async function translateInView() {
         dmakWord.options.step = speedDmarkWord.value;
         drawJp = typeTrans ? findInput : vietnameseMean.querySelector(".vnst").innerHTML.replace(' - ', '');
         loading.style.display = "none";
-        flagTrans = null;
     } else {
         japaneseReading.innerHTML = "";
         vietnameseMean.innerHTML = "";
