@@ -170,6 +170,7 @@ async function translateInView() {
         japaneseWrapper.innerHTML = "";
         loading.style.display = "none";
     }
+    flagTrans=null;
 }
 
 //change another number to the word number
@@ -181,6 +182,7 @@ function chuyenSo(str) {
 
 //change the language translation
 function toggleTrans() {
+    flagTrans=null;
     loading.style.display = "block";
     typeTrans = $(this).prop('checked');
     langFrom.innerHTML = typeTrans ? "日本語 - Tiếng Nhật" : "ベトナム語 - Tiếng Việt";
