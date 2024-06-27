@@ -20,6 +20,7 @@ selectJLPT.addEventListener("change", function () {
 
         let data = kanjiDataJSON.filter(item => item.level && item.level.includes(`N${jlpt}`)).map(item => `<h5 class="kanji border">${item.kanji}</h5>`).join('');
         japaneseJLPT.innerHTML = data;
+        drawJp=kanjiDataJSON.filter(item => item.level && item.level.includes(`N${jlpt}`)).map(item => item.kanji).join('');
         japaneseJLPT.querySelectorAll('.kanji').forEach(item => {
             item.addEventListener('click', () => {
                 kanjiWrapper.style.display = "block";

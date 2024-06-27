@@ -88,6 +88,7 @@ function meanKanji(kanji) {
     dmakKanji = drawKanji(kanji, "draw-kanji", btnListKanji);
     dmakKanji.options.step = speedDmarkKanji.value;
     let _kanjiDetail = findDetailKanji(kanji);
+    
     kanjiMean.innerHTML = "";
     kanjiMean.innerHTML = _kanjiDetail.mean ? _kanjiDetail.mean.map(item => `<div>${item}</div>`).join(' ') : "";
     kanjiOnyomi.innerHTML = "";
