@@ -29,6 +29,7 @@ const kanjiOnyomi = document.getElementById("kanji-onyomi");
 const kanjiWrapper = document.getElementById("kanji-wrapper");
 const formSubmit = document.getElementById("form-submit");
 const drawKanjiWord = document.getElementById("draw-kanji");
+const API_KEY = "AIzaSyDDYQkYgdCzI58jiyTjfAJnL5mKRLXVTmA";
 const inputReading = document.getElementById("reading");
 const japaneseReadingHira = document.getElementById("japanese-reading-hira");
 const langFrom = document.getElementById("sl");
