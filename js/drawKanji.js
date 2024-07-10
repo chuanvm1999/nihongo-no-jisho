@@ -199,3 +199,33 @@ function toggleTrans() {
     findInput = txtFrom;
     translateInView();
 }
+
+function changeText(text) {
+    // Biến đổi văn bản thành mảng các dòng
+    const lines = text.split('\n');
+
+    // Tạo một biến HTML để lưu trữ mã HTML
+    let html = '';
+
+    // Lặp qua từng dòng văn bản
+    for (const line of lines) {
+        // Xác định loại tiêu đề dựa trên số lượng dấu #
+        let headingLevel = line.match(/^##+/)?.length;
+
+        // Xác định loại nội dung dựa trên ký tự đầu tiên
+        let contentType = line[0];
+
+        // Tạo thẻ HTML phù hợp cho từng loại nội dung
+        switch (contentType) {
+            case '#': // Tiêu đề
+                html += `<h${headingLevel}>${line.substring(headingLevel + 1)}</h${headingLevel}>`;
+                break;
+            case '*': // Danh sách
+                html += `<li>${line.substring(1)}</li>`;
+                break;
+            default: // Đoạn văn
+                html += `<p>${line}</p>`;
+        }
+    }
+    return html.replace(/\*/g, '');
+}

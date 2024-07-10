@@ -37,6 +37,9 @@ const loading = document.getElementById("loading");
 const speedDmarkWord = document.getElementById("speed-dmark-word");
 const speedDmarkKanji = document.getElementById("speed-dmark-kanji");
 const mazii = document.getElementById("mazii");
+const geminiModalLabel = document.getElementById("geminiModalLabel");
+const geminiContent = document.getElementById("geminiContent");
+const gemini = document.getElementById("gemini");
 
 let findInput;
 let readingJapanese;

@@ -31,6 +31,21 @@
 </head>
 
 <body class="overflow-auto w-100">
+    <div class="modal fade" id="geminiModal" tabindex="-1" aria-labelledby="geminiModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title fs-5" id="geminiModalLabel"></div>
+                </div>
+                <div class="modal-body overflow-y-scroll" id="geminiContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="loading" id="loading" style="display: none;">
 
     </div>
@@ -44,7 +59,9 @@
                             <div class="row">
                                 <div class="col-7">
                                     <h6 id="sl">日本語 - Tiếng Nhật</h6>
-                                    <a href="" target="_blank" id="mazii">Mazii</a>
+                                    <a class="btn btn-outline-primary" href="" target="_blank" id="mazii">Mazii</a>
+                                    <button class="btn btn-outline-primary" id="gemini" data-bs-toggle="modal"
+                                        data-bs-target="#geminiModal">Gemini chat</button>
                                 </div>
                                 <div class="col-5 text-end">
                                     <button class="btn btn-outline-success my-2" type="button" id="reading">読む -
@@ -167,7 +184,13 @@
             </div>
         </div>
     </div>
-
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+      </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -189,7 +212,106 @@
     <script src="./js/dmakLoader.js"></script>
     <script src="./js/drawKanji.js"></script>
     <script src="./js/app.js"></script>
+    <script>
+        var me = {};
 
+        var you = {};
+
+        function formatAMPM(date) {
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
+
+        //-- No use time. It is a javaScript effect.
+        function insertChat(who, text, time = 0) {
+            var control = "";
+            var date = formatAMPM(new Date());
+
+            if (who == "me") {
+
+                control = '<li style="width:100%">' +
+                    '<div class="msj macro">' +
+                    '<div class="text text-l">' +
+                    '<p>' + text + '</p>' +
+                    '<p><small>' + date + '</small></p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</li>';
+            } else {
+                control = '<li style="width:100%;">' +
+                    '<div class="msj-rta macro">' +
+                    '<div class="text text-r">' +
+                    '<p>' + text + '</p>' +
+                    '<p><small>' + date + '</small></p>' +
+                    '</div>' +
+                    '<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
+                    '</li>';
+            }
+            setTimeout(
+                function () {
+                    $("ul").append(control);
+
+                }, time);
+
+        }
+
+        function resetChat() {
+            $("ul").empty();
+        }
+
+        $(".mytext").on("keyup", function (e) {
+            if (e.which == 13) {
+                var text = $(this).val();
+                if (text !== "") {
+                    insertChat("me", text);
+                    $(this).val('');
+                }
+            }
+        });
+
+        //-- Clear Chat
+        resetChat();
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyDDYQkYgdCzI58jiyTjfAJnL5mKRLXVTmA";
+
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+       
+        async function run() {
+            const prompt = `Phân tích và giải thích "${findInput}" trong tiếng Nhật bằng tiếng Việt`
+
+
+            const result = await model.generateContentStream([prompt]);
+
+            let text = '';
+            let content = '';
+            geminiContent.innerHTML = '';
+            for await (const chunk of result.stream) {
+                const chunkText = chunk.text();
+                text += chunkText;
+                content = changeText(text);
+                console.log(content);
+                geminiContent.innerHTML = content;
+            }
+        }
+
+        gemini.addEventListener("click", function () {
+            run();
+        });
+
+    </script>
     <!-- <script src="./kanji.js"></script> -->
 </body>
 

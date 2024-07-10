@@ -178,3 +178,7 @@ body {
     right: 0;
     z-index: 999;
 }
+
+.modal-body.overflow-y-scroll{
+    height: 75vh;
+}
