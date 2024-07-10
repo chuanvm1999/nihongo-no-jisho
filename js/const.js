@@ -42,7 +42,7 @@ const geminiModalLabel = document.getElementById("geminiModalLabel");
 const geminiContent = document.getElementById("geminiContent");
 const gemini = document.getElementById("gemini");
 
-let findInput;
+let findInput="日本語";
 let readingJapanese;
 let typeTrans = true;
 let drawJp;
