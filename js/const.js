@@ -36,6 +36,7 @@ const langTo = document.getElementById("tl");
 const loading = document.getElementById("loading");
 const speedDmarkWord = document.getElementById("speed-dmark-word");
 const speedDmarkKanji = document.getElementById("speed-dmark-kanji");
+const mazii = document.getElementById("mazii");
 
 let findInput;
 let readingJapanese;
