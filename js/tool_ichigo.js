@@ -241,7 +241,6 @@ RUN
         async function typeNextCharacter() {
             var index = 0;
             for (const text of codeData) {
-                console.log(text);
                 for (const txt of text.split('')) {
                     // Lấy ký tự hiện tại
                     var character = txt;
