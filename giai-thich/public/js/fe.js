@@ -107,7 +107,7 @@ async function goiAPI(tuTiengNhat) {
         // Fetch your API_KEY
         const API_KEY = "AIzaSyDDYQkYgdCzI58jiyTjfAJnL5mKRLXVTmA";
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `Mục đích và Mục tiêu:
 
@@ -484,7 +484,7 @@ document.addEventListener('keydown', (event) => {
  * Xử lý sự kiện click cho nút "Tra từ"
  */
 btnTraTu.addEventListener('click', () => {
-    tuVungTimKiem = inputTuTiengNhat.value ? inputTuTiengNhat.value : tuVungTimKiem;
+    tuVungTimKiem = inputTuTiengNhat.value.trim() ? inputTuTiengNhat.value : tuVungTimKiem;
     const tuTiengNhat = tuVungTimKiem; // Lấy từ tiếng Nhật từ input hoặc từ biến lưu trữ
     xuLyTimKiem(tuTiengNhat); // Gọi hàm xử lý tìm kiếm
 });
