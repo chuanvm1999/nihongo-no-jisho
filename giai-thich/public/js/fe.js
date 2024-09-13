@@ -107,7 +107,7 @@ async function goiAPI(tuTiengNhat) {
         // Fetch your API_KEY
         const API_KEY = "AIzaSyDDYQkYgdCzI58jiyTjfAJnL5mKRLXVTmA";
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
         const prompt = `Mục đích và Mục tiêu:
 
@@ -176,7 +176,11 @@ async function goiAPI(tuTiengNhat) {
         capNhatLichSuTimKiem(); // Cập nhật lịch sử tìm kiếm trên giao diện
     } catch (error) {
         console.error(error); // In lỗi ra console nếu có
-        goiAPI(tuTiengNhat); // Thử gọi API lại
+        alert(error);
+        setTimeout(() => {
+            goiAPI(tuTiengNhat); // Thử gọi API lại
+        }, 1000);
+        return;
     } finally {
         anLoading(); // Ẩn loading
     }
