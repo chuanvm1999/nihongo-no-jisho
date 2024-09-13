@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iframe Content</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #kanjiSvg {
+            margin: auto 0;
+            height: 45%;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="btn-draw-list" class="flex justify-center mt-4 space-x-4">
+        <button id="btn-draw-p"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">PLAY</button>
+        <button id="btn-draw-s" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">STOP</button>
+        <button id="btn-draw-n"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">NEXT</button>
+        <button id="btn-draw-b"
+            class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">BACK</button>
+        <button id="btn-draw-r"
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">RESET</button>
+    </div>
+
+    <div id="kanjiSvg" class="kanji-svg flex flex-wrap justify-center">
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="../public/js/jquery.dmak.min.js"></script>
+    <script src="../public/js/dmak.js"></script>
+    <script src="../public/js/dmakLoader.js"></script>
+    <script>
+        const btnList = {
+            play: "btn-draw-p",
+            stop: "btn-draw-s",
+            next: "btn-draw-n",
+            back: "btn-draw-b",
+            reset: "btn-draw-r",
+        };
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataValue = urlParams.get('data');
+
+        function drawKanji(kanji) {
+            // Xóa nội dung hiện tại của div chứa Kanji
+            document.getElementById('kanjiSvg').innerHTML = '';
+
+            // Hiển thị div chứa Kanji và các nút điều khiển
+            document.getElementById('kanjiSvg').style.display = 'flex';
+            document.getElementById('btn-draw-list').style.display = 'flex';
+
+            // Lấy các nút điều khiển
+            var p = document.getElementById(btnList.back);
+            var s = document.getElementById(btnList.stop);
+            var g = document.getElementById(btnList.play);
+            var n = document.getElementById(btnList.next);
+            var r = document.getElementById(btnList.reset);
+
+            // Khởi tạo đối tượng Dmak để vẽ Kanji
+            const dmak = new Dmak(kanji, {
+                'element': 'kanjiSvg', // ID của phần tử chứa Kanji
+                'uri': 'http://kanjivg.tagaini.net/kanjivg/kanji/' // Đường dẫn đến file SVG của Kanji
+            });
+
+            dmak.render(); // Bắt đầu vẽ Kanji
+
+            // Gán sự kiện click cho các nút điều khiển
+            p.onclick = function () {
+                dmak.pause(); // Tạm dừng vẽ
+                dmak.eraseLastStrokes(1); // Xóa nét vẽ cuối cùng
+            };
+            s.onclick = function () {
+                dmak.pause(); // Tạm dừng vẽ
+            };
+            g.onclick = function () {
+                dmak.render(); // Tiếp tục vẽ
+            };
+            n.onclick = function () {
+                dmak.pause(); // Tạm dừng vẽ
+                dmak.renderNextStrokes(1); // Vẽ nét tiếp theo
+            };
+            r.onclick = function () {
+                dmak.pause(); // Tạm dừng vẽ
+                dmak.erase(); // Xóa toàn bộ nét vẽ
+            };
+        }
+
+
+        drawKanji(dataValue);
+    </script>
+</body>
+
+</html>
