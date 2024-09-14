@@ -7,6 +7,266 @@ const inputTuTiengNhat = document.getElementById('tuTiengNhat'); // Ô input nh�
 const divKetQua = document.getElementById('ketQua'); // Phần tử div hiển thị kết quả
 const lichSuTimKiem = document.getElementById('lichSuTimKiem'); // Phần tử ul hiển thị lịch sử tìm kiếm
 const btnMazii = document.getElementById('btn-mazii'); // Phần tử ul hiển thị lịch sử tìm kiếm
+const searchCol = document.getElementById('search-col'); // Phần tử ul hiển thị lịch sử tìm kiếm
+
+// Lấy nút "?" từ DOM
+const helpButton = document.getElementById('btnHuongDan');
+
+// Thêm sự kiện click cho nút "?"
+helpButton.addEventListener('click', () => {
+  hienThiModalHuongDan();
+});
+
+
+// Fetch your API_KEY
+const API_KEY = await layAPIKeyTuLocalStorage();
+let genAI = new GoogleGenerativeAI(API_KEY);
+let model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Kiểm tra xem đã hiển thị hướng dẫn hay chưa
+function daHienThiHuongDan() {
+    return localStorage.getItem('daHienThiHuongDan') === 'true';
+}
+
+function danhDauDaHienThiHuongDan() {
+    localStorage.setItem('daHienThiHuongDan', 'true');
+}
+
+// Hàm hiển thị modal hướng dẫn
+function hienThiModalHuongDan() {
+    // Tạo một phần tử div để chứa hộp thoại
+    const modal = document.createElement('div');
+    modal.classList.add(
+        'fixed',
+        'top-0',
+        'left-0',
+        'w-full',
+        'h-full',
+        'bg-black',
+        'bg-opacity-50',
+        'flex',
+        'items-center',
+        'justify-center',
+        'z-10'
+    );
+
+    // Tạo nội dung của hộp thoại
+    const content = document.createElement('div');
+    content.classList.add(
+        'bg-white',
+        'p-6',
+        'rounded-lg',
+        'shadow-lg',
+        'max-w-md'
+    );
+
+    // Tiêu đề hướng dẫn
+    const title = document.createElement('h2');
+    title.classList.add('text-xl', 'font-bold', 'mb-4');
+    title.textContent = 'Hướng dẫn sử dụng trang web';
+    content.appendChild(title);
+
+    // Nội dung giới thiệu
+    const intro = document.createElement('p');
+    intro.classList.add('mb-4');
+    intro.textContent = 'Chào mừng bạn đến với trang web tra cứu từ điển tiếng Nhật!';
+    content.appendChild(intro);
+
+    // Danh sách hướng dẫn
+    const list = document.createElement('ul');
+    list.classList.add('list-disc', 'list-inside', 'mb-4', 'pl-5'); // Thêm pl-5 để thụt đầu dòng
+
+    const huongDanItems = [
+        'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ".',
+        'Bôi đen từ tiếng Nhật và nhấn nút "s" để tìm kiếm từ.',
+        'Bôi đen từ tiếng Nhật và nhấn nút "d" để vẽ từ tiếng Nhật.',
+        'Nhấn nút "Làm mới" hoặc nhấn Shift + Enter để xóa kết quả tìm kiếm hiện tại và tìm kiếm lại.',
+        'Nhấn nút "Thay đổi API key" để cập nhật API key của bạn.',
+        'Sử dụng các nút điều khiển để xem cách viết Kanji.',
+        'Nhấn vào từ vựng tại phần lịch sử để hiển thị lại từ vựng đã tìm kiếm.'
+    ];
+
+    huongDanItems.forEach(itemText => {
+        const listItem = document.createElement('li');
+        listItem.textContent = itemText;
+        list.appendChild(listItem);
+    });
+
+    content.appendChild(list);
+
+    // Nút đóng modal
+    const closeButton = document.createElement('button');
+    closeButton.id = 'dongModalHuongDan';
+    closeButton.classList.add(
+        'px-4',
+        'py-2',
+        'bg-blue-500',
+        'hover:bg-blue-600',
+        'text-white',
+        'font-bold',
+        'rounded-md',
+        'flex', // Thêm class 'flex'
+        'justify-end' // Thêm class 'justify-end'
+    );
+    closeButton.textContent = 'Đóng';
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(modal);
+        danhDauDaHienThiHuongDan(); // Đánh dấu đã hiển thị hướng dẫn
+    });
+    content.appendChild(closeButton);
+
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+}
+
+
+
+// Trong file public/js/fe.js, thêm hàm sau vào vị trí phù hợp (ví dụ: sau hàm htmlPrompt):
+
+function thayDoiAPIKey() {
+    htmlPrompt('Nhập API key mới:')
+        .then(newApiKey => {
+            if (newApiKey) {
+                localStorage.setItem('apiKey', newApiKey);
+                // Khởi tạo lại đối tượng Google Generative AI với API key mới
+                genAI = new GoogleGenerativeAI(newApiKey);
+                model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                // Hiển thị thông báo cho người dùng
+                alert('API key đã được cập nhật!');
+            }
+        });
+}
+
+
+function layAPIKeyTuLocalStorage() {
+    const storedApiKey = localStorage.getItem('apiKey');
+    if (storedApiKey) {
+        return storedApiKey;
+    } else {
+        return htmlPrompt('Vui lòng nhập API key của bạn:')
+            .then(apiKey => {
+                if (apiKey) {
+                    localStorage.setItem('apiKey', apiKey);
+                    return apiKey;
+                } else {
+                    return layAPIKeyTuLocalStorage(); // Gọi lại hàm nếu người dùng không nhập API key
+                }
+            });
+    }
+}
+
+/**
+ * Hiển thị một hộp thoại prompt tùy chỉnh với giao diện HTML.
+ *
+ * @param {string} message - Thông báo hiển thị trong hộp thoại.
+ * @returns {Promise<string|null>} - Promise trả về API key nếu người dùng nhập, ngược lại trả về null.
+ */
+function htmlPrompt(message) {
+    return new Promise((resolve) => {
+        // Tạo một phần tử div để chứa hộp thoại
+        const modal = document.createElement('div');
+        modal.classList.add(
+            'fixed',
+            'top-0',
+            'left-0',
+            'w-full',
+            'h-full',
+            'bg-black',
+            'bg-opacity-50',
+            'flex',
+            'items-center',
+            'justify-center',
+            'z-10'
+        );
+
+        // Tạo nội dung của hộp thoại
+        const content = document.createElement('div');
+        content.classList.add(
+            'bg-white',
+            'p-6',
+            'rounded-lg',
+            'shadow-lg',
+            'text-center'
+        );
+
+        // Thông báo
+        const messageElement = document.createElement('p');
+        messageElement.classList.add('font-bold', 'mb-4');
+        messageElement.textContent = message;
+        content.appendChild(messageElement);
+
+        // Liên kết
+        const linkElement = document.createElement('a');
+        linkElement.href = 'https://aistudio.google.com/app/apikey';
+        linkElement.target = '_blank';
+        linkElement.classList.add('text-blue-500', 'underline', 'mb-4', 'block');
+        linkElement.textContent = 'Lấy API key tại đây';
+        content.appendChild(linkElement);
+
+        // Input
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'htmlPromptInput';
+        input.classList.add(
+            'w-full',
+            'p-2',
+            'border',
+            'border-gray-300',
+            'rounded-md',
+            'mb-4'
+        );
+        content.appendChild(input);
+
+        // Nút bấm
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('flex', 'justify-end');
+
+        const cancelButton = document.createElement('button');
+        cancelButton.id = 'htmlPromptCancel';
+        cancelButton.classList.add(
+            'px-4',
+            'py-2',
+            'mr-2',
+            'bg-gray-300',
+            'hover:bg-gray-400',
+            'text-gray-800',
+            'font-bold',
+            'rounded-md'
+        );
+        cancelButton.textContent = 'Hủy';
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+            resolve(null);
+        });
+        buttonContainer.appendChild(cancelButton);
+
+        const okButton = document.createElement('button');
+        okButton.id = 'htmlPromptOK';
+        okButton.classList.add(
+            'px-4',
+            'py-2',
+            'bg-blue-500',
+            'hover:bg-blue-600',
+            'text-white',
+            'font-bold',
+            'rounded-md'
+        );
+        okButton.textContent = 'OK';
+        okButton.addEventListener('click', () => {
+            const value = input.value;
+            document.body.removeChild(modal);
+            resolve(value);
+        });
+        buttonContainer.appendChild(okButton);
+
+        content.appendChild(buttonContainer);
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+    });
+}
+
+
+
 
 // Danh sách ID của các nút điều khiển cho phần vẽ Kanji
 const btnList = {
@@ -97,6 +357,7 @@ async function goiAPI(tuTiengNhat) {
     document.getElementById('danhSachTuVung').style.display = 'none';
     document.getElementById('kanjiSvg').style.display = 'none';
     document.getElementById('btn-draw-list').style.display = 'none';
+    searchCol.style.display = 'none';
 
     try {
         hienThiLoading(); // Hiển thị loading
@@ -104,10 +365,6 @@ async function goiAPI(tuTiengNhat) {
         // const data = response.data; // Lấy dữ liệu từ response
 
 
-        // Fetch your API_KEY
-        const API_KEY = "AIzaSyDDYQkYgdCzI58jiyTjfAJnL5mKRLXVTmA";
-        const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
         const prompt = `Mục đích và Mục tiêu:
 
@@ -304,7 +561,7 @@ export function capNhatLichSuTimKiem() {
 /**
  * Xóa từ khỏi lịch sử tìm kiếm
  * @param {string} tu - Từ cần xóa
- */ 
+ */
 export function xoaTuKhoiLichSu(tu) {
     // Tìm kiếm vị trí của từ trong mảng lịch sử tìm kiếm
     const index = lichSuTimKiemData.findIndex(item => item.tu === tu);
@@ -342,6 +599,8 @@ function hienThiLoading() {
  */
 function anLoading() {
     document.getElementById('loading').classList.add('hidden');
+    searchCol.style.display = 'block';
+
 }
 
 /**
@@ -447,6 +706,10 @@ btnMazii.addEventListener("click", () => {
 
 // Ẩn kết quả, danh sách từ vựng, Kanji và các nút điều khiển khi trang được tải
 document.addEventListener('DOMContentLoaded', (event) => {
+    if (!daHienThiHuongDan()) {
+        hienThiModalHuongDan();
+    }
+
     document.getElementById('ketQua').style.display = 'none';
     document.getElementById('danhSachTuVung').style.display = 'none';
     document.getElementById('kanjiSvg').style.display = 'none';
@@ -465,17 +728,18 @@ document.addEventListener('keydown', (event) => {
             btnTraTu.click(); // Enter: Tìm kiếm
         }
     }
+    if (searchCol.style.display != 'hidden') {
+        if (event.key === 's') {
+            tuVungTimKiem = window.getSelection().toString(); // Lấy từ vựng từ đoạn văn bản được chọn
+            btnTraTu.click(); // Tìm kiếm từ vựng
+        }
 
-    if (event.key === 's') {
-        tuVungTimKiem = window.getSelection().toString(); // Lấy từ vựng từ đoạn văn bản được chọn
-        btnTraTu.click(); // Tìm kiếm từ vựng
-    }
-
-    if (event.key === 'd') {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím D
-        const selectedText = window.getSelection().toString(); // Lấy đoạn văn bản được chọn
-        if (selectedText) {
-            drawKanji(selectedText); // Gọi hàm vẽ Kanji với đoạn văn bản được chọn
+        if (event.key === 'd') {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của phím D
+            const selectedText = window.getSelection().toString(); // Lấy đoạn văn bản được chọn
+            if (selectedText) {
+                drawKanji(selectedText); // Gọi hàm vẽ Kanji với đoạn văn bản được chọn
+            }
         }
     }
 });
@@ -497,6 +761,8 @@ btnLamMoi.addEventListener('click', () => {
     xoaDuLieuLocalStorage(tuTiengNhat); // Xóa dữ liệu từ localStorage
     xuLyTimKiem(tuTiengNhat); // Gọi hàm xử lý tìm kiếm
 });
+
+document.getElementById("btnThayDoiAPIKey").addEventListener("click", thayDoiAPIKey)
 
 
 // Cập nhật lịch sử tìm kiếm khi trang được tải
