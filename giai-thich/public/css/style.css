@@ -39,3 +39,23 @@ thead {
     z-index: 1;
     /* Ensure thead stays on top */
 }
+
+/* Trong file style.css hoặc thẻ <style> trong HTML */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Điều chỉnh màu sắc và độ trong suốt tùy ý */
+    z-index: 9999;
+    /* Đảm bảo lớp phủ nằm trên tất cả các phần tử khác */
+    display: none;
+    /* Ẩn lớp phủ mặc định */
+}
+
+.overlay.active {
+    display: block;
+    /* Hiển thị lớp phủ khi cần */
+}

@@ -14,7 +14,7 @@ const helpButton = document.getElementById('btnHuongDan');
 
 // Thêm sự kiện click cho nút "?"
 helpButton.addEventListener('click', () => {
-  hienThiModalHuongDan();
+    hienThiModalHuongDan();
 });
 
 
@@ -357,7 +357,11 @@ async function goiAPI(tuTiengNhat) {
     document.getElementById('danhSachTuVung').style.display = 'none';
     document.getElementById('kanjiSvg').style.display = 'none';
     document.getElementById('btn-draw-list').style.display = 'none';
-    searchCol.style.display = 'none';
+    // Vô hiệu hóa input
+    inputTuTiengNhat.disabled = true;
+
+    // Hiển thị lớp phủ
+    overlay.classList.add('active');
 
     try {
         hienThiLoading(); // Hiển thị loading
@@ -440,6 +444,12 @@ async function goiAPI(tuTiengNhat) {
         return;
     } finally {
         anLoading(); // Ẩn loading
+
+        // Bật lại input
+        inputTuTiengNhat.disabled = false;
+
+        // Ẩn lớp phủ sau khi API trả về kết quả
+        overlay.classList.remove('active');
     }
 }
 
@@ -720,6 +730,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * Xử lý sự kiện nhấn phím
  */
 document.addEventListener('keydown', (event) => {
+    // Kiểm tra xem có đang gọi API hay không
+    if (overlay.classList.contains('active')) {
+        event.preventDefault(); // Ngăn chặn tất cả sự kiện bàn phím khi đang gọi API
+        return; // Thoát khỏi hàm xử lý sự kiện
+    }
+
     if (event.key === 'Enter') {
         event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
         if (event.shiftKey) {
@@ -730,7 +746,7 @@ document.addEventListener('keydown', (event) => {
     }
     if (searchCol.style.display != 'hidden') {
         if (event.key === 's') {
-            tuVungTimKiem = window.getSelection().toString(); // Lấy từ vựng từ đoạn văn bản được chọn
+            tuVungTimKiem = window.getSelection().toString() ? window.getSelection().toString() : tuVungTimKiem; // Lấy từ vựng từ đoạn văn bản được chọn
             btnTraTu.click(); // Tìm kiếm từ vựng
         }
 
@@ -743,6 +759,7 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
+
 
 /**
  * Xử lý sự kiện click cho nút "Tra từ"
