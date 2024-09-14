@@ -23,6 +23,22 @@ const API_KEY = await layAPIKeyTuLocalStorage();
 let genAI = new GoogleGenerativeAI(API_KEY);
 let model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+// Danh sách ID của các nút điều khiển cho phần vẽ Kanji
+const btnList = {
+    play: "btn-draw-p",
+    stop: "btn-draw-s",
+    next: "btn-draw-n",
+    back: "btn-draw-b",
+    reset: "btn-draw-r",
+};
+
+// Biến lưu trữ từ vựng đang được tìm kiếm
+let tuVungTimKiem;
+
+// Lấy lịch sử tìm kiếm từ localStorage hoặc khởi tạo mảng rỗng nếu chưa có
+let lichSuTimKiemData = layDuLieuTuLocalStorage('lichSuTimKiem') || [];
+
+
 // Kiểm tra xem đã hiển thị hướng dẫn hay chưa
 function daHienThiHuongDan() {
     return localStorage.getItem('daHienThiHuongDan') === 'true';
@@ -119,11 +135,9 @@ function hienThiModalHuongDan() {
     document.body.appendChild(modal);
 }
 
-
-
 // Trong file public/js/fe.js, thêm hàm sau vào vị trí phù hợp (ví dụ: sau hàm htmlPrompt):
-
 function thayDoiAPIKey() {
+    searchCol.style.display = 'none';
     htmlPrompt('Nhập API key mới:')
         .then(newApiKey => {
             if (newApiKey) {
@@ -134,9 +148,9 @@ function thayDoiAPIKey() {
                 // Hiển thị thông báo cho người dùng
                 alert('API key đã được cập nhật!');
             }
+            searchCol.style.display = 'block';
         });
 }
-
 
 function layAPIKeyTuLocalStorage() {
     const storedApiKey = localStorage.getItem('apiKey');
@@ -265,24 +279,6 @@ function htmlPrompt(message) {
     });
 }
 
-
-
-
-// Danh sách ID của các nút điều khiển cho phần vẽ Kanji
-const btnList = {
-    play: "btn-draw-p",
-    stop: "btn-draw-s",
-    next: "btn-draw-n",
-    back: "btn-draw-b",
-    reset: "btn-draw-r",
-};
-
-// Biến lưu trữ từ vựng đang được tìm kiếm
-let tuVungTimKiem;
-
-// Lấy lịch sử tìm kiếm từ localStorage hoặc khởi tạo mảng rỗng nếu chưa có
-let lichSuTimKiemData = layDuLieuTuLocalStorage('lichSuTimKiem') || [];
-
 /**
  * Xử lý tìm kiếm từ vựng
  * @param {string} tuTiengNhat - Từ tiếng Nhật cần tìm kiếm
@@ -352,6 +348,12 @@ function hienThiDanhSachTuVung(data) {
  * @param {string} tuTiengNhat - Từ tiếng Nhật cần tìm kiếm
  */
 async function goiAPI(tuTiengNhat) {
+    // Kiểm tra xem tuTiengNhat có phải là tiếng Nhật hay không
+    if (!/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/.test(tuTiengNhat)) {
+        alert('Vui lòng nhập từ tiếng Nhật!');
+        return; // Kết thúc hàm nếu không phải tiếng Nhật
+    }
+    
     // Ẩn kết quả và danh sách từ vựng trước khi gọi API
     document.getElementById('ketQua').style.display = 'none';
     document.getElementById('danhSachTuVung').style.display = 'none';
@@ -736,14 +738,6 @@ document.addEventListener('keydown', (event) => {
         return; // Thoát khỏi hàm xử lý sự kiện
     }
 
-    if (event.key === 'Enter') {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
-        if (event.shiftKey) {
-            btnLamMoi.click(); // Shift + Enter: Làm mới
-        } else {
-            btnTraTu.click(); // Enter: Tìm kiếm
-        }
-    }
     if (searchCol.style.display != 'hidden') {
         if (event.key === 's') {
             tuVungTimKiem = window.getSelection().toString() ? window.getSelection().toString() : tuVungTimKiem; // Lấy từ vựng từ đoạn văn bản được chọn
@@ -756,6 +750,26 @@ document.addEventListener('keydown', (event) => {
             if (selectedText) {
                 drawKanji(selectedText); // Gọi hàm vẽ Kanji với đoạn văn bản được chọn
             }
+        }
+    }
+
+    // Đóng modal/prompt khi nhấn Esc
+    if (event.key === 'Escape') {
+        const modals = document.querySelectorAll('.fixed.z-10'); // Chọn tất cả các modal/prompt đang mở
+        if (modals.length > 0) {
+            modals[modals.length - 1].remove(); // Đóng modal/prompt mới nhất
+        }
+    }
+
+    // Xác nhận prompt khi nhấn Enter
+    if (event.key === 'Enter' && document.getElementById('htmlPromptInput')) {
+        document.getElementById('htmlPromptOK').click(); // Kích hoạt nút "OK" của prompt
+    } else if (event.key === 'Enter') {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
+        if (event.shiftKey) {
+            btnLamMoi.click(); // Shift + Enter: Làm mới
+        } else {
+            btnTraTu.click(); // Enter: Tìm kiếm
         }
     }
 });
