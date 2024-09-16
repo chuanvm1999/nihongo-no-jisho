@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanji Flashcards</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./public/css/flipcard.css">
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8 flex flex-col h-screen">
+        <div class="flex items-center justify-center mb-6 space-x-4">
+            <button id="btnPrev"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fas fa-angles-left"></i>
+            </button>
+            <button id="btnNext"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fas fa-angles-right"></i>
+            </button>
+            <button id="btnFlip"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
+            <button id="btnToggleMode"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i> Kanji
+            </button>
+            <button id="btnHuongDan"
+                class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <button id="btnSearch"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <div id="flashcard-container" class="flex flex-grow items-center justify-center">
+            <div class="flip-card w-full md:w-1/2 perspective-1000 transition-transform duration-800 transform-gpu">
+                <div class="flip-card-inner relative w-full h-full transition-transform duration-800 transform-gpu">
+                    <div
+                        class="flip-card-front absolute w-full h-full backface-invisible flex flex-col justify-center items-center p-6 text-xl rounded-lg text-gray-800 bg-white">
+                        <div class="kanji-svg-container flex items-center justify-center w-full h-full"
+                            id="kanjiSvg-wrap">
+                            <div id="kanjiSvg"
+                                class="kanji-svg flex flex-wrap justify-center flex-grow overflow-y-auto border border-gray-300 w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="flip-card-back absolute w-full h-full backface-invisible flex flex-col justify-center items-center p-6 text-xl rounded-lg text-gray-800 bg-gray-200 rotate-y-180 overflow-y-auto wrap-content">
+                        <p id="answer-wrap"><span class="am-doc font-bold"
+                                id="am-doc"></span>
+                        </p>
+                        <p><span class="font-bold">Âm Hán Việt:</span> <span id="am-han-viet"></span></p>
+                        <p><span class="font-bold">Nghĩa Tiếng Việt:</span> <span
+                                id="nghia-han-viet"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="message" class="text-red-500 mt-4"></div>
+    </div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="./public/js/dmak.js"></script>
+    <script src="./public/js/dmakLoader.js"></script>
+    <script src="./public/js/flipCard.js"></script>
+</body>
+
+</html>
