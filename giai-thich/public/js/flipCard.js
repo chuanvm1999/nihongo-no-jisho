@@ -221,3 +221,18 @@ function hienThiModalHuongDan() {
     modal.appendChild(content);
     document.body.appendChild(modal);
 }
+
+// Kiểm tra xem đã hiển thị hướng dẫn hay chưa
+function daHienThiHuongDan() {
+    return localStorage.getItem('daHienThiHuongDanFlipCard') === 'true';
+}
+
+// Đánh dấu đã hiển thị hướng dẫn
+function danhDauDaHienThiHuongDan() {
+    localStorage.setItem('daHienThiHuongDanFlipCard', 'true');
+}
+
+// Kiểm tra xem có phải lần đầu tiên truy cập trang web hay không
+if (!daHienThiHuongDan()) {
+    hienThiModalHuongDan();
+}

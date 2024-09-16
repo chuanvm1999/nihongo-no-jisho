@@ -88,18 +88,20 @@ export function hienThiModalHuongDan() {
     list.classList.add('list-disc', 'list-inside', 'mb-4', 'pl-5'); // Thêm pl-5 để thụt đầu dòng
 
     const huongDanItems = [
-        'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ".',
+        'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ" để tra từ vựng.',
         'Bôi đen từ tiếng Nhật và nhấn nút "s" để tìm kiếm từ.',
         'Bôi đen từ tiếng Nhật và nhấn nút "d" để vẽ từ tiếng Nhật.',
         'Nhấn nút "Làm mới" hoặc nhấn Shift + Enter để xóa kết quả tìm kiếm hiện tại và tìm kiếm lại.',
-        'Nhấn nút "Thay đổi API key" để cập nhật API key của bạn.',
+        'Nhấn nút "<i class="fas fa-cog"></i>" để cập nhật API key của bạn.',
+        'Nhấn nút "Mazii" để chuyển đến trang Mazii.net với từ vựng được tìm kiếm.',
+        'Nhấn nút "Flip Card" để chuyển đến trang flipcard với từ danh sách từ vựng đã được tìm kiếm và hiển thị theo dạng Flip Card.',
         'Sử dụng các nút điều khiển để xem cách viết Kanji.',
         'Nhấn vào từ vựng tại phần lịch sử để hiển thị lại từ vựng đã tìm kiếm.'
     ];
 
     huongDanItems.forEach(itemText => {
         const listItem = document.createElement('li');
-        listItem.textContent = itemText;
+        listItem.innerHTML = itemText;
         list.appendChild(listItem);
     });
 
