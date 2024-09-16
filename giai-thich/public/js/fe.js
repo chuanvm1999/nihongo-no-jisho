@@ -325,7 +325,9 @@ export function hienThiDanhSachTuVung(data) {
 
         const tuVungCell = row.insertCell();
         tuVungCell.textContent = tuVung.tu_vung;
-        tuVungCell.classList.add('py-3', 'px-6', 'text-left');
+        tuVungCell.classList.add('py-3', 'px-6', 'text-left','cursor-pointer');
+        tuVungCell.addEventListener('click', () => xuLyTimKiem(tuVung.tu_vung));
+
 
         const cachDocCell = row.insertCell();
         cachDocCell.textContent = tuVung.cach_doc;
