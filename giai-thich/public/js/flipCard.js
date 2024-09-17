@@ -128,7 +128,7 @@ function drawKanji(kanji) {
     document.getElementById('kanjiSvg').innerHTML = '';
     const dmak = new Dmak(kanji, {
         'element': 'kanjiSvg',
-        'uri': 'http://kanjivg.tagaini.net/kanjivg/kanji/'
+        'uri': 'https://kanjivg.tagaini.net/kanjivg/kanji/'
     });
     dmak.render();
 }
