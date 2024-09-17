@@ -349,8 +349,13 @@ export function hienThiDanhSachTuVung(data) {
  * @param {string} tuTiengNhat - Từ tiếng Nhật cần tìm kiếm
  */
 export async function goiAPI(tuTiengNhat) {
+    if (/[!#$%^&*()+=\[\]{};':"\\|,.<>\/?]/g.test(tuTiengNhat)) {
+        alert('Vui lòng không nhập ký tự đặc biệt!');
+        return; // Kết thúc hàm nếu có ký tự đặc biệt
+    }
+
     // Kiểm tra xem tuTiengNhat có phải là tiếng Nhật hay không
-    if (!/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/.test(tuTiengNhat)) {
+    if (/[^、。\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/g.test(tuTiengNhat)) {
         alert('Vui lòng nhập từ tiếng Nhật!');
         return; // Kết thúc hàm nếu không phải tiếng Nhật
     }
