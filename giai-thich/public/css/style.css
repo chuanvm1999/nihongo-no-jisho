@@ -59,3 +59,17 @@ thead {
     display: block;
     /* Hiển thị lớp phủ khi cần */
 }
+
+
+
+/* Style the container for positioning */
+.results-container {
+    position: relative; /* Allow positioning child elements */
+}
+
+/* Style the button */
+#btnDoc {
+    position: absolute;
+    top: 0; 
+    right: 0; 
+}

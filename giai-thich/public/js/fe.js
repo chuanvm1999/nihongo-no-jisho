@@ -91,6 +91,8 @@ export function hienThiModalHuongDan() {
         'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ" để tra từ vựng.',
         'Bôi đen từ tiếng Nhật và nhấn nút "s" để tìm kiếm từ.',
         'Bôi đen từ tiếng Nhật và nhấn nút "d" để vẽ từ tiếng Nhật.',
+        'Bôi đen từ tiếng Nhật và nhấn nút "l" để nghe từ tiếng Nhật.',
+        'Nhấn nút "<i class="fa-solid fa-volume-high"></i>" để nghe từ tiếng Nhật.',
         'Nhấn nút "Làm mới" hoặc nhấn Shift + Enter để xóa kết quả tìm kiếm hiện tại và tìm kiếm lại.',
         'Nhấn nút "<i class="fas fa-cog"></i>" để cập nhật API key của bạn.',
         'Nhấn nút "Mazii" để chuyển đến trang Mazii.net với từ vựng được tìm kiếm.',
@@ -325,7 +327,7 @@ export function hienThiDanhSachTuVung(data) {
 
         const tuVungCell = row.insertCell();
         tuVungCell.textContent = tuVung.tu_vung;
-        tuVungCell.classList.add('py-3', 'px-6', 'text-left','cursor-pointer');
+        tuVungCell.classList.add('py-3', 'px-6', 'text-left', 'cursor-pointer');
         tuVungCell.addEventListener('click', () => xuLyTimKiem(tuVung.tu_vung));
 
 
@@ -352,7 +354,7 @@ export async function goiAPI(tuTiengNhat) {
         alert('Vui lòng nhập từ tiếng Nhật!');
         return; // Kết thúc hàm nếu không phải tiếng Nhật
     }
-    
+
     // Ẩn kết quả và danh sách từ vựng trước khi gọi API
     document.getElementById('ketQua').style.display = 'none';
     document.getElementById('danhSachTuVung').style.display = 'none';
@@ -461,11 +463,26 @@ export async function goiAPI(tuTiengNhat) {
 export function hienThiKetQua(data) {
     tuVungTimKiem = data.tu_tieng_nhat; // Lưu trữ từ vựng đang được hiển thị
     drawKanji(tuVungTimKiem); // Gọi hàm vẽ Kanji
+    const resultsContainer = document.createElement('div');
+    resultsContainer.classList.add('results-container'); // Add a class for styling
 
     // Tạo các phần tử HTML cho kết quả
+    // const h2 = document.createElement('h2');
+    // h2.textContent = `${data.tu_tieng_nhat} (${data.cach_doc})`;
+    // h2.classList.add('text-xl', 'font-semibold', 'mb-2', 'highlight');
     const h2 = document.createElement('h2');
     h2.textContent = `${data.tu_tieng_nhat} (${data.cach_doc})`;
     h2.classList.add('text-xl', 'font-semibold', 'mb-2', 'highlight');
+
+    // Add the button here
+    const btnDoc = document.createElement('button');
+    btnDoc.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+    btnDoc.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded', 'ml-2'); // Add some styling
+    btnDoc.id = 'btnDoc'; // Give it an ID for easy reference
+
+    btnDoc.addEventListener('click', () => {
+        docCachDoc(data.cach_doc);
+    });
 
     const p1 = document.createElement('p');
     p1.innerHTML = `<strong>Hán Việt:</strong> ${data.am_han_viet}`;
@@ -493,11 +510,14 @@ export function hienThiKetQua(data) {
         p6.classList.add('font-italic');
     }
 
+
     // Xóa nội dung hiện tại của divKetQua
     divKetQua.innerHTML = '';
 
     // Thêm các phần tử HTML vào divKetQua
-    divKetQua.appendChild(h2);
+    resultsContainer.appendChild(h2);
+    resultsContainer.appendChild(btnDoc);
+    divKetQua.appendChild(resultsContainer);
     divKetQua.appendChild(p1);
     divKetQua.appendChild(p2);
     divKetQua.appendChild(p3);
@@ -711,6 +731,18 @@ export function drawKanji(kanji) {
     };
 }
 
+export function docCachDoc(text) {
+    if ('speechSynthesis' in window) {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP'; // Set language to Japanese
+        utterance.rate = 0.8;
+        synth.speak(utterance);
+    } else {
+        alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản.');
+    }
+}
+
 // Lấy nút "?" từ DOM
 const helpButton = document.getElementById('btnHuongDan');
 
@@ -748,6 +780,7 @@ document.addEventListener('keydown', (event) => {
 
     if (searchCol.style.display != 'hidden') {
         if (event.key === 's') {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của phím D
             tuVungTimKiem = window.getSelection().toString() ? window.getSelection().toString() : tuVungTimKiem; // Lấy từ vựng từ đoạn văn bản được chọn
             btnTraTu.click(); // Tìm kiếm từ vựng
         }
@@ -758,6 +791,12 @@ document.addEventListener('keydown', (event) => {
             if (selectedText) {
                 drawKanji(selectedText); // Gọi hàm vẽ Kanji với đoạn văn bản được chọn
             }
+        }
+
+        if (event.key === 'l') {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của phím D
+            const selectedText = window.getSelection().toString(); // Lấy đoạn văn bản được chọn
+            docCachDoc(selectedText);
         }
     }
 
@@ -807,7 +846,7 @@ document.getElementById("btnThayDoiAPIKey").addEventListener("click", thayDoiAPI
 document.getElementById("btn-flip-card").addEventListener('click', () => {
     // Chuyển hướng đến trang index.html
     window.location.href = 'flip-card.html';
-  });
+});
 
 // Cập nhật lịch sử tìm kiếm khi trang được tải
 capNhatLichSuTimKiem();
