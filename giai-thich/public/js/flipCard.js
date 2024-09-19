@@ -18,9 +18,10 @@ let currentDisplayMode = 'kanji'; // Hiển thị kanji mặc định
 
 // Lấy dữ liệu từ localStorage. 
 let lichSuTimKiemData = JSON.parse(localStorage.getItem('lichSuTimKiem')) || [];
+let danhSachTuVungDaLuu = JSON.parse(localStorage.getItem('tuVungDuocChon')) || [];
 let currentCardIndex = 0;
 let previousCardIndexes = [];
- 
+
 
 // Hàm cập nhật nội dung flashcard
 function updateFlashcardContent(data) {
@@ -44,14 +45,14 @@ function updateFlashcardContent(data) {
 function getRandomIndex(currentIndex) {
     let newIndex;
     do {
-        newIndex = Math.floor(Math.random() * lichSuTimKiemData.length);
-    } while (newIndex === currentIndex && lichSuTimKiemData.length > 1);
+        newIndex = Math.floor(Math.random() * danhSachTuVungDaLuu.length);
+    } while (newIndex === currentIndex && danhSachTuVungDaLuu.length > 1);
     return newIndex;
 }
 
 // Kiểm tra xem có dữ liệu hay không
-if (lichSuTimKiemData.length > 0) {
-    updateFlashcardContent(lichSuTimKiemData[currentCardIndex].data);
+if (danhSachTuVungDaLuu.length > 0) {
+    updateFlashcardContent(danhSachTuVungDaLuu[currentCardIndex].data);
 } else {
     flashcardContainer.style.display = 'none';
     alert("Không có dữ liệu. Vui lòng thêm từ vựng vào lịch sử tìm kiếm.");
@@ -70,15 +71,15 @@ btnFlip.addEventListener('click', () => {
 
 btnNext.addEventListener('click', () => {
     // Thêm index hiện tại vào đầu mảng previousCardIndexes
-    previousCardIndexes.unshift(currentCardIndex); 
+    previousCardIndexes.unshift(currentCardIndex);
 
     // Giới hạn số lượng index được lưu trữ (ví dụ: chỉ lưu 10 index gần nhất)
     if (previousCardIndexes.length > 10) {
-        previousCardIndexes.pop(); 
+        previousCardIndexes.pop();
     }
 
     currentCardIndex = getRandomIndex(currentCardIndex);
-    updateFlashcardContent(lichSuTimKiemData[currentCardIndex].data);
+    updateFlashcardContent(danhSachTuVungDaLuu[currentCardIndex].data);
     flipCard.classList.remove('flipped');
 });
 
@@ -87,7 +88,7 @@ btnPrev.addEventListener('click', () => {
     if (previousCardIndexes.length > 0) {
         // Lấy index từ đầu mảng và cập nhật currentCardIndex
         currentCardIndex = previousCardIndexes.shift();
-        updateFlashcardContent(lichSuTimKiemData[currentCardIndex].data);
+        updateFlashcardContent(danhSachTuVungDaLuu[currentCardIndex].data);
         flipCard.classList.remove('flipped');
     }
 });
@@ -100,7 +101,7 @@ btnToggleMode.addEventListener('click', () => {
 
     // Hiển thị ngẫu nhiên từ vựng mới
     currentCardIndex = getRandomIndex(currentCardIndex);
-    updateFlashcardContent(lichSuTimKiemData[currentCardIndex].data);
+    updateFlashcardContent(danhSachTuVungDaLuu[currentCardIndex].data);
 
     flipCard.classList.remove('flipped'); // Reset trạng thái lật thẻ
 });
@@ -109,9 +110,9 @@ btnToggleMode.addEventListener('click', () => {
 btnSearch.addEventListener('click', () => {
     // Chuyển hướng đến trang index.html
     window.location.href = 'index.html';
-  });
+});
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'ArrowRight') {
         btnNext.click();
     } else if (event.key === 'ArrowLeft') {
