@@ -23,10 +23,6 @@ var danhSachTuVungDaLuu = JSON.parse(localStorage.getItem('tuVungDuocChon')) ? J
 let currentCardIndex = 0;
 let previousCardIndexes = [];
 
-
-
-
-
 // Kiểm tra xem có dữ liệu hay không
 if (danhSachTuVungDaLuu.length > 0) {
     updateFlashcardContent(danhSachTuVungDaLuu[currentCardIndex].data);
