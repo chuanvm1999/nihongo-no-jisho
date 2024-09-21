@@ -255,7 +255,7 @@ function hienThiThongTinKanji(kanjiData) {
 
     // Phần 3: Giải thích (chiếm 1/3 chiều cao, cho phép scroll dọc)
     const detailContainer = document.createElement('div');
-    detailContainer.classList.add('overflow-y-auto', 'p-4');
+    detailContainer.classList.add('p-4');
 
     // Thêm tiêu đề cho phần giải thích
     const detailTitle = document.createElement('h3');

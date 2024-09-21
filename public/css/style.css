@@ -68,15 +68,6 @@ thead {
     /* Allow positioning child elements */
 }
 
-#kanjiInfo h3 {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    /* Giữ màu nền của tiêu đề */
-    z-index: 1;
-    /* Đảm bảo tiêu đề nằm trên nội dung khi scroll */
-}
-
 .btn-active {
     transform: scale(1.1);
     /* Phóng to nút được chọn */
