@@ -1,185 +1,101 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en" style="height: 100%;">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NatswarChuanの日本語の辞書</title>
-    <!-- Mô tả trang -->
-    <meta name="description" content="Từ điển học Kanji của NatswarChuan">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Open Graph cho mạng xã hội -->
-    <meta property="og:title" content="NatswarChuanの日本語の辞書">
-    <meta property="og:description" content="Từ điển học Kanji của NatswarChuan">
-    <meta property="og:image" content="./img/logo.jpeg">
-    <meta property="og:url" content="https://chuanvm1999.github.io/nihongo-no-jisho/">
-    <meta property="og:type" content="website">
-
-    <!-- Tác giả -->
-    <meta name="author" content="NWVMC aka NatswarChuan">
-
-    <link rel="icon" href="./img/logo.jpeg" type="image/jpeg">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./public/css/style.css">
 </head>
 
-<body class="overflow-auto w-100">
-    <div class="modal fade" id="geminiModal" tabindex="-1" aria-labelledby="geminiModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title fs-5" id="geminiModalLabel"></div>
-                </div>
-                <div class="modal-body overflow-y-scroll" id="geminiContent">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+<body class="bg-gray-100 font-sans">
+    <div class="h-full flex flex-col md:flex-row">
+        <!-- Cột lịch sử tìm kiếm (bên trái hoặc trên cùng) -->
+        <div class="md:w-1/3 md:mr-2 flex-grow md:flex-shrink-0">
+            <div class="bg-white rounded-lg shadow-md divide-gray-200 h-full p-4 overflow-y-auto">
+                <ul id="lichSuTimKiem">
+                    <!-- Danh sách từ đã tìm kiếm sẽ hiển thị ở đây -->
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="loading" id="loading" style="display: none;">
 
-    </div>
-    <div class="container-fluid mw-1300px">
-        <div class="row flex-nowrap">
-            <!-- Search -->
-            <div class="col-3 mw-350 h-100v overflow-y-scroll" id="japanese-search">
-                <div class=" h-720px">
-                    <div class="" id="form-submit">
-                        <label for="input-Jp" class="form-label pt-2 w-100">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h6 id="sl">日本語 - Tiếng Nhật</h6>
-                                    <a class="btn btn-outline-primary" href="" target="_blank" id="mazii">Mazii</a>
-                                    <button class="btn btn-outline-primary" id="gemini" data-bs-toggle="modal"
-                                        data-bs-target="#geminiModal">Gemini chat</button>
-                                </div>
-                                <div class="col-5 text-end">
-                                    <button class="btn btn-outline-success my-2" type="button" id="reading">読む -
-                                        Đọc</button>
-                                </div>
-                            </div>
-                        </label>
-                        <button class="btn btn-outline-success my-2" type="submit" id="btn-form-submit" hidden>翻訳 -
-                            Dịch</button>
-                        <textarea class="form-control  overflow-y-scroll h-125px" id="input-Jp"></textarea>
-                        <div class="my-2">
-                            <input type="checkbox" checked data-toggle="toggle"
-                                data-on="日本語 - Tiếng Nhật<i class='fa-solid fa-arrow-right mx-2'></i>ベトナム語 - Tiếng Việt"
-                                data-off="ベトナム語 - Tiếng Việt<i class='fa-solid fa-arrow-right mx-2'></i>日本語 - Tiếng Nhật"
-                                data-onstyle="warning ps-2 w-100 d-flex align-items-center"
-                                data-offstyle="info ps-2 w-100 d-flex align-items-center" data-style="fast"
-                                id="toggle-trans">
-                        </div>
-                    </div>
-                    <!-- vietnamese -->
-                    <div class="mt-3">
-                        <h6 class="label mt-1" id="tl">ベトナム語 - Tiếng Việt</h6>
-                        <div class="overflow-y-scroll card h-125px w-100 mt-3" id="vietnamese-mean"></div>
-                    </div>
-                    <!-- reading -->
-                    <div class="mt-3">
-                        <h6 class="label">読み方 - Cách đọc</h6>
-                        <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading-hira"></div>
-                        <div class="overflow-y-scroll card w-100 mt-3 h-125px" id="japanese-reading"></div>
-                    </div>
+        <!-- Cột tìm kiếm và kết quả (ở giữa) -->
+        <div class="md:w-1/3 md:mx-2 flex flex-col flex-grow">
+            <!-- Phần nhập từ và nút chức năng -->
+            <div id="search-col" class="bg-white rounded-lg shadow-md overflow-hidden mb-4 p-4">
+                <div class="flex">
+                    <!-- Dropdown selection cho chức năng dịch -->
+                    <select id="dich-ngon-ngu"
+                        class="border rounded-l py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="tra-tu">Tra từ</option>
+                        <option value="jp-vn">JP > VN</option>
+                        <option value="vn-jp">VN > JP</option>
+                    </select>
+
+                    <input type="text" id="tuTiengNhat" placeholder="Nhập từ tiếng Nhật"
+                        class="flex-grow shadow appearance-none border  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+
+
+                    <button id="btnTraTu"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline">
+                        Tra từ
+                    </button>
+                </div>
+                <div class="mt-2 text-right">
+                    <button id="btnThayDoiAPIKey" class="my-1 text-yellow-500 hover:text-yellow-700 font-bold text-lg">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button id="btnHuongDan" class="my-1 text-blue-500 hover:text-blue-700 font-bold text-lg">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <button id="btnLamMoi"
+                        class="my-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Làm mới
+                    </button>
+                    <button id="btn-mazii"
+                        class="my-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 focus:outline-none focus:shadow-outline">
+                        Mazii
+                    </button>
+                    <button id="btn-flip-card"
+                        class="my-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 focus:outline-none focus:shadow-outline">
+                        Flip Card
+                    </button>
                 </div>
             </div>
-            <div class="col-6 mw-600" id="japanese-search-draw">
-                <div class="option-wrapper border h-60px mw-500">
-                    <div class="py-1 text-center">
-                        <button id="japanese-wrapper-p" class="my-1 btn btn-outline-info">PLAY 再生</button>
-                        <button id="japanese-wrapper-s" class="my-1 btn btn-outline-danger">STOP 止め</button>
-                        <button id="japanese-wrapper-n" class="my-1 btn btn-outline-success">NEXT 次</button>
-                        <button id="japanese-wrapper-b" class="my-1 btn btn-outline-warning">BACK 戻る</button>
-                        <button id="japanese-wrapper-r" class="my-1 btn btn-outline-primary">RESET</button>
-                        <select class="my-1 select" id="speed-dmark-word">
-                            <option selected value="0.01">Normal</option>
-                            <option value="0.005">Fast</option>
-                            <option value="0.05">Slow</option>
-                            <option value="0.001">Hight Fast</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- draw kanji -->
-                <div class="border d-flex justify-content-center">
-                    <div id="japanese-wrapper" class="h-100v-60 overflow-y-scroll "></div>
-                </div>
+
+            <div id="ketQua" class="px-6 py-4 bg-white rounded-lg shadow-md overflow-y-auto mb-4">
+                <!-- Kết quả sẽ được hiển thị ở đây -->
             </div>
-            <!-- JLPT -->
-            <div class="col-9 overflow-y-scroll py-1 h-100v border-top border-bottom" id="japanese-jlpt"
-                style="display: none;">
+
+            <!-- Loading -->
+            <div id="loading" class="hidden px-6 py-4 flex justify-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
             </div>
-            <div class="col-3 mw-350 h-100v ">
-                <!-- Kanji detail -->
-                <select class="my-1 select w-100 mean-center" id="select-jlpt">
-                    <option selected value="0">調べる - Tìm kiếm</option>
-                    <option value="1">N1</option>
-                    <option value="2">N2</option>
-                    <option value="3">N3</option>
-                    <option value="4">N4</option>
-                    <option value="5">N5</option>
-                </select>
-                <div class="kanji-wrapper h-100 overflow-y-scroll" id="kanji-wrapper" style="display: none;">
-                    <div class="p-0 w-100 mh-660 ">
-                        <div id="sekai-card h-185px" class="mx-2 text-center ">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-5">
-                                    <div id="draw-kanji" class=""></div>
-                                </div>
-                                <div class="col-7 h-100">
-                                    <h5 class="card-title ">Hán Việt</h5>
-                                    <div class="overflow-y-scroll h-100 border px-3 w-fit mean-center " id="kanji-mean">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="w-100 mw-350">
-                                <div class="py-1 text-center">
-                                    <button id="draw-kanji-p" class="my-1 btn btn-outline-info">PLAY</button>
-                                    <button id="draw-kanji-s" class="my-1 btn btn-outline-danger">STOP</button>
-                                    <button id="draw-kanji-n" class="my-1 btn btn-outline-success">NEXT</button>
-                                    <button id="draw-kanji-b" class="my-1 btn btn-outline-warning">BACK</button>
-                                    <button id="draw-kanji-r" class="my-1 btn btn-outline-primary">RESET</button>
-                                </div>
-                            </div>
-                            <div class="w-100 mw-350">
-                                <select class="select" id="speed-dmark-kanji">
-                                    <option selected value="0.01">Normal</option>
-                                    <option value="0.005">Fast</option>
-                                    <option value="0.05">Slow</option>
-                                    <option value="0.001">Hight Fast</option>
-                                </select>
-                            </div>
-                            <div class="row mx-2 mt-5 flex-nowrap">
-                                <div class="col-6 px-1 text-center h-125px mw-175">
-                                    <h5 class="">音読み - onyomi</h5>
-                                    <div class="border overflow-y-scroll h-100" id="kanji-onyomi">
-                                    </div>
-                                </div>
-                                <div class="col-6 px-1 text-center h-125px mw-175">
-                                    <h5 class="">訓読み - kunyomi</h5>
-                                    <div class="border overflow-y-scroll h-100" id="kanji-kunyomi">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="h-250px mt-5">
-                                <h5 class="">意義 - Giải nghĩa</h5>
-                                <div class="border overflow-y-scroll mx-2 h-100" id="kanji-detail">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+
+        <!-- Cột danh sách từ vựng (bên phải hoặc dưới cùng) -->
+        <div class="md:w-1/3 md:ml-2 flex-grow" id="right-column">
+            <div class="bg-white rounded-lg shadow-md divide-gray-200 h-full p-4 flex flex-col">
+                <div id="btn-draw-list" class="flex justify-center mt-4 space-x-4 flex-wrap">
+                    <button id="btn-draw-p"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-1">PLAY</button>
+                    <button id="btn-draw-s"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-1">STOP</button>
+                    <button id="btn-draw-n"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1">NEXT</button>
+                    <button id="btn-draw-b"
+                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded m-1">BACK</button>
+                    <button id="btn-draw-r"
+                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-1">RESET</button>
+                </div>
+
+                <div id="kanjiSvg" class="kanji-svg flex flex-wrap justify-center flex-grow overflow-y-auto">
+                </div>
+
+                <div id="danhSachTuVung" class="flex-grow overflow-y-auto">
                 </div>
             </div>
         </div>
@@ -191,124 +107,19 @@
           }
         }
       </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/kanji.js/dist/kanji.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="./js/const.js"></script>
-    <script src="./js/data/kanjiDataJSON.js"></script>
-    <script src="./js/data/wordDataJSON.js"></script>
-    <script src="./js/dmak.js"></script>
-    <script src="./js/dmakLoader.js"></script>
-    <script src="./js/drawKanji.js"></script>
-    <script src="./js/app.js"></script>
-    <script>
-        var me = {};
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./public/js/data/kanjiDataJSON.js"></script>
+    <script src="./public/js/jquery.dmak.min.js"></script>
+    <script src="./public/js/dmak.js"></script>
+    <script src="./public/js/dmakLoader.js"></script>
+    <!-- <script src="./public/js/fe.js"></script> -->
 
-        var you = {};
-
-        function formatAMPM(date) {
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            var strTime = hours + ':' + minutes + ' ' + ampm;
-            return strTime;
-        }
-
-        //-- No use time. It is a javaScript effect.
-        function insertChat(who, text, time = 0) {
-            var control = "";
-            var date = formatAMPM(new Date());
-
-            if (who == "me") {
-
-                control = '<li style="width:100%">' +
-                    '<div class="msj macro">' +
-                    '<div class="text text-l">' +
-                    '<p>' + text + '</p>' +
-                    '<p><small>' + date + '</small></p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</li>';
-            } else {
-                control = '<li style="width:100%;">' +
-                    '<div class="msj-rta macro">' +
-                    '<div class="text text-r">' +
-                    '<p>' + text + '</p>' +
-                    '<p><small>' + date + '</small></p>' +
-                    '</div>' +
-                    '<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
-                    '</li>';
-            }
-            setTimeout(
-                function () {
-                    $("ul").append(control);
-
-                }, time);
-
-        }
-
-        function resetChat() {
-            $("ul").empty();
-        }
-
-        $(".mytext").on("keyup", function (e) {
-            if (e.which == 13) {
-                var text = $(this).val();
-                if (text !== "") {
-                    insertChat("me", text);
-                    $(this).val('');
-                }
-            }
-        });
-
-        //-- Clear Chat
-        resetChat();
+    <script type="module" src="./public/js/fe.js">
     </script>
-    <script type="module">
-        import { GoogleGenerativeAI } from "@google/generative-ai";
 
-        // Access your API key (see "Set up your API key" above)
-        const genAI = new GoogleGenerativeAI(API_KEY);
+    <div id="overlay" class="overlay"></div>
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-       
-        async function run() {
-            const prompt = typeTrans ? `Phân tích và giải thích "${findInput}" trong tiếng Nhật bằng tiếng Việt`:`Dịch "${findInput}" sang tiếng Nhật và phân tích, giải thích bằng tiếng Việt`
-
-
-            const result = await model.generateContentStream([prompt]);
-
-            let text = '';
-            let content = '';
-            geminiContent.innerHTML = '';
-            for await (const chunk of result.stream) {
-                const chunkText = chunk.text();
-                text += chunkText;
-                content = changeText(text);
-                geminiContent.innerHTML = content;
-            }
-        }
-
-        gemini.addEventListener("click", function () {
-            run();
-        });
-
-    </script>
-    <!-- <script src="./kanji.js"></script> -->
 </body>
 
 </html>
