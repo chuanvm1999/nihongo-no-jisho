@@ -1,3 +1,38 @@
+.w-fit {
+    width: fit-content;
+
+}
+.h-fit {
+    height: fit-content;
+
+}
+.modal-header {
+    cursor: move;
+}
+
+/* Điều chỉnh modal cho iframe */
+.modal-content {
+    width: 425px;
+    /* Kích thước cố định cho modal */
+    height: 300px;
+    /* Kích thước cố định cho modal */
+}
+
+#drawKanjiModal {
+    /* Các thuộc tính CSS hiện tại */
+    pointer-events: none;  
+    z-index: 1000;
+}
+#drawKanjiModal .modal-content > * { 
+    pointer-events: auto;
+}
+
+
+/* Loại bỏ nền bên ngoài */
+.modal {
+    background: transparent; 
+}
+
 html,
 body {
     height: 100%;
@@ -49,7 +84,7 @@ thead {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     /* Điều chỉnh màu sắc và độ trong suốt tùy ý */
-    z-index: 9999;
+    z-index: 999;
     /* Đảm bảo lớp phủ nằm trên tất cả các phần tử khác */
     display: none;
     /* Ẩn lớp phủ mặc định */

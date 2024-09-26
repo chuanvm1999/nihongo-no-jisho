@@ -37,6 +37,7 @@ h1 {
 
 /* Khu vực flashcard */
 #flashcard-container {
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +49,6 @@ h1 {
 .flip-card {
     perspective: 1000px;
     width: 100%;
-    min-height: 80vh;
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
@@ -69,11 +69,6 @@ h1 {
 
 .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg);
-}
-
-#flashcard-container {
-    width: 70%;
-    /* Điều chỉnh giá trị phần trăm này cho phù hợp */
 }
 
 
@@ -169,6 +164,6 @@ h1 {
     margin-bottom: 2rem;
     width: 70%;
     /* Điều chỉnh giá trị phần trăm này cho phù hợp */
-    height: 100vh;
+    height: fit-content;
     /* Chiều cao bằng 100% viewport height */
 }

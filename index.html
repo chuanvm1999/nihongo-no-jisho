@@ -16,21 +16,22 @@
     <link rel="apple-touch-icon" href="./public/img/logo.jpeg">
     <!-- SEO -->
     <title>Từ điển Nhật Việt</title>
-    <meta name="description" content="Mô tả ngắn gọn về trang web của bạn. Ví dụ: Từ điển Nhật Việt với nhiều tính năng hữu ích như tra từ, nghe phát âm, ...">
+    <meta name="description"
+        content="Mô tả ngắn gọn về trang web của bạn. Ví dụ: Từ điển Nhật Việt với nhiều tính năng hữu ích như tra từ, nghe phát âm, ...">
     <meta name="keywords" content="từ điển nhật việt, tra từ tiếng nhật, học tiếng nhật, nihongo, jisho">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://chuanvm1999.github.io/nihongo-no-jisho/"> 
+    <link rel="canonical" href="https://chuanvm1999.github.io/nihongo-no-jisho/">
     <!-- Open Graph -->
     <meta property="og:title" content="Tiêu đề trang web - Từ điển Nhật Việt">
     <meta property="og:description" content="Mô tả ngắn gọn về trang web của bạn.">
-    <meta property="og:image" content="https://chuanvm1999.github.io/nihongo-no-jisho/public/img/logo.jpeg"> 
+    <meta property="og:image" content="https://chuanvm1999.github.io/nihongo-no-jisho/public/img/logo.jpeg">
     <!-- Thay thế bằng URL hình ảnh của bạn -->
     <meta property="og:url" content="https://chuanvm1999.github.io/nihongo-no-jisho/">
     <meta property="og:type" content="website">
 </head>
 
-
 <body class="bg-gray-100 font-sans">
+
     <div class="h-full flex flex-col md:flex-row">
         <!-- Cột lịch sử tìm kiếm (bên trái hoặc trên cùng) -->
         <div class="md:w-1/3 md:mr-2 flex-grow md:flex-shrink-0">
@@ -57,11 +58,15 @@
                     <input type="text" id="tuTiengNhat" placeholder="Nhập từ tiếng Nhật"
                         class="flex-grow shadow appearance-none border  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 
-
+                    <button id="btnVe" onclick="openDrawKanjiModal()"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline">
+                        Viết
+                    </button>
                     <button id="btnTraTu"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline">
                         Tra từ
                     </button>
+
                 </div>
                 <div class="mt-2 text-right">
                     <button id="btnThayDoiAPIKey" class="my-1 text-yellow-500 hover:text-yellow-700 font-bold text-lg">
@@ -132,13 +137,28 @@
     <script src="./public/js/jquery.dmak.min.js"></script>
     <script src="./public/js/dmak.js"></script>
     <script src="./public/js/dmakLoader.js"></script>
-    <!-- <script src="./public/js/fe.js"></script> -->
-
     <script type="module" src="./public/js/fe.js">
     </script>
 
     <div id="overlay" class="overlay"></div>
-
+    <div id="drawKanjiModal" class="modal fixed inset-0 overflow-y-auto h-full w-full">
+        <div
+            class="modal-content relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-1">
+            <div class="modal-header w-full">
+                <div class="modal-header w-full flex items-center justify-between p-4">
+                  <span class="cursor-move text-gray-600">
+                    <i class="fas fa-grip-lines"></i>
+                  </span>
+                  <span onclick="closeModal()" class="cursor-pointer text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                  </span>
+                </div>
+                
+            </div>
+            <iframe src="https://chuanvm1999.github.io/nihongo-no-jisho/iframe/drawKanji.html" width="100%" height="100%" id="iframe-draw-kanji"></iframe>
+        </div>
+    </div>
+    <script src="./public/js/drawKanjiModal.js"></script>
 </body>
 
 </html>
