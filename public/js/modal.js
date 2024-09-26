@@ -222,7 +222,7 @@ function hienThiThongTinKanji(kanjiData) {
     const iframeContainer = document.createElement('div');
     const kanji = kanjiData.kanji;
     const iframe = document.createElement('iframe');
-    iframe.src = `http://127.0.0.1:5501/iframe/index.html?data=${encodeURIComponent(kanji)}`;
+    iframe.src = `https://chuanvm1999.github.io/nihongo-no-jisho/iframe/index.html?data=${encodeURIComponent(kanji)}`;
     iframe.width = '100%';
     iframe.height = '225px';
     iframeContainer.appendChild(iframe);

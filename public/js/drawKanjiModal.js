@@ -70,7 +70,7 @@ window.onload = function () {
 
     // Create the iframe element
     const iframe = document.createElement('iframe');
-    iframe.src = 'http://127.0.0.1:5501/iframe/drawKanji.html';
+    iframe.src = 'https://chuanvm1999.github.io/nihongo-no-jisho/iframe/drawKanji.html';
     iframe.width = '100%';
     iframe.height = '100%';
     iframe.id = 'iframe-draw-kanji';
@@ -83,7 +83,7 @@ window.onload = function () {
     }
     document.getElementById("drawKanjiModal").style.display = 'none';
     iframeWrapperMobile.style.display = 'none';
-    document.getElementById('iframe-draw-kanji').contentWindow.postMessage('http://127.0.0.1:5501/index.html', 'http://127.0.0.1:5501/iframe/drawKanji.html');
+    document.getElementById('iframe-draw-kanji').contentWindow.postMessage('https://chuanvm1999.github.io/nihongo-no-jisho/index.html', 'https://chuanvm1999.github.io/nihongo-no-jisho/iframe/drawKanji.html');
 }
 
 window.addEventListener('message', (e) => {
