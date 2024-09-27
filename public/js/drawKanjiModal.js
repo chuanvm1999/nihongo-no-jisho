@@ -1,7 +1,7 @@
 // Hàm để hiển thị modal
 function openDrawKanjiModal() {
     if (window.innerWidth <= 768) { // Adjust breakpoint as needed
-        document.getElementById("iframe-draw-wrapper-mobile").classList.toggle("hidden");
+        document.getElementById("iframe-draw-wrapper-mobile").style.display = document.getElementById("iframe-draw-wrapper-mobile").style.display == "block" ? "none" : "block";
     } else {
         document.getElementById("drawKanjiModal").style.display = "block";
     }
