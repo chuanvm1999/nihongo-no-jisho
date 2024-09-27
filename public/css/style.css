@@ -18,12 +18,12 @@
     /* Kích thước cố định cho modal */
 }
 
-#drawKanjiModal {
+#drawKanjiModal,#imageCropModal {
     /* Các thuộc tính CSS hiện tại */
     pointer-events: none;  
     z-index: 1000;
 }
-#drawKanjiModal .modal-content > * { 
+#drawKanjiModal .modal-content,#imageCropModal .modal-content > * { 
     pointer-events: auto;
 }
 

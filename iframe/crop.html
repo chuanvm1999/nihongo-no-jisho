@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+<div class="container mx-auto p-4">
+    <div class="flex justify-center items-center space-x-4">
+        <input type="file" id="imageUpload" accept="image/*" class="hidden">
+        <label for="imageUpload" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Chọn ảnh</label>
+        <button id="cropButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" style="display: none;">Cắt ảnh</button>
+    </div>
+
+    <div class="relative w-full overflow-hidden mt-4" id="cropperContainer" style="display: none;">
+        <img id="modalImage" src="#" alt="Ảnh đã chọn" class="object-contain w-full h-full">
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js"
+    integrity="sha512-mpQLT7yiRJ06RkhNTYhVnvvr3c71il3h+wEI16ICc+fnFHxrBRoJrMmDJ8iBY04+U/FgTj7xah5Vbltq5pg+aQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const imageUpload = document.getElementById('imageUpload');
+    let modalImage = document.getElementById('modalImage');
+    const cropButton = document.getElementById('cropButton');
+    const cropperContainer = document.getElementById('cropperContainer');
+
+    let cropper;
+    let aspectRatio; // Lưu tỷ lệ khung hình của ảnh
+
+    function updateCropperContainerHeight() {
+        if (aspectRatio) {
+            cropperContainer.style.height = (cropperContainer.offsetWidth / aspectRatio) + 'px';
+        }
+    }
+
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        cropperContainer.innerHTML = '<img id="modalImage" src="#" alt="Ảnh đã chọn" class="object-contain w-full h-full">';
+        modalImage =  document.getElementById('modalImage');
+        reader.onload = (e) => {
+            modalImage.src = e.target.result;
+            // Hiển thị nút "Cắt ảnh" sau khi ảnh được tải
+            cropButton.style.display = 'block';
+            // Hiển thị cropperContainer sau khi ảnh được tải
+            cropperContainer.style.display = 'block';
+
+            // Tính toán tỷ lệ khung hình của ảnh
+            aspectRatio = modalImage.naturalWidth / modalImage.naturalHeight;
+
+            // Cập nhật chiều cao ban đầu
+            updateCropperContainerHeight();
+
+            var options = {
+                viewMode: 2,
+                background: false,
+                autoCropArea: 1.0,
+            };
+
+            cropper = new Cropper(modalImage, options);
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    cropButton.addEventListener('click', () => {
+        if (cropper) {
+            const croppedCanvas = cropper.getCroppedCanvas();
+
+            // Nhận dạng chữ từ ảnh đã cắt
+            Tesseract.recognize(
+                croppedCanvas,
+                'jpn', // Thay đổi mã ngôn ngữ nếu cần
+            ).then(({ data: { text } }) => {
+                // Xóa tất cả khoảng trắng giữa các chữ
+                const textWithoutSpaces = text.replace(/\s/g, '');
+
+                // Gửi chuỗi ký tự đã nhận dạng đến trang web cha
+                if (window.parent) {
+                    window.parent.postMessage({
+                        recognizedText: textWithoutSpaces // Gửi chuỗi đã xóa khoảng trắng
+                    }, '*');
+                }
+            });
+        }
+    });
+
+    // Lắng nghe sự kiện thay đổi kích thước cửa sổ
+    window.addEventListener('resize', updateCropperContainerHeight);
+</script>

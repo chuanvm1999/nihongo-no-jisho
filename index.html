@@ -46,27 +46,40 @@
         <div class="md:w-1/3 md:mx-2 flex flex-col flex-grow">
             <!-- Phần nhập từ và nút chức năng -->
             <div id="search-col" class="bg-white rounded-lg shadow-md overflow-hidden mb-4 p-4">
-                <div class="flex flex-col md:flex-row w-full">
+                <div class="flex flex-col md:flex-row items-center w-full gap-2">
                     <!-- Dropdown selection cho chức năng dịch -->
                     <select id="dich-ngon-ngu"
-                        class="border rounded-l py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:w-auto w-full mb-2 md:mb-0">
+                        class="border rounded-lg py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:w-auto w-full">
                         <option value="tra-tu">Tra từ</option>
                         <option value="jp-vn">JP > VN</option>
                         <option value="vn-jp">VN > JP</option>
                     </select>
 
                     <input type="text" id="tuTiengNhat" placeholder="Nhập từ tiếng Nhật"
-                        class="flex-grow shadow appearance-none border py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:mx-2 w-full md:w-auto">
-                    <div id="iframe-draw-wrapper-mobile" style="height: 350px;"></div>
-                    <button id="btnVe" onclick="openDrawKanjiModal()"
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline md:mr-2 w-full md:w-auto mb-2 md:mb-0">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button id="btnTraTu"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline w-full md:w-auto">
-                        Dịch
-                    </button>
+                        class="flex-grow shadow appearance-none border rounded-lg py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:mx-2 w-full md:w-auto">
+
+                    <div class="flex flex-row items-center gap-2 md:flex-grow-0">
+                        <button id="btnVe" onclick="openDrawKanjiModal()"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button id="btnAnh" onclick="openImageCropModal()"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <button id="btnTraTu"
+                            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
                 </div>
+
+                <div id="iframe-draw-wrapper-mobile" class="md:hidden mt-2" style="height: 350px;"></div>
+                <div id="iframe-image-wrapper-mobile" class="md:hidden mt-2" style="height: 350px; display: none;">
+                    <iframe src="https://chuanvm1999.github.io/nihongo-no-jisho/iframe/crop.html" width="100%" height="350px"
+                        sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+
 
                 <div class="mt-2 text-right">
                     <button id="btnThayDoiAPIKey" class="my-1 text-yellow-500 hover:text-yellow-700 font-bold text-lg">
@@ -156,6 +169,24 @@
                     </span>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <div id="imageCropModal" class="modal fixed inset-0 overflow-y-auto h-full w-full" style="display: none;">
+        <div
+            class="modal-content relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-1">
+            <div class="modal-header w-full">
+                <div class="modal-header w-full flex items-center justify-between p-4">
+                    <span class="cursor-move text-gray-600">
+                        <i class="fas fa-grip-lines"></i>
+                    </span>
+                    <span onclick="closeImageCropModal()" class="cursor-pointer text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+                <iframe src="https://chuanvm1999.github.io/nihongo-no-jisho/iframe/crop.html" width="400px" height="200px"
+                    sandbox="allow-scripts allow-same-origin"></iframe>
             </div>
         </div>
     </div>

@@ -15,29 +15,55 @@ function closeDrawKanjiModal() {
         document.getElementById("drawKanjiModal").style.display = "none";
     }
 }
+// Hàm để hiển thị modal
+function openImageCropModal() {
+    if (window.innerWidth <= 768) { // Adjust breakpoint as needed
+        document.getElementById("iframe-image-wrapper-mobile").style.display = document.getElementById("iframe-image-wrapper-mobile").style.display == "block" ? "none" : "block";
+    } else {
+        document.getElementById("imageCropModal").style.display = "block";
+    }
+}
+
+// Hàm để đóng modal
+function closeImageCropModal() {
+    if (window.innerWidth <= 768) { // Adjust breakpoint as needed
+        document.getElementById("iframe-image-wrapper-mobile").style.display = "none";
+    } else {
+        document.getElementById("imageCropModal").style.display = "none";
+    }
+}
 
 // Cho phép di chuyển modal bằng cách kéo chuột
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('drawKanjiModal');
-    const modalHeader = document.querySelector('.modal-header');
+document.addEventListener('DOMContentLoaded',
+    function () {
+        makeElementDraggable('drawKanjiModal', '.modal-header');
+        makeElementDraggable('imageCropModal', '.modal-header');
+    }
+);
+
+function makeElementDraggable(elementId, handleId) {
+    const element = document.getElementById(elementId);
+    const handle = element.querySelector(handleId);
     let isDragging = false;
     let offsetX, offsetY;
 
+    console.log(element, handle);
+
     // Sự kiện bắt đầu chạm cho thiết bị cảm ứng
-    modalHeader.addEventListener('touchstart', function (e) {
+    handle.addEventListener('touchstart', function (e) {
         isDragging = true;
-        const touch = e.touches[0]; // Lấy điểm chạm đầu tiên
-        offsetX = touch.clientX - modal.offsetLeft;
-        offsetY = touch.clientY - modal.offsetTop;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - element.offsetLeft;
+        offsetY = touch.clientY - element.offsetTop;
     });
 
     // Sự kiện di chuyển chạm
     document.addEventListener('touchmove', function (e) {
         if (isDragging) {
-            e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+            e.preventDefault();
             const touch = e.touches[0];
-            modal.style.left = (touch.clientX - offsetX) + 'px';
-            modal.style.top = (touch.clientY - offsetY) + 'px';
+            element.style.left = (touch.clientX - offsetX) + 'px';
+            element.style.top = (touch.clientY - offsetY) + 'px';
         }
     });
 
@@ -46,23 +72,26 @@ document.addEventListener('DOMContentLoaded', function () {
         isDragging = false;
     });
 
-    modalHeader.addEventListener('mousedown', function (e) {
+    // Sự kiện bắt đầu kéo chuột
+    handle.addEventListener('mousedown', function (e) {
         isDragging = true;
-        offsetX = e.clientX - modal.offsetLeft;
-        offsetY = e.clientY - modal.offsetTop;
+        offsetX = e.clientX - element.offsetLeft;
+        offsetY = e.clientY - element.offsetTop;
     });
 
+    // Sự kiện di chuyển chuột
     document.addEventListener('mousemove', function (e) {
         if (isDragging) {
-            modal.style.left = (e.clientX - offsetX) + 'px';
-            modal.style.top = (e.clientY - offsetY) + 'px';
+            element.style.left = (e.clientX - offsetX) + 'px';
+            element.style.top = (e.clientY - offsetY) + 'px';
         }
     });
 
+    // Sự kiện kết thúc kéo chuột
     document.addEventListener('mouseup', function () {
         isDragging = false;
     });
-});
+}
 
 window.onload = function () {
     const iframeWrapperMobile = document.getElementById('iframe-draw-wrapper-mobile');
@@ -88,17 +117,24 @@ window.onload = function () {
 
 window.addEventListener('message', (e) => {
     const inputField = document.getElementById('tuTiengNhat');
-    const currentPosition = inputField.selectionStart; // Get cursor position
+    if (e.data.recognizedText) {
+        const recognizedText = e.data.recognizedText;
+        inputField.value = recognizedText;
+        closeImageCropModal();
+    }
+    else {
+        const currentPosition = inputField.selectionStart; // Get cursor position
 
-    // Insert e.data at the cursor position
-    inputField.value =
-        inputField.value.substring(0, currentPosition) +
-        e.data +
-        inputField.value.substring(currentPosition);
+        // Insert e.data at the cursor position
+        inputField.value =
+            inputField.value.substring(0, currentPosition) +
+            e.data +
+            inputField.value.substring(currentPosition);
 
-    // Update cursor position after insertion
-    inputField.selectionStart = currentPosition + e.data.length;
-    inputField.selectionEnd = currentPosition + e.data.length;
+        // Update cursor position after insertion
+        inputField.selectionStart = currentPosition + e.data.length;
+        inputField.selectionEnd = currentPosition + e.data.length;
+    }
 });
 
 

@@ -156,6 +156,7 @@ export function xuLyTimKiem(tuTiengNhat, dichNgonNgu = 'tra-tu') {
     // Xử lý theo loại dịch
     switch (dichNgonNgu) {
         case 'tra-tu':
+            document.getElementById('btnTra').classList.add("hidden");
             // Tìm kiếm trong lịch sử tìm kiếm trước
             const data = _lichSuTimKiemData.find(item => item.tu === tuTiengNhat)?.data;
             if (data) {
