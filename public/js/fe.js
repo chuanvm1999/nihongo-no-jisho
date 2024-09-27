@@ -102,6 +102,9 @@ export function danhDauDaHienThiHuongDan() {
  * @param {string} dichNgonNgu - Loại dịch ('tra-tu', 'jp-vn', 'vn-jp'), mặc định là 'tra-tu'.
  */
 export function xuLyTimKiem(tuTiengNhat, dichNgonNgu = 'tra-tu') {
+    if (searchUtils.tuVungTimKiem === "") {
+        return;
+    }
     // Lấy loại dịch từ dropdown nếu không được truyền vào
     dichNgonNgu = dichNgonNgu || document.getElementById('dich-ngon-ngu').value;
 
@@ -111,12 +114,22 @@ export function xuLyTimKiem(tuTiengNhat, dichNgonNgu = 'tra-tu') {
     /**
      * Hiển thị kết quả dịch.
      * @param {object} result - Kết quả dịch.
+     * @param {string} tuGoc - Từ gốc cần dịch.
      */
-    const hienThiKetQuaDich = (result) => {
+    const hienThiKetQuaDich = (result, tuGoc) => {
         divKetQua.innerHTML = '';
-        const pDich = document.createElement('p');
-        pDich.textContent = result.ketQuaDich;
+
+        // Hiển thị từ gốc
+        const pTuGoc = document.createElement('p');
+        pTuGoc.textContent = `${tuGoc}`;
+        pTuGoc.classList.add('font-bold'); // Làm đậm từ gốc
+        divKetQua.appendChild(pTuGoc);
+
+        // Hiển thị từ đã dịch
+        const pDich = document.createElement('span');
+        pDich.textContent = `${result.ketQuaDich}`;
         divKetQua.appendChild(pDich);
+
         if (result.cachDoc) {
             const pCachDoc = document.createElement('p');
             pCachDoc.textContent = `Cách đọc: ${result.cachDoc}`;
@@ -125,13 +138,14 @@ export function xuLyTimKiem(tuTiengNhat, dichNgonNgu = 'tra-tu') {
         divKetQua.style.display = 'block';
     };
 
+
     // Nếu không phải tiếng Nhật, dịch từ tiếng Việt sang tiếng Nhật
     if (!isJapanese(tuTiengNhat)) {
         document.getElementById('dich-ngon-ngu').value = 'vn-jp';
         dichVanBan(tuTiengNhat.trim(), false)
             .then(result => {
                 if (result) {
-                    hienThiKetQuaDich(result);
+                    hienThiKetQuaDich(result, tuTiengNhat.trim()); // Truyền thêm tuTiengNhat
                 } else {
                     alert('Lỗi khi dịch văn bản.');
                 }
@@ -159,7 +173,7 @@ export function xuLyTimKiem(tuTiengNhat, dichNgonNgu = 'tra-tu') {
             dichVanBan(tuTiengNhat.trim(), typeTrans)
                 .then(result => {
                     if (result) {
-                        hienThiKetQuaDich(result);
+                        hienThiKetQuaDich(result, tuTiengNhat.trim()); // Truyền thêm tuTiengNhat
                     } else {
                         alert('Lỗi khi dịch văn bản.');
                     }
@@ -178,5 +192,71 @@ btnLamMoi.addEventListener('click', handleLamMoiClick);
 document.getElementById("btnThayDoiAPIKey").addEventListener("click", thayDoiAPIKey);
 document.getElementById("btn-flip-card").addEventListener('click', handleFlipCardClick);
 
-// Cập nhật lịch sử tìm kiếm khi trang được tải
 capNhatLichSuTimKiem();
+
+export function handleBtnTraTuClick() {
+    if (document.getElementById('dich-ngon-ngu').value == 'tra-tu') {
+        return;
+    }
+    // 1. Ưu tiên cụm từ được bôi đen
+    searchUtils.tuVungTimKiem = window.getSelection().toString().trim();
+    const inputTuTiengNhat = document.getElementById('tuTiengNhat');
+
+    // 2. Kiểm tra loại dịch nếu không có cụm từ được bôi đen
+    if (searchUtils.tuVungTimKiem === "") {
+        const dichNgonNgu = document.getElementById('dich-ngon-ngu').value;
+        if (dichNgonNgu === 'jp-vn') {
+            searchUtils.tuVungTimKiem = inputTuTiengNhat.value.trim();
+        } else if (dichNgonNgu === 'vn-jp') {
+            searchUtils.tuVungTimKiem = divKetQua.querySelector('span').textContent.trim();
+        }
+    }
+    document.getElementById('dich-ngon-ngu').value = 'tra-tu';
+    // 3. Thực hiện tra từ
+    xuLyTimKiem(searchUtils.tuVungTimKiem, document.getElementById('dich-ngon-ngu').value);
+}
+
+document.getElementById("btnTra").addEventListener('click', handleBtnTraTuClick);
+
+// Lấy phần tử dropdown 'dich-ngon-ngu'
+const dichNgonNguSelect = document.getElementById('dich-ngon-ngu');
+let dichNgonNguSelected = 'tra-tu';
+
+// Thêm sự kiện 'change' cho dropdown
+dichNgonNguSelect.addEventListener('change', () => {
+    // 1. Kiểm tra xem có từ nào được chọn để dịch hay không
+    if (document.getElementById("tuTiengNhat").value.trim() === "" && searchUtils.tuVungTimKiem === "" && divKetQua.textContent === "") {
+        // Nếu không có, chỉ cập nhật dichNgonNguSelected và return
+        dichNgonNguSelected = dichNgonNguSelect.value;
+        return;
+    }
+
+    // 2. Xử lý ẩn/hiện nút "Tra từ"
+    const btnTra = document.getElementById("btnTra");
+    if (dichNgonNguSelect.value === 'tra-tu') {
+        btnTra.classList.add("hidden");
+    } else {
+        btnTra.classList.remove("hidden");
+    }
+
+    // 3. Lấy từ cần dịch dựa trên loại dịch đã chọn (dichNgonNguSelect.value) và trạng thái hiện tại
+    const inputTuTiengNhat = document.getElementById('tuTiengNhat');
+    switch (dichNgonNguSelect.value) {
+        case 'jp-vn':
+            searchUtils.tuVungTimKiem = inputTuTiengNhat.value.trim();
+            break;
+        case 'vn-jp':
+            // Ưu tiên lấy từ kết quả dịch, nếu không có thì lấy từ input
+            searchUtils.tuVungTimKiem = divKetQua.querySelector('span')?.textContent.trim() || inputTuTiengNhat.value.trim();
+            break;
+        case 'tra-tu':
+            // Giữ nguyên từ vựng tìm kiếm hiện tại
+            break;
+    }
+
+    // 4. Cập nhật dichNgonNguSelected với giá trị mới
+    dichNgonNguSelected = dichNgonNguSelect.value;
+
+    // 5. Thực hiện tra từ với từ đã lấy và loại dịch mới
+    xuLyTimKiem(searchUtils.tuVungTimKiem, dichNgonNguSelect.value);
+});

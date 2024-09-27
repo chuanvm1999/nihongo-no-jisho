@@ -43,12 +43,12 @@
   <script src="./assets/js/kensaku.js"></script>
   <script src="./assets/js/tegaki-japanese.js"></script>
   <script>
-    window.onload = function () {
+    window.addEventListener('resize', function() {
       let handwritingCanvas = document.getElementById("handwritingCanvas");
       let parentHandwritingCanvas = handwritingCanvas.parentElement;
-      handwritingCanvas.width = parentHandwritingCanvas.offsetWidth - 32;
+      handwritingCanvas.width = parentHandwritingCanvas.offsetWidth -32;
       handwritingCanvas.height = parentHandwritingCanvas.offsetHeight - 32;
-    }
+    });
   </script>
 </body>
 </html>

@@ -76,7 +76,6 @@ export function hienThiKetQua(data) {
 
     divKetQua.innerHTML = ''; // Xóa nội dung cũ
     divKetQua.appendChild(resultsContainer);
-    divKetQua.appendChild(createInfoElement('Hán Việt', data.am_han_viet));
     divKetQua.appendChild(createInfoElement('Nghĩa tiếng Việt', data.nghia_tieng_viet));
     divKetQua.appendChild(createInfoElement('Giải thích tiếng Việt', data.giai_thich[0].giai_thich_tieng_viet));
     divKetQua.appendChild(createInfoElement('Giải thích tiếng Nhật', data.giai_thich[0].giai_thich_tieng_nhat));
