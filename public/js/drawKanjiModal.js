@@ -47,8 +47,6 @@ function makeElementDraggable(elementId, handleId) {
     let isDragging = false;
     let offsetX, offsetY;
 
-    console.log(element, handle);
-
     // Sự kiện bắt đầu chạm cho thiết bị cảm ứng
     handle.addEventListener('touchstart', function (e) {
         isDragging = true;
