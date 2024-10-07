@@ -288,8 +288,33 @@ export function importData(file) {
             // Parse the JSON string into a JavaScript object
             const jsonData = JSON.parse(event.target.result);
             // Do something with the JSON data, like saving it to localStorage
-            luuDuLieuVaoLocalStorage('lichSuTimKiem', jsonData);
-            searchUtils.tuVungTimKiem = jsonData;
+            
+            const mergedData = [];
+            const existingTus = new Set();
+            
+            // Hàm kiểm tra "tu" đã tồn tại trong mảng mergedData hay chưa
+            function tuDaTonTai(tu) {
+              return existingTus.has(tu);
+            }
+            
+            // Thêm dữ liệu từ jsonData vào mergedData, kiểm tra trùng "tu"
+            jsonData.forEach(item => {
+              if (!tuDaTonTai(item.tu)) {
+                mergedData.push(item);
+                existingTus.add(item.tu);
+              }
+            });
+            
+            // Thêm dữ liệu từ searchUtils.tuVungTimKiem vào mergedData, kiểm tra trùng "tu"
+            [...searchUtils.tuVungTimKiem].forEach(item => {
+              if (!tuDaTonTai(item.tu)) {
+                mergedData.push(item);
+                existingTus.add(item.tu);
+              }
+            });
+            
+            searchUtils.tuVungTimKiem = mergedData
+            luuDuLieuVaoLocalStorage('lichSuTimKiem', mergedData);
             capNhatLichSuTimKiem();
         } catch (error) {
             alert("File không phải là JSON hợp lệ.");
