@@ -1,5 +1,7 @@
-import { 
+import {
     danhDauDaHienThiHuongDan,
+    downloadData,
+    importData 
 } from './fe.js';
 
 // Hàm hiển thị modal hướng dẫn
@@ -13,13 +15,10 @@ export function hienThiModalHuongDan() {
     );
 
     // Tạo nội dung modal
-    // Thay vì tạo từng phần tử con riêng lẻ, 
-    // ta có thể tạo nội dung HTML cho content một lần duy nhất
-    // để code dễ đọc và bảo trì hơn.
     const content = document.createElement('div');
     content.classList.add(
         'bg-white', 'p-6', 'rounded-lg', 'shadow-lg',
-        'max-w-xl', 'w-full', 'h-full', 'md:w-3/4', 
+        'max-w-xl', 'w-full', 'h-full', 'md:w-3/4',
         'flex', 'flex-col'
     );
     content.innerHTML = `
@@ -30,23 +29,26 @@ export function hienThiModalHuongDan() {
             <p class="mb-4">Chào mừng bạn đến với trang web tra cứu từ điển tiếng Nhật!</p>
             <ul class="list-disc list-inside mb-4 pl-5">
                 ${[
-                    'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ" để tra từ vựng.',
-                    'Bôi đen từ tiếng Nhật và nhấn nút "s" để tìm kiếm từ.',
-                    'Bôi đen từ tiếng Nhật và nhấn nút "d" để vẽ từ tiếng Nhật.',
-                    'Bôi đen từ tiếng Nhật và nhấn nút "l" để nghe từ tiếng Nhật.',
-                    'Bôi đen từ tiếng Nhật và nhấn nút "k" để hiển thị thông tin của chữ Kanji.',
-                    'Nhấn nút <strong>Kanji</strong> để hiển thị thông tin của chữ Kanji đang được tra từ.',
-                    'Nhấn nút <strong><i class="fa-solid fa-volume-high"></i></strong> để nghe từ tiếng Nhật.',
-                    'Nhấn nút <strong>Làm mới</strong> hoặc nhấn Shift + Enter để xóa kết quả tìm kiếm hiện tại và tìm kiếm lại.',
-                    'Nhấn nút <strong><i class="fas fa-cog"></i></strong> để cập nhật API key của bạn.',
-                    'Nhấn nút <strong>Mazii</strong> để chuyển đến trang Mazii.net với từ vựng được tìm kiếm.',
-                    'Nhấn nút <strong>Flip Card</strong> để chuyển đến trang flipcard với từ danh sách từ vựng đã được tìm kiếm và hiển thị theo dạng Flip Card.',
-                    'Sử dụng các nút điều khiển để xem cách viết từ được tra từ.',
-                    'Nhấn vào từ vựng tại phần lịch sử để hiển thị lại từ vựng đã tìm kiếm.'
-                ].map(item => `<li>${item}</li>`).join('')}
+            'Nhập từ tiếng Nhật vào ô tìm kiếm và nhấn Enter hoặc nút "Tra từ" để tra từ vựng.',
+            'Bôi đen từ tiếng Nhật và nhấn nút "s" để tìm kiếm từ.',
+            'Bôi đen từ tiếng Nhật và nhấn nút "d" để vẽ từ tiếng Nhật.',
+            'Bôi đen từ tiếng Nhật và nhấn nút "l" để nghe từ tiếng Nhật.',
+            'Bôi đen từ tiếng Nhật và nhấn nút "k" để hiển thị thông tin của chữ Kanji.',
+            'Nhấn nút <strong>Kanji</strong> để hiển thị thông tin của chữ Kanji đang được tra từ.',
+            'Nhấn nút <strong><i class="fa-solid fa-volume-high"></i></strong> để nghe từ tiếng Nhật.',
+            'Nhấn nút <strong>Làm mới</strong> hoặc nhấn Shift + Enter để xóa kết quả tìm kiếm hiện tại và tìm kiếm lại.',
+            'Nhấn nút <strong><i class="fas fa-cog"></i></strong> để cập nhật API key của bạn.',
+            'Nhấn nút <strong>Mazii</strong> để chuyển đến trang Mazii.net với từ vựng được tìm kiếm.',
+            'Nhấn nút <strong>Flip Card</strong> để chuyển đến trang flipcard với từ danh sách từ vựng đã được tìm kiếm và hiển thị theo dạng Flip Card.',
+            'Sử dụng các nút điều khiển để xem cách viết từ được tra từ.',
+            'Nhấn vào từ vựng tại phần lịch sử để hiển thị lại từ vựng đã tìm kiếm.'
+        ].map(item => `<li>${item}</li>`).join('')}
             </ul>
         </div>
         <div class="mt-4 flex justify-end">
+            <button id="btnXuatFile" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md mr-2">Xuất file</button>
+            <input type="file" id="inputFile" accept=".json" hidden/>
+            <button id="btnNhapFile" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md mr-2">Nhập file</button>
             <button id="dongModalHuongDan" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md">Đóng</button>
         </div>
     `;
@@ -56,6 +58,29 @@ export function hienThiModalHuongDan() {
         document.body.removeChild(modal);
         danhDauDaHienThiHuongDan();
     });
+
+    // Lắng nghe sự kiện click cho nút xuất file
+    content.querySelector('#btnXuatFile').addEventListener('click', () => {
+        downloadData();
+    });
+
+    // Lắng nghe sự kiện click cho nút nhập file
+    const inputFile = content.querySelector('#inputFile');
+    content.querySelector('#btnNhapFile').addEventListener('click', () => {
+        inputFile.click();
+    });
+
+    inputFile.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file.type === 'application/json') {
+            importData(file);
+        } else {
+            alert('Vui lòng chọn file JSON.');
+            inputFile.value = ''; // Xóa file đã chọn khỏi input
+        }
+        document.body.removeChild(modal);
+    });
+    
 
     // Thêm sự kiện click vào modal
     modal.addEventListener('click', (event) => {
@@ -68,6 +93,7 @@ export function hienThiModalHuongDan() {
     modal.appendChild(content);
     document.body.appendChild(modal);
 }
+
 
 // Hàm hiển thị một hộp thoại prompt tùy chỉnh với giao diện HTML.
 //
@@ -124,19 +150,19 @@ export function hienThiModalKanji(kanjiList) {
     const content = document.createElement('div');
     content.classList.add(
         'bg-white', 'p-6', 'rounded-lg', 'shadow-lg',
-        'max-w-xl', 'w-full', 'h-full', 'md:w-3/4', 
+        'max-w-xl', 'w-full', 'h-full', 'md:w-3/4',
         'flex', 'flex-col'
     );
 
     // Tạo header modal (chứa danh sách Kanji có thể scroll ngang)
     const header = document.createElement('div');
-    header.classList.add('flex', 'flex-col', 'items-center', 'mb-4'); 
+    header.classList.add('flex', 'flex-col', 'items-center', 'mb-4');
 
     const kanjiListHeader = document.createElement('ul');
     kanjiListHeader.classList.add('flex', 'space-x-4', 'whitespace-nowrap');
 
     // Duyệt qua danh sách Kanji và tạo các nút bấm tương ứng
-    kanjiList.forEach((kanji, index) => { 
+    kanjiList.forEach((kanji, index) => {
         const kanjiData = kanjiDataJSON.find((k) => k.kanji === kanji);
         if (kanjiData) {
             const kanjiItem = document.createElement('li');
@@ -174,7 +200,7 @@ export function hienThiModalKanji(kanjiList) {
     // Tạo phần body modal (hiển thị thông tin Kanji)
     const body = document.createElement('div');
     body.classList.add('overflow-y-auto', 'flex-grow', 'p-4');
-    body.id = 'kanjiInfo'; 
+    body.id = 'kanjiInfo';
 
     content.appendChild(body);
 
@@ -272,6 +298,6 @@ function hienThiThongTinKanji(kanjiData) {
         .map((part) => `<h4 class="font-semibold">- ${part.trim()}</h4>`)
         .join('');
 
-    detailContainer.innerHTML += detailHTML; 
+    detailContainer.innerHTML += detailHTML;
     container.appendChild(detailContainer);
 }

@@ -261,3 +261,41 @@ dichNgonNguSelect.addEventListener('change', () => {
     // 5. Thực hiện tra từ với từ đã lấy và loại dịch mới
     xuLyTimKiem(searchUtils.tuVungTimKiem, dichNgonNguSelect.value);
 });
+
+export function downloadData() {
+    let myData = localStorage.getItem('lichSuTimKiem');
+    try {
+        myData = JSON.parse(myData);
+    } catch (error) {
+        console.error("Error parsing data from localStorage:", error);
+        // Handle the error appropriately, e.g., show an error message to the user
+        alert("Lỗi khi tải xuống dữ liệu.");
+        return; 
+    }
+    myData = JSON.stringify(myData, null, 2); // Use null, 2 for pretty printing
+
+    let link = document.createElement('a');
+    link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(myData);
+    link.download = 'lichSuTimKiem.json';
+    link.click();
+}
+
+export function importData(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        try {
+            // Parse the JSON string into a JavaScript object
+            const jsonData = JSON.parse(event.target.result);
+            // Do something with the JSON data, like saving it to localStorage
+            luuDuLieuVaoLocalStorage('lichSuTimKiem', jsonData);
+            searchUtils.tuVungTimKiem = jsonData;
+            capNhatLichSuTimKiem();
+        } catch (error) {
+            alert("File không phải là JSON hợp lệ.");
+        }
+    };
+
+    // Read the file as text
+    reader.readAsText(file);
+}
