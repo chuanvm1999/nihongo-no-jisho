@@ -68,7 +68,7 @@ export async function goiAPI(tuTiengNhat) {
                 "giai_thich":[
                     {
                         "giai_thich_tieng_nhat": "<giải_thích_bằng_tiếng_Nhật>",
-                        "phien_am_hiragana": "<phiên_âm_hiragana_viết_bằng_hiragana>",
+                        "phien_am_hiragana": "<phiên_âm_ひらがな_và_chỉ_viết_bằng_ひらがな>",
                         "giai_thich_tieng_viet": "<giải_thích_bằng_tiếng_Việt>"
                         "danh_sach_tat_ca_tu_vung":[
                             {
