@@ -37,7 +37,7 @@ const API_KEY = await layAPIKeyTuLocalStorage();
 
 // Khởi tạo đối tượng Google Generative AI
 let _genAI = new GoogleGenerativeAI(API_KEY);
-let _model = _genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+let _model = _genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
 // Tạo object chứa các hàm và thuộc tính liên quan đến model AI
 export const modelUltis = {
