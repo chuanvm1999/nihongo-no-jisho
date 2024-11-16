@@ -53,7 +53,7 @@ export const modelUltis = {
     set genAI(value) {
         _genAI = value;
         // Khởi tạo lại model khi genAI thay đổi
-        _model = _genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        _model = _genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
     }
 };
 
